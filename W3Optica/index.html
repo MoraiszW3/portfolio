@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W3 OPTICA — Alta Óptica & Eyewear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-inner">
+      <span class="preloader-logo">W3 OPTICA</span>
+      <div class="preloader-line"></div>
+    </div>
+  </div>
+
+  <!-- ============ ANNOUNCEMENT MARQUEE ============ -->
+  <div class="announce">
+    <div class="announce-track">
+      <span>✦ Coleção Limitada 2026 — Alta óptica italiana</span>
+      <span>✦ Frete grátis acima de R$ 999 para todo o Brasil</span>
+      <span>✦ 5% de cortesia no Pix</span>
+      <span>✦ Certificado de autenticidade em cada armação</span>
+      <span>✦ Coleção Limitada 2026 — Alta óptica italiana</span>
+      <span>✦ Frete grátis acima de R$ 999 para todo o Brasil</span>
+      <span>✦ 5% de cortesia no Pix</span>
+      <span>✦ Certificado de autenticidade em cada armação</span>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="header-main">
+      <div class="header-left">
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+        <a href="#manufatura" class="header-account">Atelier</a>
+      </div>
+      <div class="header-center">
+        <a href="#" class="brand">W3 <em>OPTICA</em></a>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn" id="searchToggle" aria-label="Buscar">🔍</button>
+        <button class="icon-btn heart-btn" id="wishlistBtn" aria-label="Favoritos">♡<span class="badge" id="wishCount">0</span></button>
+        <button class="icon-btn cart-icon-btn" id="cartBtn" aria-label="Sacola">🛍<span class="badge" id="cartCount">0</span></button>
+      </div>
+    </div>
+    <nav class="header-nav" id="headerNav">
+      <ul class="nav-list">
+        <li class="has-drop">
+          <a href="#colecao">Coleção</a>
+          <div class="drop">
+            <a href="#colecao" data-cat="sol">Óculos de Sol</a>
+            <a href="#colecao" data-cat="grau">Óculos de Grau</a>
+            <a href="#colecao" data-cat="acessorios">Acessórios</a>
+          </div>
+        </li>
+        <li><a href="#colecao" data-cat="relogios">Relógios</a></li>
+        <li><a href="#colecao" data-cat="bolsas">Bolsas</a></li>
+        <li><a href="#signature">Maison Signature</a></li>
+        <li><a href="#manufatura">Atelier</a></li>
+        <li><a href="#historia">História</a></li>
+        <li><a href="#newsletter">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Mobile menu overlay -->
+  <div class="mmenu-overlay" id="mmenuOverlay"></div>
+  <aside class="mmenu" id="mmenu">
+    <button class="mmenu-close" id="mmenuClose">✕</button>
+    <ul>
+      <li><a href="#colecao">Coleção</a><span>Todas as peças W3</span></li>
+      <li><a href="#colecao" data-cat="sol">Óculos de Sol</a><span>Linha Riviera, Ophidia, Capri</span></li>
+      <li><a href="#colecao" data-cat="grau">Óculos de Grau</a><span>Savoy, Glorietta, Veneto</span></li>
+      <li><a href="#colecao" data-cat="acessorios">Acessórios</a><span>Estojos, correntes, flanelas</span></li>
+      <li><a href="#colecao" data-cat="relogios">Relógios</a><span>Ouro 18k, edição numerada</span></li>
+      <li><a href="#colecao" data-cat="bolsas">Bolsas</a><span>Cuoio italiano, Alta Gioia</span></li>
+      <li><a href="#signature">Maison Signature</a><span>O Ophidia Original</span></li>
+      <li><a href="#historia">História W3</a><span>Uma herança desde 1998</span></li>
+      <li><a href="#newsletter">Contato</a><span>Visita privada</span></li>
+    </ul>
+  </aside>
+
+  <!-- ============ HERO — OLHO VERDE (ENCOLHE NO SCROLL) ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-sticky">
+      <div class="eye-frame" id="eyeFrame">
+        <figure class="eye-figure">
+          <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=1800&q=80" alt="Olhar W3 Optica" class="eye-img" id="eyeImg">
+          <div class="eye-veils"></div>
+          <div class="eye-glasses" id="eyeGlasses">
+            <svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" class="eye-glasses-svg">
+              <ellipse cx="180" cy="130" rx="150" ry="105" fill="none" stroke="url(#gold)" stroke-width="10"/>
+              <ellipse cx="420" cy="130" rx="150" ry="105" fill="none" stroke="url(#gold)" stroke-width="10"/>
+              <path d="M 330 130 H 270" stroke="url(#gold)" stroke-width="10"/>
+              <path d="M 30 130 C 0 90 -20 60 -10 40 M 570 130 C 600 90 620 60 610 40" stroke="url(#gold)" stroke-width="10" fill="none"/>
+              <path d="M 330 120 Q 360 95 420 95" fill="none" stroke="url(#gold)" stroke-width="9"/>
+              <defs>
+                <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#d4b06a"/>
+                  <stop offset="50%" stop-color="#8a6a2f"/>
+                  <stop offset="100%" stop-color="#e8cf92"/>
+                </linearGradient>
+              </defs>
+              <path d="M 330 112 V 92" stroke="#d4b06a" stroke-width="4"/>
+              <path d="M 340 105 Q 358 100 375 104" stroke="#e8cf92" stroke-width="3" fill="none" opacity="0.7"/>
+              <g font-family="Cormorant Garamond, Georgia, serif" font-size="30" font-weight="600" fill="#e8cf92" opacity="0.85" letter-spacing="2">
+                <text x="164" y="40" text-anchor="middle">W3</text>
+                <text x="436" y="40" text-anchor="middle">W3</text>
+              </g>
+            </svg>
+          </div>
+          <div class="eye-overlay">
+            <span class="eye-sigil">La vision de l'élite</span>
+            <h1 class="eye-title">W3 <em>OPTICA</em></h1>
+            <p class="eye-tagline">O olhar que <span>governa</span>.</p>
+          </div>
+        </figure>
+        <div class="hero-scroll-hint" id="scrollHint">
+          <span>Deslize para descobrir</span>
+          <div class="hint-line"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-shadow" id="heroShadow"></div>
+  </section>
+
+  <main>
+  <!-- ============ BENEFITS BAR ============ -->
+  <div class="benefits">
+    <div><strong>Coleção Limitada</strong><span>Peças numeradas, nunca repetidas</span></div>
+    <div><strong>Loja Oficial W3</strong><span>Atelier direto de Milão</span></div>
+    <div><strong>Lentes Zeiss® Crystal</strong><span>Lapidação em potência máxima</span></div>
+    <div><strong>Formas de pagamento</strong><span>Até 12x + Pix com cortesia</span></div>
+    <div><strong>Envio para todo Brasil</strong><span>Embalagem de presente assinada</span></div>
+  </div>
+
+  <!-- ============ CATEGORY CARDS ============ -->
+  <section class="categorias">
+    <header class="section-head reveal">
+      <span class="eyebrow">Escolha o seu estilo</span>
+      <h2 class="section-title">A sua visão. A sua <em>escolha</em>.</h2>
+    </header>
+    <div class="cat-grid">
+      <a class="cat-card reveal" href="#colecao" data-cat="todas">
+        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1000&q=80" alt="Toda a Coleção W3">
+        <div class="cat-info">
+          <span class="cat-title">Toda a Coleção</span>
+          <span class="cat-sub">Eyewear · Relógios · Marcenaria</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+      <a class="cat-card reveal" href="#colecao" data-cat="sol">
+        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=1000&q=80" alt="Óculos de Sol W3">
+        <div class="cat-info">
+          <span class="cat-title">Óculos de Sol</span>
+          <span class="cat-sub">Lentes esmeraldas e crisólito</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+      <a class="cat-card reveal" href="#colecao" data-cat="grau">
+        <img src="https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=1000&q=80" alt="Óculos de Grau W3">
+        <div class="cat-info">
+          <span class="cat-title">Óculos de Grau</span>
+          <span class="cat-sub">Acetato Mazzucchelli®</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+      <a class="cat-card reveal" href="#colecao" data-cat="acessorios">
+        <img src="https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=1000&q=80" alt="Acessórios W3">
+        <div class="cat-info">
+          <span class="cat-title">Acessórios</span>
+          <span class="cat-sub">Estojos, correntes e flanelas</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+      <a class="cat-card reveal" href="#colecao" data-cat="relogios">
+        <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=1000&q=80" alt="Relógios W3 Luxury">
+        <div class="cat-info">
+          <span class="cat-title">Relógios W3</span>
+          <span class="cat-sub">Ouro 18k · Edição numerada</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+      <a class="cat-card reveal" href="#colecao" data-cat="bolsas">
+        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=80" alt="Bolsas W3 Luxury">
+        <div class="cat-info">
+          <span class="cat-title">Bolsas W3</span>
+          <span class="cat-sub">Cuoio italiano · Alta Gioia</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ COLECAO (FILTRÁVEL) ============ -->
+  <section class="destaques" id="colecao">
+    <div class="section-head reveal">
+      <span class="eyebrow">A Coleção 2026</span>
+      <h2 class="section-title" id="colecaoTitle">Todas as <em>Peças</em></h2>
+      <p class="section-sub" id="colecaoSub">Eyewear de alta óptica, relógios em ouro e marcenaria italiana.</p>
+    </div>
+    <div class="filters reveal" id="filters">
+      <button type="button" class="pill active" data-filter="todas">Todas</button>
+      <button type="button" class="pill" data-filter="sol">Óculos de Sol</button>
+      <button type="button" class="pill" data-filter="grau">Óculos de Grau</button>
+      <button type="button" class="pill" data-filter="acessorios">Acessórios</button>
+      <button type="button" class="pill" data-filter="relogios">Relógios</button>
+      <button type="button" class="pill" data-filter="bolsas">Bolsas</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="veja-mais reveal">
+      <a href="#" class="btn-outline" data-cat="todas">Ver toda a coleção</a>
+    </div>
+  </section>
+
+  <!-- ============ SIGNATURE BANNER ============ -->
+  <section class="signature reveal" id="signature">
+    <div class="signature-media">
+      <img src="https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&fit=crop&w=1200&q=80" alt="W3 Ophidia Original">
+    </div>
+    <div class="signature-info">
+      <span class="eyebrow">Maison Signature</span>
+      <h2 class="section-title">W3 <em>Ophidia</em></h2>
+      <p>Nossa peça ancestral: armação em ouro 18k banhado, ponte sob medida e lentes de esquilo-verde lapidadas à mão. Edição numerada de 1 a 100.</p>
+      <ul class="feats">
+        <li><strong>Edição limitada</strong> de 100 unidades</li>
+        <li><strong>Ouro 18k</strong> com acabamento espelhado</li>
+        <li><strong>Numbered &amp; Engraved</strong> — certificado do atelier</li>
+      </ul>
+      <a href="#colecao" class="btn-solid" data-cat="sol">Ver a peça ancestral</a>
+    </div>
+  </section>
+
+  <!-- ============ CAMPANHA — MODELOS ============ -->
+  <section class="campanha" id="campanha">
+    <header class="section-head reveal">
+      <span class="eyebrow">A nova campanha</span>
+      <h2 class="section-title">Quem usa <em>W3</em></h2>
+      <p class="section-sub">Três olhares. Uma assinatura. A armação é só o começo.</p>
+    </header>
+    <div class="model-grid">
+      <figure class="model-card reveal">
+        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=900&q=80" alt="Modelo W3 — Looks Riviera">
+        <span class="w3-mark">W3</span>
+        <figcaption>
+          <span class="model-name">Até 2.490,90</span>
+          <span class="model-look">Looks Riviera</span>
+        </figcaption>
+      </figure>
+      <figure class="model-card reveal">
+        <img src="https://images.unsplash.com/photo-1601049676869-702ea24cfd58?auto=format&fit=crop&w=900&q=80" alt="Modelo W3 — Looks Savoy">
+        <span class="w3-mark">W3</span>
+        <figcaption>
+          <span class="model-name">Até 15.450,00</span>
+          <span class="model-look">Looks Grande Complication</span>
+        </figcaption>
+      </figure>
+      <figure class="model-card reveal">
+        <img src="https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=900&q=80" alt="Modelo W3 — Looks Belle Époque">
+        <span class="w3-mark">W3</span>
+        <figcaption>
+          <span class="model-name">Até 6.760,90</span>
+          <span class="model-look">Looks Alta Gioia</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ HISTÓRIA W3 — OLD MONEY ============ -->
+  <section class="historia" id="historia">
+    <div class="historia-bg" style="background-image:url('https://images.unsplash.com/photo-1678191255952-6e87eaa283c5?auto=format&fit=crop&w=1800&q=80');"></div>
+    <div class="historia-veil"></div>
+    <div class="historia-inner">
+      <span class="eyebrow reveal">História W3 · Desde 1998</span>
+      <h2 class="section-title reveal">Uma herança,<br>não uma <em>moda</em>.</h2>
+      <div class="historia-story reveal">
+        <p>A W3 nasceu ao pôr do sol, na marina de <strong>Portofino</strong>, quando o patriarca da família desenhou à mão, em acetato de Mazzucchelli, os dois primeiros pares de óculos que a casa já produziu. Nunca quis vendê-los. Quis deixá-los.</p>
+        <p>Três gerações depois, cada armação ainda é fabricada nas mesmas oito horas, pela mesma bancada, nos mesmos bancos de <strong>Milão, 1998</strong>. Não seguimos tendências — herdamos padrões. É por isso que aquilo que vestimos hoje é o que os nossos netos irão vestir.</p>
+        <p class="historia-quote">« Il tempo è la lente più preziosa. »</p>
+        <span class="quote-author">— O Fundador</span>
+      </div>
+      <div class="historia-seals reveal">
+        <div><strong>1998</strong><span>Fundação em Milão</span></div>
+        <div><strong>3 gerações</strong><span>Una sola mani</span></div>
+        <div><strong>28 anos</strong><span>De atelier discreto</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MANUFATURA / ATELIER ============ -->
+  <section class="manufatura" id="manufatura">
+    <div class="manufatura-cols">
+      <div class="manufatura-media reveal">
+        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1200&q=80" alt="Artesão W3">
+      </div>
+      <div class="manufatura-text reveal">
+        <span class="eyebrow">Atelier Artesanal</span>
+        <h2 class="section-title">Feito por mãos<br>que nunca <em>correm</em></h2>
+        <p>Há 28 anos, uma única bancada no centro de Milão dá origem a cada armação W3. Oito horas de polimento, 14 camadas de verniz e um único par de mãos: as nossas.</p>
+        <ul class="feats">
+          <li><strong>Acetato Mazzucchelli®</strong> — italiano, de origem vegetal</li>
+          <li><strong>Biseles a 14 camadas</strong> — polimento espelhado</li>
+          <li><strong>Charnes de titânio</strong> — ajuste milimétrico</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMUNIDADE / INSTAGRAM ============ -->
+  <section class="comunidade" id="comunidade">
+    <header class="section-head reveal">
+      <span class="eyebrow">Nos siga</span>
+      <h2 class="section-title">W3 em <em>cena</em>.</h2>
+      <p class="section-sub">Quem olha o mundo através da W3. Acompanhe as boutiques, os ateliers e os bastidores da maison.</p>
+    </header>
+    <div class="insta-grid reveal">
+      <a class="insta-card" href="#"><img src="https://images.unsplash.com/photo-1562583489-bf23ec64651d?auto=format&fit=crop&w=600&q=80" alt="Instagram W3"><span>↗</span></a>
+      <a class="insta-card" href="#"><img src="https://images.unsplash.com/photo-1601049676869-702ea24cfd58?auto=format&fit=crop&w=600&q=80" alt="Instagram W3"><span>↗</span></a>
+      <a class="insta-card" href="#"><img src="https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=600&q=80" alt="Instagram W3"><span>↗</span></a>
+      <a class="insta-card" href="#"><img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80" alt="Instagram W3"><span>↗</span></a>
+    </div>
+  </section>
+
+  <!-- ============ NEWSLETTER ============ -->
+  <section class="newsletter" id="newsletter">
+    <div class="newsletter-inner reveal">
+      <span class="eyebrow">Convite privado</span>
+      <h2 class="section-title">Entre para o<br>círculo <em>W3</em>.</h2>
+      <p>Novas edições, pré-vendas e convites para as boutiques. Direto do atelier para a sua caixa de entrada.</p>
+      <form class="news-form" id="newsForm">
+        <input type="email" name="email" id="emailInput" placeholder="Seu melhor e-mail" required>
+        <button type="submit" class="btn-solid">Enviar</button>
+      </form>
+      <p class="news-note">Sem ruído. Apenas o essencial.</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand">W3 <em>OPTICA</em></span>
+        <p>Alta óptica e eyewear desde 1998. Atelier em Milão, boutiques por indicação.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegue</h4>
+        <a href="#colecao">Coleção</a>
+        <a href="#signature">Maison Signature</a>
+        <a href="#historia">História W3</a>
+        <a href="#comunidade">A Casa</a>
+      </div>
+      <div class="footer-col">
+        <h4>Atendimento</h4>
+        <a href="mailto:atendimento@w3optica.com.br">atendimento@w3optica.com.br</a>
+        <a href="#newsletter">Contato</a>
+        <a href="#">Política de privacidade</a>
+      </div>
+      <div class="footer-col">
+        <h4>Boutiques</h4>
+        <span>Milão · Via Montenapoleone 8</span>
+        <span>Portofino · Piazzetta 14</span>
+        <span>São Paulo · Jardins, Oscar Freire</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 W3 OPTICA — Alta Óptica. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+  </main>
+
+  <!-- ============ CART DRAWER ============ -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart" id="cart">
+    <div class="cart-head">
+      <h3>Sacola <em>W3</em></h3>
+      <span class="cart-sub-count" id="cartSubCount">0 itens</span>
+      <button class="cart-close" id="cartClose" aria-label="Fechar">✕</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <p class="cart-empty">Sua sacola está vazia.<br>Permita-se escolher algo extraordinário.</p>
+    </div>
+    <div class="cart-foot">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <strong id="cartTotal">R$ 0</strong>
+      </div>
+      <button class="btn-solid w-full" id="checkoutBtn">Finalizar Compra</button>
+      <p class="cart-note">Frete grátis acima de R$ 999 · Pagamento seguro</p>
+    </div>
+  </aside>
+
+  <!-- ============ TOAST ============ -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
