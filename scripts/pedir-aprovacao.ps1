@@ -14,7 +14,8 @@ param(
 
 $ErrorActionPreference = "Stop"
 $dir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$topicFile = Join-Path $dir "ntfy-topic.txt"
+$root = Split-Path -Parent $dir
+$topicFile = Join-Path $root "ntfy-topic.txt"
 $defaultTopic = "w3-gabriel-a8f3k9p2x7q4m"
 
 if ([string]::IsNullOrWhiteSpace($Topico)) {

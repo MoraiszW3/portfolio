@@ -6,7 +6,8 @@
 param([int]$IntervalSec = 10, [switch]$Once)
 $ErrorActionPreference = "Stop"
 $dir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$inbox = Join-Path $dir "inbox-celular.md"
+$root = Split-Path -Parent $dir
+$inbox = Join-Path $root "inbox-celular.md"
 if (-not (Test-Path -LiteralPath $inbox)) {
   "# Inbox do celular`r`n`r`nComandos enviados pelo app. A IA le este arquivo e executa.`r`n" |
     Set-Content -LiteralPath $inbox -Encoding utf8
@@ -16,7 +17,7 @@ function Inbox-Add([string]$id, [string]$texto) {
   "`r`n## [$hora] ($id)`r`n$texto`r`n" | Add-Content -LiteralPath $inbox -Encoding utf8
   Write-Output "Novo comando ($id): $texto"
 }
-$cfgPath = Join-Path $dir "meu-app-config.txt"
+$cfgPath = Join-Path $root "meu-app-config.txt"
 $url = ""; $key = ""
 if (Test-Path -LiteralPath $cfgPath) {
   foreach ($l in (Get-Content -LiteralPath $cfgPath)) {
@@ -41,7 +42,7 @@ if ($url -and $key) {
   } while ($true)
   exit 0
 }
-$topicFile = Join-Path $dir "ntfy-topic.txt"
+$topicFile = Join-Path $root "ntfy-topic.txt"
 $topic = "w3-gabriel-a8f3k9p2x7q4m"
 if (Test-Path -LiteralPath $topicFile) { $topic = ((Get-Content -LiteralPath $topicFile -Raw).Trim().Split("`n")[0].Trim()) }
 $topic = "$topic-cmd"

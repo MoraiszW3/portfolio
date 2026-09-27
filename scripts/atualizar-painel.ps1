@@ -12,7 +12,8 @@ param(
 )
 $ErrorActionPreference = "Stop"
 $dir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$pj = Join-Path $dir "MeuPainel\data.json"
+$root = Split-Path -Parent $dir
+$pj = Join-Path $root "MeuPainel\data.json"
 $d = Get-Content -LiteralPath $pj -Raw | ConvertFrom-Json
 $d.atualizadoEm = Get-Date -Format "yyyy-MM-dd HH:mm"
 if ($JobNome) {

@@ -15,7 +15,8 @@ param(
 
 $ErrorActionPreference = "Stop"
 $dir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$topicFile = Join-Path $dir "ntfy-topic.txt"
+$root = Split-Path -Parent $dir
+$topicFile = Join-Path $root "ntfy-topic.txt"
 $defaultTopic = "w3-gabriel-a8f3k9p2x7q4m"
 
 if ([string]::IsNullOrWhiteSpace($Topico)) {
@@ -47,7 +48,7 @@ try {
   Invoke-RestMethod -Method Post -Uri "https://ntfy.sh/$Topico" `
     -Headers @{ Title = $Titulo; Tags = $cfg.tag; Priority = $cfg.prio } `
     -Body ([System.Text.Encoding]::UTF8.GetBytes($corpo)) | Out-Null
-  "$hora | $Projeto | $Tipo | $Titulo | OK" | Out-File -FilePath (Join-Path $dir "notify-log.txt") -Append -Encoding utf8
+  "$hora | $Projeto | $Tipo | $Titulo | OK" | Out-File -FilePath (Join-Path $root "notify-log.txt") -Append -Encoding utf8
   Write-Output "Notificado: $Titulo [$Tipo]"
 } catch {
   Write-Output "Falha ao notificar: $($_.Exception.Message)"

@@ -5,7 +5,8 @@
 param([string]$Id = "", [string]$Resposta = "Pronto OK")
 $ErrorActionPreference = "Stop"
 $dir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$cfgPath = Join-Path $dir "meu-app-config.txt"
+$root = Split-Path -Parent $dir
+$cfgPath = Join-Path $root "meu-app-config.txt"
 $url = ""; $key = ""
 if (Test-Path -LiteralPath $cfgPath) {
   foreach ($l in (Get-Content -LiteralPath $cfgPath)) {
@@ -19,6 +20,6 @@ if ($url -and $key -and $Id) {
   Write-Output "Resposta enviada ao app: $Resposta"
   exit 0
 }
-"## resposta [$Id]: $Resposta" | Add-Content -LiteralPath (Join-Path $dir "inbox-celular.md") -Encoding utf8
+"## resposta [$Id]: $Resposta" | Add-Content -LiteralPath (Join-Path $root "inbox-celular.md") -Encoding utf8
 & (Join-Path $dir "notificar.ps1") -Titulo "Comando pronto" -Mensagem $Resposta -Tipo "dev-pronto"
 Write-Output "Sem nuvem: resposta anotada no inbox + notificacao enviada."

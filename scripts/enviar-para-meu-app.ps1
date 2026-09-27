@@ -13,7 +13,8 @@ param(
 )
 $ErrorActionPreference = "Stop"
 $dir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$cfgPath = Join-Path $dir "meu-app-config.txt"
+$root = Split-Path -Parent $dir
+$cfgPath = Join-Path $root "meu-app-config.txt"
 $url = ""; $key = ""
 if (Test-Path -LiteralPath $cfgPath) {
   foreach ($l in (Get-Content -LiteralPath $cfgPath)) {
