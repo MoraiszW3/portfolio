@@ -12,6 +12,7 @@
 - Workspace: `E:\codes zed\Default Project`
 
 ## Feito
+- 2026-09-27: **Histórico reorganizado + push automático** — 15 commits picados viraram 5 por projeto (Moraiz/Mz4/PLX/Infra, com rename W3Optica detectado); force push pro GitHub; vigia agora faz commit + push sozinho
 - 2026-09-27: **Commits em dia + commit automático** — `.gitignore` (segredos e runtime fora do GitHub), `inbox/notify-log/ntfy-topic` fora do índice, PLX commitada (20 arquivos, redesign 3D + `models/x65.glb`); novo `auto-commit.ps1` (vigia a cada 60s, commita após 90s parado) ligado pelo `retomar.ps1`
 - Estrutura inicial do site criada (header, preloader, marquee, navegação)
 - Site completo conforme PRD (hero, coleção com filtros, sacola, wishlist, história, atelier)
