@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="90" viewBox="0 0 720 90">
+  <text x="360" y="58" text-anchor="middle" font-family="'JetBrains Mono', Consolas, monospace" font-size="30" font-weight="600" fill="#ffffff" opacity="0">E aí, Dev. Gabriel aqui.
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.22;0.3" dur="16s" begin="0s" repeatCount="indefinite"/>
+  </text>
+  <text x="360" y="58" text-anchor="middle" font-family="'JetBrains Mono', Consolas, monospace" font-size="30" font-weight="600" fill="#F97316" opacity="0">Front-end de e-commerce de luxo
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.22;0.3" dur="16s" begin="4s" repeatCount="indefinite"/>
+  </text>
+  <text x="360" y="58" text-anchor="middle" font-family="'JetBrains Mono', Consolas, monospace" font-size="30" font-weight="600" fill="#ffffff" opacity="0">Sites 3D + Apps instaláveis
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.22;0.3" dur="16s" begin="8s" repeatCount="indefinite"/>
+  </text>
+  <text x="360" y="58" text-anchor="middle" font-family="'JetBrains Mono', Consolas, monospace" font-size="30" font-weight="600" fill="#F97316" opacity="0">Bora construir algo?
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.22;0.3" dur="16s" begin="12s" repeatCount="indefinite"/>
+  </text>
+</svg>
