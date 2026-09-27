@@ -53,7 +53,7 @@
     ["Tênis", "Vans · Hocks · Qix", "tenis", "img/fig-ct1.jpg"],
     ["Skate", "Shapes · Trucks", "skate", "img/fig-ct2.jpg"],
     ["Montados", "Prontos p/ andar", "skate", "img/fig-ct3.jpg"],
-    ["Peças", "Monte o seu", "#builder", "img/fig-ct4.jpg"],
+    ["Peças", "Trucks · Rodas", "skate", "img/fig-ct4.jpg"],
     ["Bonés", "New Era · High", "bones", "img/fig-ct5.jpg"],
     ["Acessórios", "Relógios · Mochilas", "bones", "img/fig-ct6.jpg"]
   ].map(function (t) {
@@ -83,8 +83,6 @@
     if (q) { e.preventDefault(); openQV(q.getAttribute("data-qv")); return; }
     var a = e.target.closest("a[data-cat]");
     if (a) { e.preventDefault(); goCat(a.getAttribute("data-cat")); $("#nav").classList.remove("open"); return; }
-    var g = e.target.closest("a[data-goto]");
-    if (g) { e.preventDefault(); document.querySelector(g.getAttribute("data-goto")).scrollIntoView({ behavior: "smooth" }); }
   });
   $("#verTudo").addEventListener("click", function (e) { e.preventDefault(); goCat("todas"); });
   $("#searchInput").addEventListener("input", function () {
@@ -159,70 +157,6 @@
     e.preventDefault(); toast("Inscrito! Novidades a caminho."); this.reset();
   });
 
-  /* MONTE SEU SKATE — preços 100% reais do site */
-  var GROUPS = [
-    { k: "shape", el: "optShape", opts: [
-      ["Shape 8.0 Milk Maple", 299.9], ["Shape 8.25 Milk Maple", 299.9],
-      ["Shape 8.65 Element Bob Ross", 379.9], ["Shape 8.5 Element Black Planet", 399.9],
-      ["Shape Pro Model Patrik Mazzuchini", 399.9]] },
-    { k: "truck", el: "optTruck", opts: [["Truck — ver no WhatsApp", 0]] },
-    { k: "roda", el: "optRoda", opts: [
-      ["Spitfire F4 53mm 99A (jogo)", 599.9], ["Outras — ver no WhatsApp", 0]] },
-    { k: "rol", el: "optRol", opts: [["Rolamento — ver no WhatsApp", 0]] },
-    { k: "lixa", el: "optLixa", opts: [["Lixa — ver no WhatsApp", 0]] }
-  ];
-  var PRESETS = [
-    { shape: 0, truck: 0, roda: 1, rol: 0, lixa: 0 },
-    { shape: 2, truck: 0, roda: 1, rol: 0, lixa: 0 },
-    { shape: 4, truck: 0, roda: 0, rol: 0, lixa: 0 }
-  ];
-  var build = { shape: 0, truck: 0, roda: 1, rol: 0, lixa: 0 };
-  var gByKey = function (k) { return GROUPS.filter(function (g) { return g.k === k; })[0]; };
-  var bName = function (k) { var g = gByKey(k); return g.opts[build[k]][0]; };
-  var bPrice = function (k) { var g = gByKey(k); return g.opts[build[k]][1]; };
-  var renderBuild = function () {
-    GROUPS.forEach(function (g) {
-      $("#" + g.el).innerHTML = g.opts.map(function (o, i) {
-        return '<button class="opt' + (build[g.k] === i ? " on" : "") + '" data-k="' + g.k + '" data-i="' + i + '">' + o[0] + (o[1] ? "<small>" + BRL(o[1]) + "</small>" : "<small>no zap</small>") + "</button>";
-      }).join("");
-    });
-    var total = 0, lines = [], missing = [];
-    GROUPS.forEach(function (g) {
-      var o = g.opts[build[g.k]];
-      if (o[1]) { total += o[1]; lines.push("<li><span>" + o[0] + "</span><strong>" + BRL(o[1]) + "</strong></li>"); }
-      else missing.push(o[0].split(" — ")[0]);
-    });
-    if (missing.length) lines.push("<li><span>" + missing.join(" + ") + "</span><strong>a combinar</strong></li>");
-    lines.push("<li><span>Parafusos + montagem</span><strong>inclusos</strong></li>");
-    $("#buildList").innerHTML = lines.join("");
-    $("#buildTotal").textContent = BRL(Math.round(total * 100) / 100);
-    $("#buildZap").href = ZAP + encodeURIComponent("Salve! Meu setup: Shape " + bName("shape") + " (" + BRL(bPrice("shape")) + "), Truck: " + (bPrice("truck") ? BRL(bPrice("truck")) : "a combinar") + ", Rodas: " + bName("roda") + ", Rolamento e lixa a combinar. Total parcial: " + BRL(Math.round(total * 100) / 100));
-  };
-  document.addEventListener("click", function (e) {
-    var pr = e.target.closest("[data-preset]");
-    if (pr) {
-      build = JSON.parse(JSON.stringify(PRESETS[parseInt(pr.getAttribute("data-preset"), 10)]));
-      $$(".presets .opt").forEach(function (b) { b.classList.toggle("on", b === pr); });
-      renderBuild(); return;
-    }
-    var o = e.target.closest(".bopt .opt");
-    if (o) { build[o.getAttribute("data-k")] = parseInt(o.getAttribute("data-i"), 10); renderBuild(); }
-  });
-
-  /* tema claro / escuro */
-  var themeBtn = $("#themeBtn");
-  var applyTheme = function (t) {
-    document.documentElement.setAttribute("data-theme", t);
-    try { localStorage.setItem("bamboo-theme", t); } catch (e) {}
-    themeBtn.textContent = (t === "dark" ? "◑" : "◐");
-  };
-  var savedTheme = "light";
-  try { savedTheme = localStorage.getItem("bamboo-theme") || "light"; } catch (e) {}
-  applyTheme(savedTheme);
-  themeBtn.addEventListener("click", function () {
-    applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
-  });
-
   /* reveal */
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } });
@@ -230,6 +164,5 @@
   $$(".reveal").forEach(function (el) { io.observe(el); });
 
   renderAll("");
-  renderBuild();
   refreshCart();
 })();
