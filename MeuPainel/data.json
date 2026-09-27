@@ -1,0 +1,34 @@
+{
+  "atualizadoEm": "2026-09-16 12:00",
+  "appUrl": "https://mz4.netlify.app",
+  "ntfyTopico": "w3-gabriel-a8f3k9p2x7q4m",
+  "sites": [
+    {
+      "id": "w3optica",
+      "nome": "W3 ÓPTICA",
+      "desc": "E-commerce old-money de alta óptica (preto/marfim/ouro).",
+      "pasta": "W3Optica/",
+      "urlPublica": "",
+      "status": "em-andamento",
+      "prdResumo": "One-page e-commerce: hero TikTok full-bleed, coleção com filtros (sol/grau/acessórios/relógios/bolsas), sacola + wishlist em localStorage, história Portofino, atelier Milão. Preços: óculos R$997–2490, bolsas R$580–6760. Fora do escopo v1: checkout real, login, CMS.",
+      "prdArquivo": "../W3Optica/PRD.md",
+      "falta": [
+        "Salvar capa-olho-verde.jpg em W3Optica/img/ (fallback ativo)",
+        "Testar no navegador: intro, wishlist, busca, sacola, filtros, mobile",
+        "Repor fotos das peças em img: []",
+        "SEO/meta + favicon, correções de texto"
+      ],
+      "feitoRecente": "Marca atualizada para W3 ÓPTICA (com acento) no site + painel"
+    }
+  ],
+  "tasks": [
+    { "id": "t1", "site": "w3optica", "titulo": "Enviar fotos das peças para repor", "feito": false },
+    { "id": "t2", "site": "w3optica", "titulo": "Testar no Edge (F5) intro + sacola + busca", "feito": false },
+    { "id": "t3", "site": "w3optica", "titulo": "Publicar W3Optica online (Vercel/Netlify) e colar URL aqui", "feito": false }
+  ],
+  "pipeline": {
+    "jobAtual": { "nome": "Nenhum job rodando", "inicio": "", "estimativaMin": 10, "status": "ocioso" },
+    "historico": []
+  },
+  "tokens": []
+}

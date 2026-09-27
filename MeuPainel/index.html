@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060606" id="meta-theme">
+<title>Mz4 agency — meu painel</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mz4">
+<meta name="description" content="Painel Mz4 agency: sites, tasks, pipeline ao vivo, aprovações e fotos. Atualiza na hora.">
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.44.4/dist/umd/supabase.min.js"></script>
+<style>
+:root{--bg:#050506;--card:#101014;--red:#fb1404;--red-hi:#ff5a3c;--red-dk:#8f0b01;--ink:#f5f1ea;--sub:#d8d2c4;--mut:#a09a90;--line:#232329;--field:#0b0b0e;--glow:#fb140438}
+[data-theme="light"]{--bg:#faf7f2;--card:#ffffff;--ink:#161315;--sub:#4a4442;--mut:#8a8380;--line:#f0d4d0;--field:#fff5f4;--glow:#fb140426}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:96px;transition:background .3s,color .3s}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(600px 200px at 50% -60px,#fb140425,transparent 70%)}
+header.top{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 16px;z-index:5;animation:drop .45s ease both;display:flex;align-items:center;gap:10px}
+.brandmark{width:34px;height:34px;border-radius:10px;object-fit:cover;flex:none;box-shadow:0 0 14px var(--glow)}
+.avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--red);background:var(--field);flex:none}
+header.top h1{margin:0;font-size:16px;letter-spacing:.1em;flex:1}header.top h1 span{color:var(--red)}
+.xpchip{font-size:12px;font-weight:700;border:1px solid var(--red);color:var(--red);border-radius:99px;padding:4px 10px;white-space:nowrap;background:color-mix(in srgb,var(--red) 10%,transparent)}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:color-mix(in srgb,var(--bg) 96%,#000);border-top:1px solid var(--line);z-index:5}
+nav button{flex:1;background:none;border:0;color:var(--mut);padding:10px 2px 12px;font-size:11px;cursor:pointer;transition:color .2s,transform .15s}
+nav button .ic{font-size:19px;display:block}
+nav button:active{transform:scale(.92)}
+nav button.on{color:var(--red);font-weight:700}
+nav button.on .ic{filter:drop-shadow(0 0 6px var(--glow))}
+main{padding:14px 14px 0;max-width:640px;margin:0 auto}
+.card{background:linear-gradient(180deg,color-mix(in srgb,var(--card) 88%,#fff 4%),var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;animation:rise .35s ease both;transition:background .3s,border-color .3s;box-shadow:0 8px 28px #00000030}
+.card h2{margin:0 0 6px;font-size:16px}.card p{margin:6px 0;color:var(--sub)}
+.badge{display:inline-block;font-size:11px;letter-spacing:.12em;border:1px solid var(--red);color:var(--red);border-radius:99px;padding:3px 12px;margin-bottom:8px;background:color-mix(in srgb,var(--red) 8%,transparent)}
+.btn{display:inline-block;background:linear-gradient(180deg,var(--red-hi) 0%,var(--red) 45%,var(--red-dk) 100%);color:#fff;border:0;border-radius:16px;padding:13px 18px;font-weight:800;letter-spacing:.02em;margin:6px 6px 0 0;text-decoration:none;cursor:pointer;font-size:15px;transition:transform .12s ease,filter .2s ease,box-shadow .2s ease;box-shadow:0 6px 24px var(--glow),inset 0 1px 0 #ffffff55}
+.btn:hover{filter:brightness(1.1);box-shadow:0 8px 30px var(--glow),inset 0 1px 0 #ffffff55}
+.btn:active{transform:translateY(2px) scale(.98);box-shadow:0 2px 10px var(--glow),inset 0 1px 0 #ffffff33}
+.btn.ghost{background:color-mix(in srgb,var(--red) 10%,transparent);border:1px solid var(--red);color:var(--red);box-shadow:none}
+.btn.ghost:active{transform:translateY(2px) scale(.98)}
+.btn.big{width:100%;text-align:center;padding:15px;font-size:16px;border-radius:18px}
+.seg{display:flex;gap:8px;margin-top:8px}
+.seg button{flex:1;border:1px solid var(--line);background:var(--field);color:var(--sub);border-radius:14px;padding:12px;cursor:pointer;transition:all .2s;font-weight:600}
+.seg button.on{border-color:var(--red);color:var(--red);font-weight:800;box-shadow:0 0 0 3px var(--glow),0 4px 16px var(--glow)}
+ul{margin:8px 0;padding-left:18px}li{margin:4px 0}
+input,select,textarea{width:100%;background:var(--field);border:1px solid var(--line);color:var(--ink);border-radius:14px;padding:12px;margin-top:8px;font-size:15px;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px var(--glow)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.task{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.task:last-child{border:0}.task input{width:22px;accent-color:var(--red);margin-top:0}.done{color:var(--mut);text-decoration:line-through}
+.mut{color:var(--mut);font-size:13px}
+.bar{height:10px;background:color-mix(in srgb,var(--line) 70%,transparent);border-radius:99px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--red-dk),var(--red),var(--red-hi));transition:width .5s ease;border-radius:99px;box-shadow:0 0 12px var(--glow)}
+.tab{display:none}.tab.on{display:block;animation:rise .3s ease both}
+code{background:color-mix(in srgb,var(--line) 60%,transparent);padding:2px 6px;border-radius:6px;font-size:12px}
+.perfil-hero{text-align:center;padding:8px 0 2px}
+.perfil-hero img{width:104px;height:104px;border-radius:50%;object-fit:cover;border:3px solid var(--red);background:var(--field);box-shadow:0 0 24px var(--glow)}
+.perfil-hero h2{margin:8px 0 0}.perfil-hero .cargo{color:var(--red);font-weight:700;font-size:13px;letter-spacing:.08em}
+.medals{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.medal{width:64px;text-align:center;font-size:12px;color:var(--sub)}
+.medal .em{font-size:30px;display:block;filter:grayscale(1);opacity:.35}
+.medal.got .em{filter:none;opacity:1}
+.medal.got{color:var(--ink);font-weight:700}
+.company{border:1px dashed var(--red);border-radius:12px;padding:10px;margin-top:10px;font-size:13px}
+#toast{position:fixed;top:14px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--ink);color:var(--bg);font-weight:700;border-radius:14px;padding:12px 18px;z-index:50;transition:transform .3s ease;box-shadow:0 8px 30px #0008;max-width:92vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+.confete{position:fixed;top:-12px;width:9px;height:14px;z-index:60;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes drop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+.pop{animation:pop .35s ease}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+#updatebar{display:none;position:sticky;top:0;z-index:40;background:linear-gradient(90deg,var(--red-dk),var(--red));color:#fff;font-weight:700;padding:10px 14px;text-align:center}
+#updatebar.show{display:block}
+#updatebar button{background:#fff;color:var(--red-dk);border:0;border-radius:99px;padding:6px 14px;font-weight:800;margin-left:8px;cursor:pointer}
+.connpill{font-size:11px;font-weight:700;border:1px solid var(--line);color:var(--mut);border-radius:99px;padding:4px 10px;white-space:nowrap}
+.connpill.live{border-color:#2ecc71;color:#2ecc71}
+.connpill.local{border-color:var(--red);color:var(--red)}
+.aprov{border:1px solid var(--line);border-radius:14px;padding:12px;margin:8px 0}
+.aprov.pendente{border-color:var(--red)}
+.simnao{display:flex;gap:8px;margin-top:8px}
+.simnao button{flex:1;border:0;border-radius:12px;padding:12px;font-weight:800;font-size:15px;cursor:pointer}
+.simnao .sim{background:#2ecc71;color:#06270f}
+.simnao .nao{background:#3a0d0d;color:#ff8a7a;border:1px solid var(--red)}
+.fotosgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.fotosgrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+.ver{color:var(--mut);font-size:12px;text-align:center;margin:14px 0 0}
+/* ---- entrada estilo Auth UI Kit ---- */
+.auth-wrap{max-width:400px;margin:5vh auto;padding:0 16px}
+.auth-card{background:linear-gradient(180deg,color-mix(in srgb,var(--card) 88%,#fff 4%),var(--card));border:1px solid var(--line);border-radius:24px;padding:28px 24px;box-shadow:0 8px 28px #00000030;animation:rise .35s ease both;text-align:center}
+.auth-logo{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid var(--red);box-shadow:0 0 24px var(--glow)}
+.auth-title{margin:14px 0 0;font-size:24px;font-weight:800;letter-spacing:.02em}.auth-title span{color:var(--red)}
+.auth-sub{margin:6px 0 18px;font-size:14px}
+.auth-label{display:block;text-align:left;font-size:13px;font-weight:700;margin:12px 2px 6px;color:var(--sub)}
+.auth-field{display:flex;align-items:center;gap:10px;background:var(--field);border:1px solid var(--line);border-radius:16px;padding:0 14px;transition:border-color .2s,box-shadow .2s}
+.auth-field:focus-within{border-color:var(--red);box-shadow:0 0 0 3px var(--glow)}
+.auth-field input{border:0;background:none;padding:14px 0;margin:0;flex:1}
+.auth-field input:focus{box-shadow:none}
+.auth-ic{font-size:17px;flex:none}
+.auth-eye{background:none;border:0;font-size:17px;cursor:pointer;flex:none;padding:4px}
+.auth-row{display:flex;justify-content:space-between;align-items:center;margin:14px 2px 0;font-size:13px}
+.auth-remember{display:flex;align-items:center;gap:6px;color:var(--sub);cursor:pointer}
+.auth-remember input{width:16px;margin:0;accent-color:var(--red)}
+.auth-row a{color:var(--red);font-weight:700;text-decoration:none}
+.auth-cta{margin-top:18px}
+.auth-div{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:12px;margin:14px 0 4px}
+.auth-div::before,.auth-div::after{content:"";flex:1;height:1px;background:var(--line)}
+.auth-hint{text-align:center;margin-top:12px}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+<div id="updatebar">Nova versão do app disponível.<button onclick="atualizarApp()">Atualizar</button></div>
+
+<!-- LOGIN (estilo Simple Login Mobile Auth UI Kit) -->
+<div id="login" style="display:none">
+<div class="auth-wrap">
+<div class="auth-card">
+<img src="logo.png" class="auth-logo" alt="Mz4 agency">
+<h2 class="auth-title">Bem-vindo à <span>Mz4</span></h2>
+<p class="auth-sub">Seu painel. Seus sites. Seu jogo.</p>
+<label class="auth-label" for="lg-name">Nome</label>
+<div class="auth-field"><span class="auth-ic">👤</span><input id="lg-name" placeholder="Como posso te chamar?" autocomplete="name"></div>
+<div id="auth-cloud" style="display:none">
+<label class="auth-label" for="lg-email">E-mail</label>
+<div class="auth-field"><span class="auth-ic">✉️</span><input id="lg-email" type="email" placeholder="voce@exemplo.com" autocomplete="email"></div>
+<label class="auth-label" for="lg-pass">Senha</label>
+<div class="auth-field"><span class="auth-ic">🔒</span><input id="lg-pass" type="password" placeholder="••••••••" autocomplete="current-password"><button type="button" class="auth-eye" onclick="togglePw()" aria-label="Mostrar senha">👁️</button></div>
+</div>
+<div class="auth-row"><label class="auth-remember"><input type="checkbox" id="lg-remember" checked> Lembrar de mim</label><a href="#" onclick="toast('Fala com o admin 😄');return false">Esqueci a senha</a></div>
+<button class="btn big auth-cta" onclick="doLogin()">Entrar ➜</button>
+<div class="auth-div"><span>ou</span></div>
+<button class="btn ghost big" id="installBtn" style="display:none" onclick="instalarApp()">📲 Instalar app</button>
+<p class="mut auth-hint" id="login-hint">Sem senha. É seu app, entra direto.</p></div></div></div>
+
+<!-- APP -->
+<div id="app" style="display:none">
+<header class="top">
+<img src="logo.png" class="brandmark" alt="Mz4">
+<img id="hd-photo" class="avatar" alt="você">
+<h1 id="brand">Mz4 <span>agency</span></h1>
+<span class="connpill local" id="connPill">● local</span>
+<span class="xpchip" id="hd-xp">Nv 1 • 0 xp</span>
+</header>
+<main>
+
+<!-- INÍCIO -->
+<section class="tab on" id="t-home">
+<div class="card">
+<span class="badge">SEU NÍVEL</span>
+<h2 id="hm-hello">Olá 👋</h2>
+<p class="mut" id="hm-level">Novato • 0 xp</p>
+<div class="bar"><i id="hm-bar" style="width:0%"></i></div>
+<p class="mut" id="hm-next">Faltam 100 xp pro próximo nível</p>
+</div>
+<div class="card">
+<h2>🏆 Medalhas</h2>
+<p class="mut">Complete tasks e colecione. A 👑 Coroa Mz4 é só dos lendários.</p>
+<div class="medals" id="hm-medals"></div>
+</div>
+<div class="card">
+<h2>⚡ Resumo</h2>
+<div id="hm-stats" class="mut">carregando…</div>
+</div>
+<div class="card">
+<h2>🤖 IA gerando agora</h2>
+<div id="job"></div>
+</div>
+<div class="card">
+<h2>🔥 Tokens por IA</h2>
+<div id="toks"></div>
+<div class="row"><input id="tk-ia" placeholder="IA/modelo"><input id="tk-qtd" type="number" placeholder="tokens"></div>
+<button class="btn" onclick="addTok()">Registrar gasto</button>
+</div>
+</section>
+
+<!-- SITES -->
+<section class="tab" id="t-sites">
+<div id="sites"></div>
+<div class="card">
+<h2>+ Anexar site</h2>
+<p class="mut">Publique a pasta (Netlify/Vercel grátis) e cole a URL. Fica salva no celular.</p>
+<input id="ns-nome" placeholder="Nome do site">
+<input id="ns-url" placeholder="https://seu-site.netlify.app">
+<button class="btn" onclick="addSite()">Salvar site</button>
+</div>
+</section>
+
+<!-- TASKS -->
+<section class="tab" id="t-tasks">
+<div class="card"><h2>✅ Tasks de trabalho</h2>
+<p class="mut">Cada task concluída = <b>+20 xp</b>. Desmarcar tira o xp.</p>
+<div id="tasks"></div>
+<input id="nt" placeholder="Nova task (ex: aprovar bolsas)">
+<button class="btn" onclick="addTask()">Adicionar</button></div>
+</section>
+
+<!-- APROVAR -->
+<section class="tab" id="t-aprovar">
+<div class="card"><h2>🔐 Aprovações</h2>
+<p class="mut">O PC pede, você toca em SIM ou NAO. Cai na hora, sem F5.</p>
+<div id="aprovs"><p class="mut">Nenhum pedido pendente 🎉</p></div></div>
+</section>
+
+<!-- FOTOS -->
+<section class="tab" id="t-fotos">
+<div class="card"><h2>📸 Fotos da coleção</h2>
+<p class="mut">Manda a foto da peça pelo celular. Com nuvem vai pro banco; sem nuvem fica salva no aparelho.</p>
+<input type="file" id="ft-file" accept="image/*" capture="environment" onchange="enviarFoto(this)">
+<div class="fotosgrid" id="fotos"></div></div>
+</section>
+
+<!-- COMANDO -->
+<section class="tab" id="t-cmd">
+<div class="card"><h2>⌨️ Comando pro PC</h2>
+<p class="mut">Digite e envie. O PC puxa em segundos e a IA executa.</p>
+<textarea id="cmd-text" rows="3" placeholder="Ex: troca o preço do Ophidia para R$ 2.300"></textarea>
+<button class="btn big" onclick="enviarComando()">Enviar comando 📡</button>
+<div id="cmds" style="margin-top:8px"></div></div>
+</section>
+
+<!-- PERFIL -->
+<section class="tab" id="t-perfil">
+<div class="card">
+<div class="perfil-hero">
+<img id="pf-photo" alt="sua foto" onclick="document.getElementById('pf-file').click()">
+<input type="file" id="pf-file" accept="image/*" style="display:none" onchange="setPhoto(this)">
+<h2 id="pf-name">Você</h2>
+<div class="cargo" id="pf-role">FUNDADOR • MZ4 AGENCY</div>
+<p class="mut">Toque na foto para trocar 📸</p>
+</div>
+<div class="company">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+<img src="logo.png" alt="Mz4 agency" style="width:44px;height:44px;border-radius:12px;object-fit:cover">
+<b>🏢 Perfil na empresa</b></div>
+Nome: <span id="pf-c-nome">Você</span><br>
+Cargo: <span id="pf-c-cargo">Fundador</span><br>
+Empresa: <b>Mz4 agency</b> • Nível <span id="pf-c-nivel">1</span>
+</div>
+<div class="row">
+<input id="pf-in-name" placeholder="Seu nome">
+<input id="pf-in-role" placeholder="Seu cargo (ex: Fundador)">
+</div>
+<button class="btn" onclick="saveProfile()">Salvar perfil</button>
+</div>
+<div class="card">
+<h2>⚙️ Configs</h2>
+<p class="mut">Tema do app</p>
+<div class="seg">
+<button id="th-dark" onclick="setTheme('dark')">⬛ Preto + vermelho</button>
+<button id="th-light" onclick="setTheme('light')">⬜ Branco + vermelho</button>
+</div>
+<p class="mut" style="margin-top:12px">Diversão</p>
+<div class="seg">
+<button id="fx-on" onclick="setFx(true)">🎉 Confete ligado</button>
+<button id="fx-off" onclick="setFx(false)">🔕 Confete off</button>
+</div>
+<p class="mut" style="margin-top:12px">Meu canal de avisos (sem ntfy)</p>
+<p>Conexão: <code id="conn">local</code></p>
+<button class="btn" onclick="ativarAvisos()">Ativar avisos neste celular</button>
+<button class="btn ghost" onclick="testeMeuCanal()">Aviso de teste</button>
+<div style="margin-top:12px">
+<button class="btn ghost" onclick="doLogout()">Sair</button>
+<button class="btn ghost" onclick="wipeData()">Apagar dados locais</button>
+</div>
+</div>
+</section>
+
+</main>
+<nav>
+<button class="on" onclick="go('t-home',this)"><span class="ic">🏠</span>Início</button>
+<button onclick="go('t-sites',this)"><span class="ic">🌐</span>Sites</button>
+<button onclick="go('t-tasks',this)"><span class="ic">✅</span>Tasks</button>
+<button onclick="go('t-aprovar',this)"><span class="ic">🔐</span>Aprovar</button>
+<button onclick="go('t-fotos',this)"><span class="ic">📸</span>Fotos</button>
+<button onclick="go('t-cmd',this)"><span class="ic">⌨️</span>Comando</button>
+<button onclick="go('t-perfil',this)"><span class="ic">👤</span>Perfil</button>
+</nav>
+<p class="ver" id="ver">v2 • local</p>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
