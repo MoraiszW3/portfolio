@@ -79,6 +79,8 @@
     }
   };
   document.addEventListener("click", function (e) {
+    var q = e.target.closest("a[data-qv]");
+    if (q) { e.preventDefault(); openQV(q.getAttribute("data-qv")); return; }
     var a = e.target.closest("a[data-cat]");
     if (a) { e.preventDefault(); goCat(a.getAttribute("data-cat")); $("#nav").classList.remove("open"); return; }
     var g = e.target.closest("a[data-goto]");
