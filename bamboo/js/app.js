@@ -39,21 +39,22 @@
       return f.length ? f.map(cardHTML).join("") : '<div class="empty-cat" style="grid-column:1/-1"><h3>Não existem produtos nessa categoria</h3><p>Você está tentando acessar uma categoria, mas não existem produtos adicionados nela.</p><a href="#produtos" class="btn-solid" data-back>Ir às compras</a></div>';
     };
     $("#grid").innerHTML = show(byTag("novidades"));
-    $("#gridSkate").innerHTML = show(byCat("skate"));
-    $("#gridOutlet").innerHTML = show(byTag("outlet"));
-    $("#choraoGrid").innerHTML = show(byTag("chorao"));
+    $("#gridSkate").innerHTML = byCat("skate").map(cardHTML).join("");
+    $("#gridOutlet").innerHTML = byTag("outlet").map(cardHTML).join("");
+    $("#choraoGrid").innerHTML = byTag("chorao").map(cardHTML).join("");
   };
   $("#tiles").innerHTML = [
-    ["Tênis", "Vans · Hocks · Qix", "tenis", "img/fig-ct1.jpg"],
-    ["Skate", "Shapes · Trucks", "skate", "img/fig-ct2.jpg"],
-    ["Montados", "Prontos p/ andar", "skate", "img/fig-ct3.jpg"],
-    ["Peças", "Trucks · Rodas", "skate", "img/fig-ct4.jpg"],
-    ["Bonés", "New Era · High", "bones", "img/fig-ct5.jpg"],
-    ["Acessórios", "Relógios · Mochilas", "bones", "img/fig-ct6.jpg"]
+    ["Tênis", "Vans · Hocks · Qix", "tenis", "", "img/fig-ct1.jpg"],
+    ["Skate", "Shapes · Trucks", "skate", "", "img/fig-ct2.jpg"],
+    ["Montados", "Prontos p/ andar", "skate", "montado", "img/fig-ct3.jpg"],
+    ["Peças", "Trucks · Rodas", "skate", "truck|roda", "img/fig-ct4.jpg"],
+    ["Bonés", "New Era · High", "bones", "boné|gorro", "img/fig-ct5.jpg"],
+    ["Acessórios", "Relógios · Mochilas", "bones", "", "img/fig-ct6.jpg"]
   ].map(function (t) {
-    var href = t[2].charAt(0) === "#" ? t[2] : "#produtos";
-    var extra = t[2].charAt(0) === "#" ? ' data-goto="builder"' : ' data-cat="' + t[2] + '"';
-    return '<a class="tile reveal" href="' + href + '"' + extra + '><img src="' + t[3] + '" alt="' + t[0] + '" loading="lazy"><span>' + t[0] + "</span><small>" + t[1] + "</small></a>";
+    var extra = t[3]
+      ? ' data-cat="' + t[2] + '" data-sub="' + t[3] + '" data-label="' + t[0] + '"'
+      : ' data-cat="' + t[2] + '"';
+    return '<a class="tile reveal" href="#produtos"' + extra + '><img src="' + t[4] + '" alt="' + t[0] + '" loading="lazy"><span>' + t[0] + "</span><small>" + t[1] + "</small></a>";
   }).join("");
   $("#brands").innerHTML = ["Hocks", "Nike SB", "Thrasher", "Santa Cruz", "Element", "Independent", "Qix", "Öus", "Hondar", "Grizzly", "Flip", "Volcom", "Diamond", "New Era"].map(function (b, i) {
     var n = ("0" + (i + 1)).slice(-2);
@@ -71,18 +72,26 @@
   var paintGrid = function (list) {
     $("#grid").innerHTML = list.length ? sortList(list).map(cardHTML).join("") : '<div class="empty-cat" style="grid-column:1/-1"><h3>Não existem produtos nessa categoria</h3><p>Você está tentando acessar uma categoria, mas não existem produtos adicionados nela.</p><a href="#produtos" class="btn-solid" data-back>Ir às compras</a></div>';
   };
-  var goCat = function (cat) {
+  var goCat = function (cat, sub, label) {
     if (cat === "outlet") { document.querySelector("#outlet").scrollIntoView({ behavior: "smooth" }); return; }
     if (cat === "vestuario") { toast("Vestuário entra na próxima leva — chama no WhatsApp"); return; }
     if (cat === "todas") {
-      gridMode.cat = null;
+      gridMode.cat = null; gridMode.sub = null; gridMode.list = null;
       $("#colecaoTitle").textContent = "Novidades";
       renderAll($("#searchInput").value.trim());
     } else {
-      gridMode.cat = cat;
-      var map = { tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios" };
-      $("#colecaoTitle").textContent = map[cat] || cat;
+      gridMode.cat = cat; gridMode.sub = sub || null;
       var list = PRODUCTS.filter(function (p) { return p.cat === cat; });
+      if (sub) {
+        var terms = sub.toLowerCase().split("|");
+        list = list.filter(function (p) {
+          var hay = p.name.toLowerCase();
+          for (var i = 0; i < terms.length; i++) if (hay.indexOf(terms[i]) > -1) return true;
+          return false;
+        });
+      }
+      $("#colecaoTitle").textContent = label || ({ tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios" }[cat] || cat);
+      gridMode.list = list;
       paintGrid(list);
     }
     document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
@@ -94,7 +103,9 @@
   };
   document.addEventListener("click", function (e) {
     var bk = e.target.closest("a[data-back]");
-    if (bk) { e.preventDefault(); goCat("todas"); return; }
+    if (bk) { e.preventDefault(); goCat("todas"); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    var sb = e.target.closest("a[data-sub]");
+    if (sb) { e.preventDefault(); goCat(sb.getAttribute("data-cat"), sb.getAttribute("data-sub"), sb.getAttribute("data-label") || sb.textContent.trim()); $("#nav").classList.remove("open"); return; }
     var s = e.target.closest("a[data-search]");
     if (s) { e.preventDefault(); goSearch(s.getAttribute("data-search")); $("#nav").classList.remove("open"); return; }
     var q = e.target.closest("a[data-qv]");
@@ -108,13 +119,13 @@
       sortMode = b.getAttribute("data-sort");
       $$("#sortRow button").forEach(function (x) { x.classList.toggle("on", x === b); });
       var q = $("#searchInput").value.trim().toLowerCase();
-      var base = gridMode.cat ? byCat(gridMode.cat) : byTag("novidades");
+      var base = gridMode.list || (gridMode.cat ? byCat(gridMode.cat) : byTag("novidades"));
       if (q) base = base.filter(function (p) { return (p.name + " " + p.cat).toLowerCase().indexOf(q) > -1; });
       paintGrid(base);
     });
   });
   $("#searchInput").addEventListener("input", function () {
-    gridMode.cat = null;
+    gridMode.cat = null; gridMode.list = null;
     $("#colecaoTitle").textContent = "Novidades";
     renderAll(this.value.trim());
     if (this.value.trim()) document.querySelector("#produtos").scrollIntoView();
