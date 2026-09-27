@@ -10,14 +10,23 @@
   var CATNAME = { tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios", vestuario: "Vestuário", outlet: "Outlet", chorao: "Chorão Eterno" };
 
   var thumb = function (src) { return src.indexOf("cdn.awsli") > -1 ? src.replace("300x300", "400x400") : src; };
-  var cardHTML = function (p) {
+  var priceHTML = function (p) {
+    if (p.price == null) return '<div class="card-price consult">Consulte</div>';
     var pix = Math.round(p.price * 0.95 * 100) / 100;
-    return '<article class="card" data-id="' + p.id + '">' +
-      '<div class="card-media"><img src="' + thumb(p.img) + '" alt="' + p.name + '" loading="lazy"></div>' +
-      '<div class="card-body"><span class="card-cat">' + CATNAME[p.cat] + '</span>' +
-      '<span class="card-name">' + p.name + '</span>' +
-      '<div class="card-price">' + (p.was ? "<s>" + BRL(p.was) + "</s>" : "") + BRL(p.price) + "</div>" +
-      '<span class="card-pix">' + BRL(pix) + " no Pix</span></div></article>";
+    return '<div class="card-price">' + (p.was ? "<s>" + BRL(p.was) + "</s>" : "") + BRL(p.price) + "</div>" +
+      '<span class="card-pix">' + BRL(pix) + " no Pix</span>";
+  };
+  var cardHTML = function (p) {
+    var media = p.ghost
+      ? '<div class="card-media ghost-media"><span>Em breve</span></div>'
+      : '<div class="card-media"><img src="' + thumb(p.img) + '" alt="' + p.name + '" loading="lazy"></div>';
+    return '<article class="card" data-id="' + p.id + '">' + media +
+      '<div class="card-body"><span class="card-cat">' + (CATNAME[p.cat] || "Oferta") + "</span>" +
+      '<span class="card-name">' + p.name + "</span>" + priceHTML(p) + "</div>" +
+      '<div class="card-actions"><a class="ca-view" href="pdp.html?id=' + p.id + '">Ver produto</a>' +
+      (p.price == null
+        ? '<a class="ca-add" href="https://api.whatsapp.com/send?phone=554733326625&text=' + encodeURIComponent("Salve! Quando chega: " + p.name + "?") + '" target="_blank" rel="noopener">Avise-me</a>'
+        : '<button class="ca-add" data-add="' + p.id + '">+ Sacola</button>') + "</div></article>";
   };
   var byTag = function (t) { return PRODUCTS.filter(function (p) { return p.tags.indexOf(t) > -1; }); };
   var byCat = function (c) { return PRODUCTS.filter(function (p) { return p.cat === c; }); };
@@ -114,8 +123,16 @@
   document.addEventListener("click", function (e) {
     var rm = e.target.closest("[data-remove],[data-rm]");
     if (rm) { cart.splice(parseInt(rm.getAttribute("data-rm") || rm.getAttribute("data-remove"), 10), 1); refreshCart(); return; }
+    var add = e.target.closest("[data-add]");
+    if (add) {
+      cart.push(add.getAttribute("data-add")); refreshCart(); openCart(); return;
+    }
     var card = e.target.closest(".card");
-    if (card && !e.target.closest("button")) location.href = "pdp.html?id=" + card.getAttribute("data-id");
+    if (card && !e.target.closest("a")) {
+      var was = card.classList.contains("open");
+      $$(".card.open").forEach(function (c) { c.classList.remove("open"); });
+      if (!was) card.classList.add("open");
+    }
   });
 
   var openCart = function () { $("#cart").classList.add("open"); $("#cartOverlay").classList.add("open"); };
