@@ -7,18 +7,21 @@
   var ZAP = "https://api.whatsapp.com/send?phone=554733326625&text=";
 
   var PRODUCTS = [
-    { id: "p1", cat: "tenis", name: "Tênis Vans Sk8 Low Black True White", img: "img/vans-sk8-low.jpg", price: 314.90, was: 379.90, tags: ["novidades", "outlet"] },
+    { id: "p1", cat: "tenis", name: "Tênis Vans Sk8 Low Black True White", img: "img/vans-sk8-low.jpg", price: 314.90, was: 379.90, tags: ["novidades"] },
     { id: "p2", cat: "tenis", name: "Tênis Hocks Bold Unissex Sombras", img: "img/hocks-bold-sombras.jpg", price: 499.90, tags: ["novidades"] },
     { id: "p3", cat: "skate", name: "Skate Montado Iniciante Hondar Game", img: "img/hondar-game.jpg", price: 399.90, tags: ["novidades", "skate"] },
     { id: "p4", cat: "bones", name: "Relógio Casio Vintage LA670 Dourado", img: "img/casio-la670.jpg", price: 399.90, tags: [] },
     { id: "p5", cat: "tenis", name: "Tênis Vans Authentic Black White", img: "img/vans-authentic.jpg", price: 399.90, tags: ["novidades"] },
     { id: "p6", cat: "tenis", name: "Tênis Hocks Skate Pop Lite Petitpoa", img: "img/hocks-pop-lite.jpg", price: 389.90, tags: [] },
-    { id: "p7", cat: "skate", name: "Skate Montado Hondar Night Crew", img: "img/hondar-nightcrew.jpg", price: 399.90, tags: ["skate"] },
-    { id: "p8", cat: "skate", name: "Skate Montado Hondar Jungle Preto", img: "img/hondar-jungle.jpg", price: 399.90, tags: ["skate"] },
+    { id: "p7", cat: "skate", name: "Skate Montado Hondar Night Crew", img: "img/fig-sk1.jpg", price: 399.90, tags: ["skate"] },
+    { id: "p8", cat: "skate", name: "Skate Montado Hondar Jungle Preto", img: "img/fig-sk2.jpg", price: 399.90, tags: ["skate"] },
     { id: "p9", cat: "tenis", name: "Tênis Qix Chorão Lado B Preto", img: "img/qix-chorao.jpg", price: 499.90, tags: ["chorao"] },
-    { id: "p10", cat: "tenis", name: "Tênis Qix Ninety Three Preto e Chumbo", img: "img/qix-ninety.jpg", price: 279.90, tags: ["outlet"] },
+    { id: "p10", cat: "tenis", name: "Tênis Qix Ninety Three Preto e Chumbo", img: "img/qix-ninety.jpg", price: 279.90, tags: ["novidades"] },
     { id: "p11", cat: "tenis", name: "Tênis Vans Knu Skool Black White", img: "img/vans-knu.jpg", price: 499.90, tags: [] },
-    { id: "p12", cat: "bones", name: "Boné High Company Outdoor Black", img: "img/bone-high.jpg", price: 99.90, was: 199.90, tags: ["outlet"] }
+    { id: "p12", cat: "bones", name: "Boné High Company Outdoor Black", img: "img/fig-out3.jpg", price: 99.90, was: 199.90, tags: ["outlet"] },
+    { id: "p13", cat: "tenis", name: "Tênis Vans Old Skool Infantil Rosa", img: "img/fig-out1.jpg", price: 239.90, was: 299.90, tags: ["outlet"] },
+    { id: "p14", cat: "tenis", name: "Tênis Hocks Flat Core Cascalho", img: "img/fig-out2.jpg", price: 299.90, tags: ["outlet"] },
+    { id: "p15", cat: "skate", name: "Shape Element Bob Ross 8.65", img: "img/fig-out4.jpg", price: 379.90, was: 429.90, tags: ["outlet", "skate"] }
   ];
   var CATNAME = { tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios", vestuario: "Vestuário" };
 
@@ -53,8 +56,9 @@
   ].map(function (t) {
     return '<a class="tile reveal" href="#produtos"' + (t[2] ? ' data-cat="' + t[2] + '"' : ' data-goto="marcas"') + "><span>" + t[0] + "</span><small>" + t[1] + "</small></a>";
   }).join("");
-  $("#brands").innerHTML = ["Hocks", "Nike SB", "Thrasher", "Santa Cruz", "Element", "Independent", "Qix", "Öus", "Hondar", "Grizzly", "Flip", "Volcom", "Diamond", "New Era"].map(function (b) {
-    return "<span>" + b + "</span>";
+  $("#brands").innerHTML = ["Hocks", "Nike SB", "Thrasher", "Santa Cruz", "Element", "Independent", "Qix", "Öus", "Hondar", "Grizzly", "Flip", "Volcom", "Diamond", "New Era"].map(function (b, i) {
+    var n = ("0" + (i + 1)).slice(-2);
+    return '<img class="brandlogo" src="img/fig-br' + n + '.png" alt="' + b + '" loading="lazy">';
   }).join("");
 
   /* busca + âncoras com filtro */

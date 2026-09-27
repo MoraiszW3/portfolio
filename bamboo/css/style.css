@@ -119,6 +119,7 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; }
 /* skate, marcas, outlet */
 .brands { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; max-width: 1360px; margin: 0 auto; padding: 0 40px; }
 .brands span { background: var(--bg2); border-radius: 10px; padding: 26px 8px; text-align: center; font-weight: 800; font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; }
+.brandlogo { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px; width: 100%; height: 74px; object-fit: contain; }
 
 /* historia */
 .historia .section-head { flex-direction: column; align-items: flex-start; }
