@@ -5,12 +5,6 @@
   --headerbg: rgba(255,255,255,.94); --opton: #e4e0d5; --marqdim: #b9b4aa;
   --sans: "Schibsted Grotesk", Arial, sans-serif; --disp: "Big Shoulders Display", "Arial Black", sans-serif;
 }
-[data-theme="dark"] {
-  --bg: #0e0e0e; --bg2: #161616; --card: #1b1b1b;
-  --ink: #f4f1ea; --mut: #a8a29a; --line: rgba(244,241,234,.12);
-  --acc: #f5f2ea; --onacc: #111111; --panel: #f5f2ea; --onpanel: #111111;
-  --headerbg: rgba(14,14,14,.94); --opton: #2a2a2a; --marqdim: #3d3d3d;
-}
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 var(--sans); overflow-x: hidden; }
@@ -84,26 +78,6 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; }
 .card-price s { color: var(--mut); font-weight: 400; font-size: .85rem; margin-right: 6px; }
 .card-pix { display: block; color: var(--mut); font-size: .8rem; font-weight: 600; }
 
-/* builder */
-.builder .section-head { flex-direction: column; align-items: flex-start; }
-.builder-box { display: grid; grid-template-columns: 1fr 320px; gap: 16px; max-width: 1360px; margin: 0 auto; padding: 0 40px 20px; }
-.presets { display: flex; gap: 8px; margin-bottom: 12px; }
-.presets .opt { flex: 1; text-align: center; font-weight: 800; text-transform: uppercase; }
-.bopt { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-bottom: 12px; }
-.bopt h4 { margin: 0 0 12px; font-size: .95rem; font-family: var(--sans); font-weight: 700; }
-.bopt .opts { display: flex; gap: 8px; flex-wrap: wrap; }
-.opt { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 10px; padding: 10px 14px; cursor: pointer; font-size: .85rem; font-family: var(--sans); }
-.opt small { display: block; font-weight: 700; opacity: .75; }
-.opt.on { border-color: var(--ink); background: var(--opton); }
-.builder-sum { background: var(--panel); color: var(--onpanel); border-radius: 12px; padding: 20px; align-self: start; position: sticky; top: 150px; }
-.builder-sum .eyebrow { color: var(--onpanel); opacity: .7; }
-.builder-sum ul { list-style: none; margin: 12px 0; padding: 0; }
-.builder-sum li { display: flex; justify-content: space-between; gap: 10px; font-size: .88rem; padding: 6px 0; border-bottom: 1px dashed rgba(128,128,128,.4); }
-.build-total { display: flex; justify-content: space-between; align-items: center; margin: 12px 0 16px; }
-.build-total strong { font-family: var(--disp); font-size: 1.7rem; }
-.builder-sum .mut { color: inherit; opacity: .7; }
-.builder-sum .mut a { color: inherit; }
-
 /* chorao + loja (dark fixos) */
 .chorao { background: #111; color: #fff; margin-top: 60px; }
 .chorao-grid { display: grid; grid-template-columns: 380px 1fr; gap: 40px; max-width: 1360px; margin: 0 auto; padding: 80px 40px; align-items: center; }
@@ -125,28 +99,10 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; }
 .brands span { background: var(--bg2); border-radius: 10px; padding: 26px 8px; text-align: center; font-weight: 800; font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; }
 .brandlogo { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px; width: 100%; height: 74px; object-fit: contain; }
 
-/* historia */
-.historia .section-head { flex-direction: column; align-items: flex-start; }
-.timeline { list-style: none; max-width: 1360px; margin: 0 auto; padding: 0 40px; }
-.timeline li { position: relative; padding: 0 0 26px 34px; border-left: 2px solid var(--line); }
-.timeline li::before { content: ""; position: absolute; left: -8px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--ink); }
-.timeline strong { font-family: var(--disp); font-size: 1.3rem; }
-.timeline p { margin: 4px 0 0; color: var(--mut); max-width: 640px; }
-.timeline p strong { font-family: var(--sans); font-size: 1rem; color: var(--ink); }
-.mascote { max-width: 1360px; margin: 26px auto 0; padding: 0 40px 10px; display: grid; grid-template-columns: 300px 1fr; gap: 22px; align-items: center; }
-.mascote img { width: 100%; border-radius: 14px; border: 1px solid var(--line); display: block; }
-.mascote strong { font-family: var(--disp); font-size: 1.4rem; text-transform: uppercase; display: block; margin-bottom: 8px; }
-.mascote p { color: var(--mut); margin: 0; max-width: 560px; }
-
 /* trust */
 .trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 1360px; margin: 0 auto; padding: 60px 40px 10px; }
 .trust strong { display: block; font-size: .92rem; }
 .trust span { color: var(--mut); font-size: .82rem; }
-
-/* comunidade */
-.insta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 1360px; margin: 0 auto; padding: 0 40px; }
-.insta-ph { aspect-ratio: 1; border-radius: 12px; border: 1px dashed var(--line); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--mut); font-weight: 800; text-transform: uppercase; background: var(--bg2); }
-.insta-ph:hover { border-color: var(--ink); color: var(--ink); }
 
 /* footer */
 .footer { background: #111; color: #fff; margin-top: 60px; }
@@ -201,12 +157,11 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .tiles { grid-template-columns: repeat(3, 1fr); }
   .brands { grid-template-columns: repeat(4, 1fr); }
-  .builder-box { grid-template-columns: 1fr; }
-  .builder-sum { position: static; }
+  .tile { padding: 8px; }
   .chorao-grid { grid-template-columns: 1fr; }
   .loja-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
-  .insta-grid { grid-template-columns: repeat(2, 1fr); }
+  .tiles { grid-template-columns: repeat(2, 1fr); }
   .trust { grid-template-columns: repeat(2, 1fr); }
   .camps { grid-template-columns: 1fr; }
   .search { display: none; }
@@ -214,7 +169,6 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; }
   .header { position: sticky; }
   .nav.open { display: flex; }
   .hamburger { display: block; }
-  .mascote { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
