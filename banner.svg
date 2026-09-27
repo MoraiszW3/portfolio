@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="38%" r="65%">
+      <stop offset="0%" stop-color="#fb1404" stop-opacity="0.28"/>
+      <stop offset="60%" stop-color="#fb1404" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff5a3c"/>
+      <stop offset="55%" stop-color="#fb1404"/>
+      <stop offset="100%" stop-color="#8f0b01"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="#060606"/>
+  <rect width="1200" height="400" fill="url(#glow)"/>
+  <rect x="60" y="330" width="1080" height="2" fill="url(#red)" opacity="0.8"/>
+  <text x="600" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" letter-spacing="10" fill="#f5f1ea">MORAISZ <tspan fill="url(#red)">W3</tspan></text>
+  <text x="600" y="245" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="27" letter-spacing="6" fill="#d8d2c4">FRONT-END · E-COMMERCE DE LUXO · APPS INSTALAVEIS</text>
+  <text x="600" y="290" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" letter-spacing="3" fill="#a09a90">GASPAR, BRASIL — OPEN FOR FREELANCE</text>
+</svg>
