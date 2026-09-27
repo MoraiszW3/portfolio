@@ -164,6 +164,20 @@
     if (o) { build[o.getAttribute("data-k")] = parseInt(o.getAttribute("data-i"), 10); renderBuild(); }
   });
 
+  /* tema claro / escuro (designfy: tokens por variável) */
+  var themeBtn = $("#themeBtn");
+  var applyTheme = function (t) {
+    document.documentElement.setAttribute("data-theme", t);
+    try { localStorage.setItem("bamboo-theme", t); } catch (e) {}
+    themeBtn.textContent = (t === "light" ? "◑" : "◐");
+  };
+  var savedTheme = "dark";
+  try { savedTheme = localStorage.getItem("bamboo-theme") || "dark"; } catch (e) {}
+  applyTheme(savedTheme);
+  themeBtn.addEventListener("click", function () {
+    applyTheme(document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light");
+  });
+
   /* reveal */
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } });
