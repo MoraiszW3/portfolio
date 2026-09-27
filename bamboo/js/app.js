@@ -80,7 +80,7 @@
   };
   document.addEventListener("click", function (e) {
     var q = e.target.closest("a[data-qv]");
-    if (q) { e.preventDefault(); openQV(q.getAttribute("data-qv")); return; }
+    if (q) { e.preventDefault(); location.href = "pdp.html?id=" + q.getAttribute("data-qv"); return; }
     var a = e.target.closest("a[data-cat]");
     if (a) { e.preventDefault(); goCat(a.getAttribute("data-cat")); $("#nav").classList.remove("open"); return; }
   });
@@ -90,10 +90,13 @@
     if (this.value.trim()) document.querySelector("#produtos").scrollIntoView();
   });
 
-  /* sacola */
+  /* sacola (persiste entre páginas) */
   var cart = [];
+  try { cart = JSON.parse(localStorage.getItem("bamboo_cart") || "[]"); } catch (e) { cart = []; }
+  var saveCart = function () { try { localStorage.setItem("bamboo_cart", JSON.stringify(cart)); } catch (e) {} };
   var findP = function (id) { return PRODUCTS.filter(function (p) { return p.id === id; })[0]; };
   var refreshCart = function () {
+    saveCart();
     $("#cartCount").textContent = cart.length;
     if (!cart.length) {
       $("#cartBody").innerHTML = '<p class="cart-empty">Sacola vazia.<br>Bora andar?</p>';
@@ -112,29 +115,7 @@
     var rm = e.target.closest("[data-remove],[data-rm]");
     if (rm) { cart.splice(parseInt(rm.getAttribute("data-rm") || rm.getAttribute("data-remove"), 10), 1); refreshCart(); return; }
     var card = e.target.closest(".card");
-    if (card && !e.target.closest("button")) openQV(card.getAttribute("data-id"));
-  });
-
-  /* quick view */
-  var qvId = null;
-  var openQV = function (id) {
-    var p = findP(id); if (!p) return; qvId = id;
-    $("#qvImg").src = p.img; $("#qvImg").alt = p.name;
-    $("#qvCat").textContent = CATNAME[p.cat] || p.cat;
-    $("#qvName").textContent = p.name;
-    $("#qvPrice").innerHTML = '<div class="card-price">' + BRL(p.price) + '</div><span class="card-pix">' + BRL(Math.round(p.price * 0.95 * 100) / 100) + " no Pix · 6x sem juros</span>";
-    $("#qvZap").href = ZAP + encodeURIComponent("Salve! Quero esse: " + p.name + " (" + BRL(p.price) + ")");
-    $("#qv").classList.add("open"); $("#qvOverlay").classList.add("open");
-    document.body.style.overflow = "hidden";
-  };
-  var closeQV = function () {
-    $("#qv").classList.remove("open"); $("#qvOverlay").classList.remove("open");
-    document.body.style.overflow = "";
-  };
-  $("#qvClose").addEventListener("click", closeQV);
-  $("#qvOverlay").addEventListener("click", closeQV);
-  $("#qvAdd").addEventListener("click", function () {
-    if (qvId) { cart.push(qvId); refreshCart(); closeQV(); openCart(); }
+    if (card && !e.target.closest("button")) location.href = "pdp.html?id=" + card.getAttribute("data-id");
   });
 
   var openCart = function () { $("#cart").classList.add("open"); $("#cartOverlay").classList.add("open"); };
@@ -143,7 +124,7 @@
   $("#cartClose").addEventListener("click", closeCart);
   $("#cartOverlay").addEventListener("click", closeCart);
   $("#hamburger").addEventListener("click", function () { $("#nav").classList.toggle("open"); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeQV(); closeCart(); } });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeCart(); } });
 
   /* toast + newsletter */
   var toastTimer;
