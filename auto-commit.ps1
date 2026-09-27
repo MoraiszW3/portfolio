@@ -16,7 +16,8 @@ while ($true) {
       if (git status --porcelain) {
         $quando = Get-Date -Format "yyyy-MM-dd HH:mm"
         git commit -m "auto: $quando" | Out-Null
-        "[$quando] commit automatico" | Add-Content -LiteralPath $log
+        git push origin master 2>&1 | Out-Null
+        "[$quando] commit + push automaticos" | Add-Content -LiteralPath $log
       }
       $dirtySince = $null
     }
