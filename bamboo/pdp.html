@@ -15,9 +15,10 @@
     .crumbs a { color: inherit; text-decoration: none; }
     .crumbs a:hover { text-decoration: underline; }
     .pdp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-    .pdp-media { background: #f2f2ee; border-radius: 16px; overflow: hidden; cursor: zoom-in; }
-    .pdp-media img { width: 100%; display: block; transition: transform .4s; }
-    .pdp-media:hover img { transform: scale(1.5); }
+    .pdp-media { background: #f2f2ee; border-radius: 16px; overflow: hidden; cursor: zoom-in; touch-action: manipulation; }
+    .pdp-media img { width: 100%; display: block; transition: transform .25s; will-change: transform; }
+    .pdp-media.zoom img { transform: scale(2.2); cursor: zoom-out; }
+    .pdp-hint { font-size: .78rem; color: var(--mut); margin-top: 8px; }
     .pdp-info h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin: 8px 0 12px; }
     .pdp-price { font-size: 2rem; font-weight: 800; }
     .pdp-price s { color: var(--mut); font-weight: 400; font-size: 1.2rem; margin-right: 10px; }
@@ -50,7 +51,8 @@
   <main class="pdp-wrap">
     <p class="crumbs"><a href="index.html">Início</a> / <span id="cCat"></span> / <strong id="cName"></strong></p>
     <div class="pdp-grid">
-      <div class="pdp-media"><img id="pImg" src="" alt=""></div>
+      <div class="pdp-media" id="pMedia"><img id="pImg" src="" alt=""></div>
+      <p class="pdp-hint">Passe o mouse ou toque para dar zoom</p>
       <div class="pdp-info">
         <span class="eyebrow" id="pCat"></span>
         <h1 id="pName"></h1>
@@ -93,6 +95,7 @@
     var BRL = function (v) { return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); };
     var ZAP = "https://api.whatsapp.com/send?phone=554733326625&text=";
     var hiRes = function (src) { return src.indexOf("cdn.awsli") > -1 ? src.replace("300x300", "1000x1000") : src; };
+    var thumb = function (src) { return src.indexOf("cdn.awsli") > -1 ? src.replace("300x300", "400x400") : src; };
     var PRODUCTS = [
       { id: "p1", cat: "tenis", catL: "Tênis", name: "Tênis Vans Sk8 Low Black True White", img: "img/vans-sk8-low.jpg", price: 314.90, was: 379.90, specs: [["Cabedal", "Lona + camurça"], ["Solado", "Vulcanizado waffle"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
       { id: "p2", cat: "tenis", catL: "Tênis", name: "Tênis Hocks Bold Unissex Sombras", img: "img/hocks-bold-sombras.jpg", price: 499.90, specs: [["Cabedal", "Couro natural"], ["Detalhe", "Refletivos"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
@@ -138,9 +141,23 @@
       toast("Na sacola! Veja no início.");
     });
     $("#pZap").href = ZAP + encodeURIComponent("Salve! Quero esse: " + p.name + " (" + BRL(p.price) + ")");
+    var media = $("#pMedia"), zoomOn = false;
+    media.addEventListener("mousemove", function (e) {
+      var r = media.getBoundingClientRect();
+      var x = ((e.clientX - r.left) / r.width * 100).toFixed(1);
+      var y = ((e.clientY - r.top) / r.height * 100).toFixed(1);
+      $("#pImg").style.transformOrigin = x + "% " + y + "%";
+      if (!zoomOn) { zoomOn = true; media.classList.add("zoom"); }
+    });
+    media.addEventListener("mouseleave", function () {
+      zoomOn = false; media.classList.remove("zoom");
+    });
+    media.addEventListener("click", function () {
+      zoomOn = !zoomOn; media.classList.toggle("zoom", zoomOn);
+    });
     var rel = PRODUCTS.filter(function (x) { return x.cat === p.cat && x.id !== p.id; }).slice(0, 4);
     $("#relGrid").innerHTML = rel.map(function (r) {
-      return '<article class="card" data-id="' + r.id + '"><div class="card-media"><img src="' + r.img + '" alt="' + r.name + '" loading="lazy"></div>' +
+      return '<article class="card" data-id="' + r.id + '"><div class="card-media"><img src="' + thumb(r.img) + '" alt="' + r.name + '" loading="lazy"></div>' +
         '<div class="card-body"><span class="card-cat">' + r.catL + '</span><span class="card-name">' + r.name + '</span>' +
         '<div class="card-price">' + BRL(r.price) + "</div></div></article>";
     }).join("");

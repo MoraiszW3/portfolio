@@ -25,10 +25,11 @@
   ];
   var CATNAME = { tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios", vestuario: "Vestuário" };
 
+  var thumb = function (src) { return src.indexOf("cdn.awsli") > -1 ? src.replace("300x300", "400x400") : src; };
   var cardHTML = function (p) {
     var pix = Math.round(p.price * 0.95 * 100) / 100;
     return '<article class="card" data-id="' + p.id + '">' +
-      '<div class="card-media"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></div>' +
+      '<div class="card-media"><img src="' + thumb(p.img) + '" alt="' + p.name + '" loading="lazy"></div>' +
       '<div class="card-body"><span class="card-cat">' + CATNAME[p.cat] + '</span>' +
       '<span class="card-name">' + p.name + '</span>' +
       '<div class="card-price">' + (p.was ? "<s>" + BRL(p.was) + "</s>" : "") + BRL(p.price) + "</div>" +
