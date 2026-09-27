@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moraiz Madison — Polo Club Italiano</title>
+  <meta name="description" content="Moraisz Madison — marca de luxo italiana. Óculos de luxo e acessórios MzM, espírito polo EuroSummer, clube privado.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' fill='%23c9a45c' text-anchor='middle'%3EMM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  <!-- Tailwind (Play CDN, preflight OFF p/ não brigar com o CSS próprio) + GSAP -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      corePlugins: { preflight: false },
+      theme: { extend: {
+        colors: { gold: '#c9a45c', goldsoft: '#e0c289', cream: '#f1ece2', primary: '#c9a45c', ink: '#0a0a0a' },
+        fontFamily: { serif: ['"Cormorant Garamond"', 'Georgia', 'serif'] }
+      } }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body data-theme="light">
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-inner">
+      <span class="preloader-logo">Moraisz Madison</span>
+      <div class="preloader-line"></div>
+    </div>
+  </div>
+
+  <!-- Intro removida por pedido do cliente — entrada direta no hero -->
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="header-main">
+      <div class="header-left">
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+        <a href="#manufatura" class="header-account">Atelier</a>
+      </div>
+      <div class="header-center">
+        <a href="#" class="brand">Moraisz <em>Madison</em></a>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn" id="themeToggle" aria-label="Alterar cor do site" title="Alterar cor do site">◐</button>
+        <button class="icon-btn" id="searchToggle" aria-label="Buscar">🔍</button>
+        <button class="icon-btn heart-btn" id="wishlistBtn" aria-label="Favoritos">♡<span class="badge" id="wishCount">0</span></button>
+        <button class="icon-btn cart-icon-btn" id="cartBtn" aria-label="Sacola">🛍<span class="badge" id="cartCount">0</span></button>
+      </div>
+    </div>
+    <nav class="header-nav" id="headerNav">
+      <ul class="nav-list">
+        <li class="has-drop">
+          <a href="#colecao">Coleção</a>
+          <div class="drop">
+            <a href="#colecao" data-cat="sol">Óculos de Sol</a>
+            <a href="#colecao" data-cat="grau">Óculos de Grau</a>
+            <a href="#colecao" data-cat="acessorios">Acessórios</a>
+          </div>
+        </li>
+        <li><a href="#colecao" data-cat="relogios">Relógios</a></li>
+        <li><a href="#colecao" data-cat="bolsas">Bolsas</a></li>
+        <li><a href="#signature">Maison Signature</a></li>
+        <li><a href="#manufatura">Atelier</a></li>
+        <li><a href="#historia">História</a></li>
+        <li><a href="#newsletter">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Mobile menu overlay -->
+  <div class="mmenu-overlay" id="mmenuOverlay"></div>
+  <aside class="mmenu" id="mmenu">
+    <button class="mmenu-close" id="mmenuClose">✕</button>
+    <ul>
+      <li><a href="#colecao">Coleção</a><span>Todas as peças MM</span></li>
+      <li><a href="#colecao" data-cat="sol">Óculos de Sol</a><span>Linha Riviera, Ophidia, Capri</span></li>
+      <li><a href="#colecao" data-cat="grau">Óculos de Grau</a><span>Savoy, Glorietta, Veneto</span></li>
+      <li><a href="#colecao" data-cat="acessorios">Acessórios</a><span>Estojos, correntes, flanelas</span></li>
+      <li><a href="#colecao" data-cat="relogios">Relógios</a><span>Em parceria: Rolex, Patek, AP</span></li>
+      <li><a href="#colecao" data-cat="bolsas">Bolsas</a><span>Cuoio italiano, Alta Gioia</span></li>
+      <li><a href="#signature">Maison Signature</a><span>O Ophidia Original</span></li>
+      <li><a href="#historia">História MM</a><span>Uma herança desde 1998</span></li>
+      <li><a href="#newsletter">Contato</a><span>Visita privada</span></li>
+    </ul>
+  </aside>
+
+  <!-- Search overlay -->
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-box">
+      <button class="search-close" id="searchClose" aria-label="Fechar busca">✕</button>
+      <span class="eyebrow">Buscar na maison</span>
+      <input type="search" id="searchInput" placeholder="Ex: Polo, Madison, MzM…" autocomplete="off" aria-label="Buscar peças">
+      <div class="search-results" id="searchResults"></div>
+      <p class="search-hint">Enter — ver tudo na coleção · Esc — fechar</p>
+    </div>
+  </div>
+
+  <!-- ============ HERO FULL-BLEED (estilo TikTok: macro + headline + 01/03) ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-sticky">
+      <div class="eye-frame" id="eyeFrame">
+        <figure class="hero-bleed">
+          <img src="img/capa-country-club.png" alt="Moraisz Madison Country Club Collection — capa" class="hero-bleed__img" id="heroBleedImg" fetchpriority="high" decoding="async">
+          <div class="hero-bleed__veil"></div>
+        </figure>
+        <div class="hero-copy">
+          <h1 class="hero-title" id="heroTitle">Polo Club <em>EuroSummer</em>.</h1>
+          <p class="hero-sub" id="heroSub">Moraisz Madison · Itália como base · óculos e acessórios de luxo</p>
+          <a href="#colecao" class="hero-cta">Explorar a coleção</a>
+        </div>
+        <div class="hero-scenes" aria-hidden="true">
+          <span class="hero-scenes__num" id="heroSceneNum">01</span>
+          <span class="hero-scenes__total">/ 03</span>
+          <div class="hero-progress"><span id="heroProgressBar"></span></div>
+        </div>
+        <div class="hero-scroll-hint" id="scrollHint">
+          <span>Deslize para descobrir</span>
+          <div class="hint-line"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-shadow" id="heroShadow"></div>
+  </section>
+
+  <main>
+  <!-- ============ BENEFITS BAR ============ -->
+  <div class="benefits">
+    <div><strong>Polo Club EuroSummer</strong><span>Espírito clube de rico, Itália como base</span></div>
+    <div><strong>Loja Oficial Moraisz Madison</strong><span>Atelier direto da Itália</span></div>
+    <div><strong>Óculos de Luxo</strong><span>Peças numeradas, acabamento polo</span></div>
+    <div><strong>Acessórios MzM</strong><span>Estojos, correntes e flanelas finas</span></div>
+    <div><strong>Envio para todo Brasil</strong><span>Embalagem de presente assinada</span></div>
+  </div>
+
+  <!-- ============ CATEGORY CARDS ============ -->
+  <section class="categorias">
+    <header class="section-head reveal">
+      <span class="eyebrow">Escolha o seu estilo</span>
+      <h2 class="section-title">A sua visão. A sua <em>escolha</em>.</h2>
+    </header>
+    <div class="cat-grid">
+      <!-- GRADE LIMPA — sem fotos. Para repor: troque .cat-ph por <img src="img/sua-foto.jpg" alt="..."> -->
+      <a class="cat-card reveal" href="#colecao" data-cat="todas">
+        <div class="cat-ph" role="img" aria-label="Toda a Coleção — foto em breve"><span class="cat-ph__shine"></span><span class="cat-ph__logo">MM</span><span class="cat-ph__txt">Foto em breve</span></div>
+        <div class="cat-info">
+          <span class="cat-title">Toda a Coleção</span>
+          <span class="cat-sub">Eyewear · Relógios · Bolsas</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+      <a class="cat-card reveal" href="#colecao" data-cat="sol">
+        <div class="cat-ph" role="img" aria-label="Óculos de Sol — foto em breve"><span class="cat-ph__shine"></span><span class="cat-ph__logo">MM</span><span class="cat-ph__txt">Foto em breve</span></div>
+        <div class="cat-info">
+          <span class="cat-title">Óculos de Sol</span>
+          <span class="cat-sub">Lentes esmeraldas e crisólito</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+      <a class="cat-card reveal" href="#colecao" data-cat="grau">
+        <div class="cat-ph" role="img" aria-label="Óculos de Grau — foto em breve"><span class="cat-ph__shine"></span><span class="cat-ph__logo">MM</span><span class="cat-ph__txt">Foto em breve</span></div>
+        <div class="cat-info">
+          <span class="cat-title">Óculos de Grau</span>
+          <span class="cat-sub">Acetato Mazzucchelli®</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+      <a class="cat-card reveal" href="#colecao" data-cat="acessorios">
+        <div class="cat-ph" role="img" aria-label="Acessórios — foto em breve"><span class="cat-ph__shine"></span><span class="cat-ph__logo">MM</span><span class="cat-ph__txt">Foto em breve</span></div>
+        <div class="cat-info">
+          <span class="cat-title">Acessórios</span>
+          <span class="cat-sub">Estojos, correntes e flanelas</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+      <a class="cat-card reveal" href="#colecao" data-cat="relogios">
+        <div class="cat-ph" role="img" aria-label="Relógios — foto em breve"><span class="cat-ph__shine"></span><span class="cat-ph__logo">MM</span><span class="cat-ph__txt">Foto em breve</span></div>
+        <div class="cat-info">
+          <span class="cat-title">Relógios em Parceria</span>
+          <span class="cat-sub">Rolex · Patek Philippe · Audemars Piguet</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+      <a class="cat-card reveal" href="#colecao" data-cat="bolsas">
+        <div class="cat-ph" role="img" aria-label="Bolsas — foto em breve"><span class="cat-ph__shine"></span><span class="cat-ph__logo">MM</span><span class="cat-ph__txt">Foto em breve</span></div>
+        <div class="cat-info">
+          <span class="cat-title">Bolsas W3</span>
+          <span class="cat-sub">MM & W3 Collection · Alta Gioia</span>
+          <span class="cat-link">Ver coleção</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ COLECAO (FILTRÁVEL) ============ -->
+  <section class="destaques" id="colecao">
+    <div class="section-head reveal">
+      <span class="eyebrow">A Coleção 2026</span>
+      <h2 class="section-title" id="colecaoTitle">Todas as <em>Peças</em></h2>
+      <p class="section-sub" id="colecaoSub">Eyewear de alta óptica, relógios em ouro e bolsas de cuoio italiano.</p>
+    </div>
+    <div class="filters reveal" id="filters">
+      <button type="button" class="pill active" data-filter="todas">Todas</button>
+      <button type="button" class="pill" data-filter="sol">Óculos de Sol</button>
+      <button type="button" class="pill" data-filter="grau">Óculos de Grau</button>
+      <button type="button" class="pill" data-filter="acessorios">Acessórios</button>
+      <button type="button" class="pill" data-filter="relogios">Relógios</button>
+      <button type="button" class="pill" data-filter="bolsas">Bolsas</button>
+    </div>
+    <div class="viewtoggle reveal" role="group" aria-label="Modo de visualização">
+      <button type="button" class="active" data-view="grade">Grade</button>
+      <button type="button" data-view="3d">3D</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="gal3d-stage colecao-3d" id="col3dStage" hidden>
+      <div class="gal3d-track" id="col3dTrack"></div>
+      <button type="button" class="gal3d-arrow gal3d-prev" id="col3dPrev" aria-label="Peça anterior">‹</button>
+      <button type="button" class="gal3d-arrow gal3d-next" id="col3dNext" aria-label="Próxima peça">›</button>
+    </div>
+    <div class="gal3d-dots" id="col3dDots" hidden></div>
+    <p class="col3d-count" id="col3dCount" hidden></p>
+    <p class="col3d-empty" id="col3dEmpty" hidden>Nenhuma peça 3D aqui — o 3D mostra <strong>óculos e bolsas</strong>. <button type="button" id="col3dTodas">Ver tudo em 3D</button></p>
+    <div class="veja-mais reveal">
+      <a href="#" class="btn-outline" data-cat="todas">Ver toda a coleção</a>
+    </div>
+  </section>
+
+  <!-- ============ SIGNATURE BANNER ============ -->
+  <section class="signature reveal" id="signature">
+    <div class="signature-media">
+      <img src="img/eyewear-mm-club.png" alt="MM EuroSummer Club — peça ícone da maison" loading="lazy">
+    </div>
+    <div class="signature-info">
+      <span class="eyebrow">Maison Signature · MM & W3 Collection</span>
+      <h2 class="section-title">W3 <em>Ophidia</em></h2>
+      <p>Nossa peça ancestral: armação em ouro com ponte sob medida e lentes verde-esmeralda, espírito polo EuroSummer da costa italiana. Edição numerada de 1 a 100.</p>
+      <ul class="feats">
+        <li><strong>Edição limitada</strong> de 100 unidades</li>
+        <li><strong>Ouro 18k</strong> com acabamento espelhado</li>
+        <li><strong>Numbered &amp; Engraved</strong> — certificado do atelier</li>
+      </ul>
+      <a href="#colecao" class="btn-solid" data-cat="sol">Ver a peça ancestral</a>
+    </div>
+  </section>
+
+  <!-- ============ CAMPANHA — MODELOS ============ -->
+  <section class="campanha" id="campanha">
+    <header class="section-head reveal">
+      <span class="eyebrow">A nova campanha · EuroSummer</span>
+      <h2 class="section-title">Clube <em>Moraisz Madison</em></h2>
+      <p class="section-sub">Polo, iate e Costa Amalfitana. A armação é só o começo.</p>
+    </header>
+    <div class="model-grid">
+      <!-- 1º LUGAR — Leo Ames com óculos MM (foto editada) -->
+      <figure class="model-card reveal model-card--leo">
+        <div class="model-photo">
+          <img src="img/leo-ames-w3.png" alt="Leo Ames usando óculos MM Óptica" loading="lazy" onerror="this.remove()">
+        </div>
+        <span class="w3-mark">MM</span>
+        <figcaption>
+          <span class="model-name">Leo Ames</span>
+          <span class="model-look">Looks Riviera · Sol MM</span>
+        </figcaption>
+      </figure>
+      <figure class="model-card reveal">
+        <div class="model-photo">
+          <img src="img/vitor-miguel-w3.png" alt="Vitor Miguel usando óculos MM Óptica" loading="lazy" onerror="this.remove()">
+        </div>
+        <span class="w3-mark">MM</span>
+        <figcaption>
+          <span class="model-name">Vitor Miguel</span>
+          <span class="model-look">Looks Noir · Sol MM</span>
+        </figcaption>
+      </figure>
+      <figure class="model-card reveal">
+        <div class="model-photo">
+          <img src="img/gabriel-morais-w3.png" alt="Gabriel Morais usando óculos MM Óptica" loading="lazy" onerror="this.remove()">
+        </div>
+        <span class="w3-mark">MM</span>
+        <figcaption>
+          <span class="model-name">Gabriel Morais</span>
+          <span class="model-look">Looks Portofino · Sol MM</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ HISTÓRIA Moraisz Madison — POLO CLUB ITALIANO ============ -->
+  <section class="historia" id="historia">
+    <!-- Baía de Portofino (foto original das primeiras versões, local) -->
+    <div class="historia-bg" style="background-image:url('img/portofino.jpg');"></div>
+    <div class="historia-veil"></div>
+    <div class="historia-inner">
+      <span class="eyebrow reveal">Moraisz Madison · Desde 1998</span>
+      <h2 class="section-title reveal">Nascida em família,<br>de volta à <em>cena</em>.</h2>
+      <div class="historia-story reveal">
+        <p>A Moraisz Madison nasceu em <strong>1998</strong>, em família, entre Portofino e Milão — espírito polo: iate ao pôr do sol, campo verde, linho branco e óculos de luxo. Base italiana, atitude de clube privado.</p>
+        <p>Depois de anos longe dos holofotes, a maison <strong>voltou à cena em 2025</strong>: a mesma herança, o mesmo brasão, um novo EuroSummer. Não seguimos tendências — herdamos padrões. É por isso que aquilo que vestimos hoje é o que os nossos netos irão vestir.</p>
+        <p class="historia-quote">« Il tempo è la lente più preziosa. »</p>
+        <span class="quote-author">— O Fundador</span>
+      </div>
+      <div class="historia-seals reveal">
+        <div><strong>1998</strong><span>Criada em família</span></div>
+        <div><strong>2025</strong><span>Volta à cena</span></div>
+        <div><strong>27 anos</strong><span>De herança viva</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MANUFATURA / ATELIER ============ -->
+  <section class="manufatura" id="manufatura">
+    <div class="manufatura-cols">
+      <div class="manufatura-media reveal">
+        <img src="img/atelier-moraisz-madison.png" alt="Moraisz Madison — campanha polo na vila italiana" loading="lazy">
+      </div>
+      <div class="manufatura-text reveal">
+        <span class="eyebrow">Atelier Artesanal</span>
+        <h2 class="section-title">Feito por mãos<br>que nunca <em>correm</em></h2>
+        <p>Há 28 anos, uma única bancada no centro de Milão dá origem a cada armação MM. Oito horas de polimento, 14 camadas de verniz e um único par de mãos: as nossas.</p>
+        <ul class="feats">
+          <li><strong>Acetato Mazzucchelli®</strong> — italiano, de origem vegetal</li>
+          <li><strong>Biseles a 14 camadas</strong> — polimento espelhado</li>
+          <li><strong>Charneiras de titânio</strong> — ajuste milimétrico</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEMÓRIA MADISON (1998 → 2025) ============ -->
+  <section class="comunidade" id="comunidade">
+    <header class="section-head reveal">
+      <span class="eyebrow">Madison Memory · Desde 1998</span>
+      <h2 class="section-title">Memória <em>Madison</em>.</h2>
+      <p class="section-sub">Criada em família em 1998, a Madison voltou à cena em 2025. Cada campanha, um capítulo da herança — do clube original ao EuroSummer de hoje.</p>
+    </header>
+    <div class="insta-grid reveal">
+      <!-- Tennis Club Collection em cena -->
+      <a class="insta-card" href="#comunidade"><img src="img/cena-tennis-club.png" alt="Moraisz Madison Tennis Club Collection — em cena" loading="lazy"><span>↗</span></a>
+      <a class="insta-card" href="#comunidade"><img src="img/capa-moraisz-madison.png" alt="Moraisz Madison Polo Club EuroSummer — memória" loading="lazy"><span>↗</span></a>
+      <a class="insta-card" href="#comunidade"><img src="img/memoria-1998.png" alt="Madison Memory — o clube original, 1998" loading="lazy"><span>↗</span></a>
+      <a class="insta-card" href="#comunidade"><img src="img/life-night.png" alt="Madison Memory — acessórios à noite, óculos e relógio" loading="lazy"><span>↗</span></a>
+    </div>
+  </section>
+
+  <!-- ============ NEWSLETTER ============ -->
+  <section class="newsletter" id="newsletter">
+    <div class="newsletter-inner reveal">
+      <span class="eyebrow">Convite privado</span>
+      <h2 class="section-title">Entre para o<br>círculo <em>Madison</em>.</h2>
+      <p>Novas edições, pré-vendas e convites para as boutiques. Direto do atelier para a sua caixa de entrada.</p>
+      <form class="news-form" id="newsForm">
+        <input type="email" name="email" id="emailInput" placeholder="Seu melhor e-mail" required>
+        <button type="submit" class="btn-solid">Enviar</button>
+      </form>
+      <p class="news-note">Sem ruído. Apenas o essencial.</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand">Moraisz <em>Madison</em></span>
+        <p>Marca de luxo italiana · óculos de luxo e acessórios MzM. Polo Club EuroSummer.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegue</h4>
+        <a href="#colecao">Coleção</a>
+        <a href="#signature">Maison Signature</a>
+        <a href="#historia">História MM</a>
+        <a href="#comunidade">Memória Madison</a>
+      </div>
+      <div class="footer-col">
+        <h4>Atendimento</h4>
+        <a href="mailto:atendimento@moraiszmadison.com.br">atendimento@moraiszmadison.com.br</a>
+        <a href="#newsletter">Contato</a>
+        <a href="#">Política de privacidade</a>
+      </div>
+      <div class="footer-col">
+        <h4>Boutiques</h4>
+        <span>Milão · Via Montenapoleone 8</span>
+        <span>Portofino · Piazzetta 14</span>
+        <span>São Paulo · Jardins, Oscar Freire</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Moraisz Madison — Alta Óptica. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ============ ANNOUNCEMENT MARQUEE (fim do site) ============ -->
+  <div class="announce announce--bottom">
+    <div class="announce-track">
+      <span>✦ Moraisz Madison Polo Club — EuroSummer Itália</span>
+      <span>✦ Frete grátis acima de R$ 999 para todo o Brasil</span>
+      <span>✦ 5% de cortesia no Pix</span>
+      <span>✦ Certificado de autenticidade em cada peça</span>
+      <span>✦ Moraisz Madison Polo Club — EuroSummer Itália</span>
+      <span>✦ Frete grátis acima de R$ 999 para todo o Brasil</span>
+      <span>✦ 5% de cortesia no Pix</span>
+      <span>✦ Certificado de autenticidade em cada armação</span>
+    </div>
+  </div>
+  </main>
+
+  <!-- ============ QUICK VIEW (página individual do óculos) ============ -->
+  <div class="qv-overlay" id="qvOverlay"></div>
+  <div class="qv" id="qv" role="dialog" aria-modal="true" aria-label="Detalhes da peça" aria-hidden="true">
+    <div class="qv-panel">
+      <button class="qv-close" id="qvClose" aria-label="Fechar detalhes">✕</button>
+      <div class="qv-media">
+        <div class="qv-main" id="qvMain"></div>
+        <button class="qv-arrow qv-prev" id="qvPrev" aria-label="Foto anterior">‹</button>
+        <button class="qv-arrow qv-next" id="qvNext" aria-label="Próxima foto">›</button>
+        <div class="qv-thumbs" id="qvThumbs"></div>
+      </div>
+      <div class="qv-info">
+        <span class="card-cat" id="qvCat"></span>
+        <h3 class="qv-name" id="qvName"></h3>
+        <div class="qv-stars" id="qvStars"></div>
+        <p class="qv-desc" id="qvDesc"></p>
+        <div class="qv-price" id="qvPrice"></div>
+        <ul class="qv-specs" id="qvSpecs"></ul>
+        <div class="qv-buy">
+          <div class="ds-stepper">
+            <button type="button" class="ds-stepper__btn" id="qvDec" aria-label="Diminuir quantidade">−</button>
+            <input class="ds-stepper__input" id="qvQty" value="1" inputmode="numeric" autocomplete="off" aria-label="Quantidade">
+            <button type="button" class="ds-stepper__btn" id="qvInc" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <button type="button" class="btn-solid" id="qvAdd">Adicionar à Sacola</button>
+          <button type="button" class="wish-btn" id="qvWish" aria-label="Desejar">♡</button>
+        </div>
+        <p class="cart-note">Frete grátis acima de R$ 999 · Certificado numerado incluso</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CART DRAWER ============ -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart" id="cart">
+    <div class="cart-head">
+      <h3>Sacola <em>Madison</em></h3>
+      <span class="cart-sub-count" id="cartSubCount">0 itens</span>
+      <button class="cart-close" id="cartClose" aria-label="Fechar">✕</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <p class="cart-empty">Sua sacola está vazia.<br>Permita-se escolher algo extraordinário.</p>
+    </div>
+    <div class="cart-foot">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <strong id="cartTotal">R$ 0</strong>
+      </div>
+      <button class="btn-solid w-full" id="checkoutBtn">Finalizar Compra</button>
+      <p class="cart-note">Frete grátis acima de R$ 999 · Pagamento seguro</p>
+      <div class="cart-ds-info">
+        <details class="ds-accordion" name="cart-info">
+          <summary>Envio <svg class="ds-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="ds-accordion__body"><div class="ds-accordion__inner"><p><strong>Frete grátis</strong> acima de R$ 999 para todo o Brasil, em embalagem de presente assinada pelo atelier.</p></div></div>
+        </details>
+        <details class="ds-accordion" name="cart-info">
+          <summary>Trocas <svg class="ds-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="ds-accordion__body"><div class="ds-accordion__inner"><p>Ajuste de armação <strong>vitalício</strong> e trocas em até 7 dias, com concierge dedicado.</p></div></div>
+        </details>
+        <details class="ds-accordion" name="cart-info">
+          <summary>Autenticidade <svg class="ds-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="ds-accordion__body"><div class="ds-accordion__inner"><p>Cada peça acompanha <strong>certificado numerado</strong> do atelier de Milão.</p></div></div>
+        </details>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ WISHLIST DRAWER ============ -->
+  <div class="cart-overlay wish-overlay" id="wishOverlay"></div>
+  <aside class="cart wish" id="wishlist" aria-label="Lista de desejos">
+    <div class="cart-head">
+      <h3>Desejos <em>Madison</em></h3>
+      <span class="cart-sub-count" id="wishSubCount">0 peças</span>
+      <button class="cart-close" id="wishClose" aria-label="Fechar">✕</button>
+    </div>
+    <div class="cart-body" id="wishBody">
+      <p class="cart-empty">Nenhum desejo guardado ainda.<br>Explore a coleção.</p>
+    </div>
+    <div class="cart-foot">
+      <button class="btn-solid w-full" id="wishToBag">Adicionar todos à sacola</button>
+      <p class="cart-note">Guardado neste aparelho · Toque ♥ para remover</p>
+    </div>
+  </aside>
+
+  <!-- ============ TOAST ============ -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js?v=15"></script>
+</body>
+</html>

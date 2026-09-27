@@ -1,0 +1,109 @@
+/* ============================================================
+   W3 ÓPTICA — Design System
+   Port (vanilla CSS) de stackzero/commerce-ui (MIT License,
+   https://github.com/stackzero-labs/ui — shadcn/new-york,
+   Tailwind v4) para o site estático W3Optica.
+   REGRA: cores W3 preservadas — tokens semânticos shadcn
+   (--background, --primary, ...) apontam para a paleta
+   Preto / Marfim / Ouro definida em css/style.css.
+   ============================================================ */
+
+/* ---------- 1. TOKENS (shadcn -> W3) ---------- */
+:root {
+  --background: var(--black);
+  --foreground: var(--cream);
+  --card: var(--black-2);
+  --card-foreground: var(--cream);
+  --popover: var(--black-3);
+  --popover-foreground: var(--cream);
+  --primary: var(--gold);
+  --primary-foreground: var(--black);
+  --secondary: #1e1b14;
+  --secondary-foreground: var(--gold-soft);
+  --muted: #141311;
+  --muted-foreground: #a49d8d;
+  --accent: var(--gold);
+  --accent-foreground: var(--black);
+  --destructive: #d04855;
+  --destructive-foreground: #f6e9e7;
+  --border: var(--line);
+  --input: rgba(233, 225, 208, 0.22);
+  --ring: var(--gold);
+  --radius: 0.5rem;
+}
+
+/* Anel de foco acessível padrão do DS */
+.ds-focus:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ---------- 2. BADGE (ui/badge: cva + variants) ---------- */
+.ds-badge {
+  display: inline-flex; align-items: center;
+  border: 1px solid transparent; border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.58rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  line-height: 1.4; white-space: nowrap;
+}
+.ds-badge--gold { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.ds-badge--outline { background: rgba(10,10,10,0.72); color: var(--cream-soft); border-color: var(--border); font-weight: 400; }
+.ds-badge--sale { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); letter-spacing: 0.1em; }
+.ds-badge--ghost { background: rgba(201,164,92,0.1); color: var(--gold-soft); border-color: rgba(201,164,92,0.45); }
+
+/* ---------- 3. PRICE (price-format/sale) ---------- */
+.ds-price { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ds-price__original { color: var(--muted-foreground); text-decoration: line-through; font-weight: 400; font-size: 0.8rem; }
+.ds-price__sale { font-size: inherit; font-weight: 500; color: inherit; }
+
+/* ---------- 4. STARS (star-rating/fractions, readOnly) ---------- */
+.ds-stars { position: relative; display: inline-flex; align-items: center; gap: 2px; }
+.ds-stars svg { flex: none; }
+
+/* ---------- 5. STEPPER (quantity-input/basic) ---------- */
+.ds-stepper { display: inline-flex; align-items: stretch; }
+.ds-stepper__btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 30px; min-height: 30px;
+  background: none; border: 1px solid var(--border); color: var(--cream);
+  font-size: 0.9rem; line-height: 1;
+  transition: border-color 0.3s, color 0.3s, background 0.3s;
+}
+.ds-stepper__btn:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.ds-stepper__btn:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+.ds-stepper__btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+.ds-stepper__btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.ds-stepper__input {
+  width: 40px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  border-left: none; border-right: none;
+  background: transparent; color: var(--cream);
+  font-family: var(--sans); font-size: 0.82rem; text-align: center;
+  outline: none; padding: 0 2px;
+}
+.ds-stepper__input:focus { border-color: var(--gold); color: var(--gold-soft); }
+
+/* ---------- 6. ACCORDION (ui/accordion, details/summary) ---------- */
+.ds-accordion { border-top: 1px solid var(--border); }
+.ds-accordion:last-child { border-bottom: 1px solid var(--border); }
+.ds-accordion summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 13px 2px;
+  font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--cream-soft);
+  transition: color 0.3s;
+}
+.ds-accordion summary::-webkit-details-marker { display: none; }
+.ds-accordion summary:hover { color: var(--gold-soft); }
+.ds-accordion summary:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.ds-accordion .ds-chevron { flex: none; color: var(--gold); transition: transform 0.35s var(--ease); }
+.ds-accordion[open] .ds-chevron { transform: rotate(180deg); }
+.ds-accordion__body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+.ds-accordion[open] .ds-accordion__body { grid-template-rows: 1fr; }
+.ds-accordion__inner { overflow: hidden; }
+.ds-accordion__inner p { padding: 0 2px 15px; font-size: 0.74rem; line-height: 1.8; color: var(--cream-soft); opacity: 0.85; }
+.ds-accordion__inner strong { color: var(--gold-soft); font-weight: 500; }
+
+/* Bloco de accordions no rodapé da sacola */
+.cart-ds-info { margin-top: 16px; }
