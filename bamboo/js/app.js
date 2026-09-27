@@ -63,7 +63,14 @@
       toast("Mostrando: " + (map[cat] || cat));
     }
   };
+  var goSearch = function (term) {
+    $("#searchInput").value = term;
+    renderAll(term.trim());
+    document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
+  };
   document.addEventListener("click", function (e) {
+    var s = e.target.closest("a[data-search]");
+    if (s) { e.preventDefault(); goSearch(s.getAttribute("data-search")); $("#nav").classList.remove("open"); return; }
     var q = e.target.closest("a[data-qv]");
     if (q) { e.preventDefault(); location.href = "pdp.html?id=" + q.getAttribute("data-qv"); return; }
     var a = e.target.closest("a[data-cat]");
