@@ -12,7 +12,7 @@
 - Workspace: `E:\codes zed\Default Project`
 
 ## Regra permanente
-- **atelie-de-vitrine é prioridade**: todo trabalho de site/loja segue `C:\Users\Gabriel\.agents\skills\atelie-de-vitrine\SKILL.md` (instalada do GitHub Greed9797, com references/ e scripts/qa_loja.py), salvo ordem explícita em contrário. Registrado também em `opencode.jsonc` → instructions.
+- **designfy é prioridade**: todo trabalho de site/loja segue `C:\Users\Gabriel\.agents\skills\designfy\SKILL.md` (instalada do GitHub Greed9797, com references/, evals/ e scripts; inclui conversão, banners, mobile e processo-figma), salvo ordem explícita em contrário. Registrado também em `opencode.jsonc` → instructions. (atelie-de-vitrine fica como reserva)
 
 ## Feito
 - 2026-09-27: **Repo organizado (vitrine)** — `scripts/`, `docs/`, README com tabela dos 3 projetos; caminhos corrigidos e testado (`ouvir-celular OK`); conta renomeada pra MoraiszW3, remote atualizado
