@@ -113,39 +113,45 @@
   $$("#nav a").forEach(function (a) { a.addEventListener("click", function () { $("#nav").classList.remove("open"); }); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeQV(); closeCart(); } });
 
-  /* MONTE SEU SKATE (marcas e valores ilustrativos — confirmar na loja) */
+  /* MONTE SEU SKATE — preços 100% reais do lojabamboo.com.br.
+     Trucks, rolamentos e lixas estão sem produto no site: fecham no WhatsApp. */
   var GROUPS = [
-    { k: "shape", el: "optShape", opts: [["Black Sheep marfim", 159.9], ["Drop Dead", 189.9], ["Element", 319.9], ["Flip", 329.9], ["Santa Cruz", 359.9]] },
-    { k: "size", el: "optSize", opts: [["8.0", 0], ["8.125", 0], ["8.25", 0]] },
-    { k: "art", el: "optArt", opts: [["Bamboo Capivara", 0], ["Clássica preta", 0], ["Listras", 0]] },
-    { k: "truck", el: "optTruck", opts: [["Crail 139mm", 249], ["Silver 139mm", 429], ["Venture 144mm", 529], ["Independent 149mm", 599]] },
-    { k: "roda", el: "optRoda", opts: [["Moska 52mm", 149], ["Black Sheep 54mm", 169], ["Spitfire 54mm", 329], ["Bones 53mm", 359]] },
-    { k: "rol", el: "optRol", opts: [["ABEC 5", 59.9], ["ABEC 7", 79.9], ["Black Sheep", 89.9], ["ABEC 9", 99.9], ["Bones Reds", 199.9]] },
-    { k: "lixa", el: "optLixa", opts: [["Black Sheep", 49.9], ["Jessup", 64.9], ["Shake Junt", 89.9]] }
+    { k: "shape", el: "optShape", opts: [
+      ["Shape 8.0 Milk Maple", 299.9], ["Shape 8.25 Milk Maple", 299.9],
+      ["Shape 8.65 Element Bob Ross", 379.9], ["Shape 8.5 Element Black Planet", 399.9],
+      ["Shape Pro Model Patrik Mazzuchini", 399.9]] },
+    { k: "truck", el: "optTruck", opts: [["Truck — ver no WhatsApp", 0]] },
+    { k: "roda", el: "optRoda", opts: [
+      ["Spitfire F4 53mm 99A (jogo)", 599.9], ["Outras — ver no WhatsApp", 0]] },
+    { k: "rol", el: "optRol", opts: [["Rolamento — ver no WhatsApp", 0]] },
+    { k: "lixa", el: "optLixa", opts: [["Lixa — ver no WhatsApp", 0]] }
   ];
   var PRESETS = [
-    { shape: 0, size: 0, art: 0, truck: 0, roda: 0, rol: 0, lixa: 0 },
-    { shape: 1, size: 1, art: 1, truck: 1, roda: 1, rol: 2, lixa: 1 },
-    { shape: 4, size: 2, art: 0, truck: 3, roda: 3, rol: 4, lixa: 2 }
+    { shape: 0, truck: 0, roda: 1, rol: 0, lixa: 0 },
+    { shape: 2, truck: 0, roda: 1, rol: 0, lixa: 0 },
+    { shape: 4, truck: 0, roda: 0, rol: 0, lixa: 0 }
   ];
-  var build = { shape: 0, size: 0, art: 0, truck: 0, roda: 0, rol: 0, lixa: 0 };
+  var build = { shape: 0, truck: 0, roda: 1, rol: 0, lixa: 0 };
   var gByKey = function (k) { return GROUPS.filter(function (g) { return g.k === k; })[0]; };
+  var bName = function (k) { var g = gByKey(k); return g.opts[build[k]][0]; };
+  var bPrice = function (k) { var g = gByKey(k); return g.opts[build[k]][1]; };
   var renderBuild = function () {
     GROUPS.forEach(function (g) {
       $("#" + g.el).innerHTML = g.opts.map(function (o, i) {
-        return '<button class="opt' + (build[g.k] === i ? " on" : "") + '" data-k="' + g.k + '" data-i="' + i + '">' + o[0] + (o[1] ? "<small>" + BRL(o[1]) + "</small>" : "") + "</button>";
+        return '<button class="opt' + (build[g.k] === i ? " on" : "") + '" data-k="' + g.k + '" data-i="' + i + '">' + o[0] + (o[1] ? "<small>" + BRL(o[1]) + "</small>" : "<small>no zap</small>") + "</button>";
       }).join("");
     });
-    var total = 0, lines = [];
+    var total = 0, lines = [], missing = [];
     GROUPS.forEach(function (g) {
       var o = g.opts[build[g.k]];
       if (o[1]) { total += o[1]; lines.push("<li><span>" + o[0] + "</span><strong>" + BRL(o[1]) + "</strong></li>"); }
+      else missing.push(o[0].split(" — ")[0]);
     });
-    lines.push("<li><span>Shape " + GROUPS[1].opts[build.size][0] + " · " + GROUPS[2].opts[build.art][0] + "</span><strong>—</strong></li>");
+    if (missing.length) lines.push("<li><span>" + missing.join(" + ") + "</span><strong>a combinar</strong></li>");
     lines.push("<li><span>Parafusos + montagem</span><strong>inclusos</strong></li>");
     $("#buildList").innerHTML = lines.join("");
     $("#buildTotal").textContent = BRL(Math.round(total * 100) / 100);
-    $("#buildZap").href = ZAP + encodeURIComponent("Salve! Meu setup: Shape " + GROUPS[0].opts[build.shape][0] + " " + GROUPS[1].opts[build.size][0] + " (" + GROUPS[2].opts[build.art][0] + "), " + GROUPS[3].opts[build.truck][0] + ", " + GROUPS[4].opts[build.roda][0] + ", " + GROUPS[5].opts[build.rol][0] + ", lixa " + GROUPS[6].opts[build.lixa][0] + " = " + BRL(Math.round(total * 100) / 100));
+    $("#buildZap").href = ZAP + encodeURIComponent("Salve! Meu setup: Shape " + bName("shape") + " (" + BRL(bPrice("shape")) + "), Truck: " + (bPrice("truck") ? BRL(bPrice("truck")) : "a combinar") + ", Rodas: " + bName("roda") + ", Rolamento e lixa a combinar. Total parcial: " + BRL(Math.round(total * 100) / 100));
   };
   document.addEventListener("click", function (e) {
     var pr = e.target.closest("[data-preset]");
