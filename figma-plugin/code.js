@@ -56,7 +56,8 @@ function b64(bytes) {
   return btoa(s);
 }
 
-figma.ui.onmessage = async function (msg) {
+figma.ui.onmessage = async function (m) {
+  var msg = (m && m.pluginMessage) || m || {};
   var id = msg.id, out = null;
   try {
     var p = msg.params || {};
