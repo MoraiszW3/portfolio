@@ -88,6 +88,7 @@
   </footer>
   <div class="toast" id="toast"></div>
 
+  <script src="js/products.js"></script>
   <script>
   (function () {
     "use strict";
@@ -96,34 +97,25 @@
     var ZAP = "https://api.whatsapp.com/send?phone=554733326625&text=";
     var hiRes = function (src) { return src.indexOf("cdn.awsli") > -1 ? src.replace("300x300", "1000x1000") : src; };
     var thumb = function (src) { return src.indexOf("cdn.awsli") > -1 ? src.replace("300x300", "400x400") : src; };
-    var PRODUCTS = [
-      { id: "p1", cat: "tenis", catL: "Tênis", name: "Tênis Vans Sk8 Low Black True White", img: "img/vans-sk8-low.jpg", price: 314.90, was: 379.90, specs: [["Cabedal", "Lona + camurça"], ["Solado", "Vulcanizado waffle"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
-      { id: "p2", cat: "tenis", catL: "Tênis", name: "Tênis Hocks Bold Unissex Sombras", img: "img/hocks-bold-sombras.jpg", price: 499.90, specs: [["Cabedal", "Couro natural"], ["Detalhe", "Refletivos"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
-      { id: "p3", cat: "skate", catL: "Skate", name: "Skate Montado Iniciante Hondar Game", img: "img/hondar-game.jpg", price: 399.90, specs: [["Shape", "Maple 8.0"], ["Truck", "139mm"], ["Rodas", "52–54mm"], ["Acompanha", "Lixa + montagem inclusas"]] },
-      { id: "p4", cat: "bones", catL: "Bonés & Acessórios", name: "Relógio Casio Vintage LA670 Dourado", img: "img/casio-la670.jpg", price: 399.90, specs: [["Movimento", "Digital quartz"], ["Caixa", "Resina dourada"], ["Resistência", "Água (uso diário)"], ["Bateria", "Longa duração"]] },
-      { id: "p5", cat: "tenis", catL: "Tênis", name: "Tênis Vans Authentic Black White", img: "img/vans-authentic.jpg", price: 399.90, specs: [["Cabedal", "Lona"], ["Solado", "Vulcanizado waffle"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
-      { id: "p6", cat: "tenis", catL: "Tênis", name: "Tênis Hocks Skate Pop Lite Petitpoa", img: "img/hocks-pop-lite.jpg", price: 389.90, specs: [["Modelo", "Pop Lite"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
-      { id: "p7", cat: "skate", catL: "Skate", name: "Skate Montado Hondar Night Crew", img: "img/fig-sk1.jpg", price: 399.90, specs: [["Shape", "Maple 8.0"], ["Truck", "139mm"], ["Rodas", "52–54mm"], ["Acompanha", "Lixa + montagem inclusas"]] },
-      { id: "p8", cat: "skate", catL: "Skate", name: "Skate Montado Hondar Jungle Preto", img: "img/fig-sk2.jpg", price: 399.90, specs: [["Shape", "Maple 8.0"], ["Truck", "139mm"], ["Rodas", "52–54mm"], ["Acompanha", "Lixa + montagem inclusas"]] },
-      { id: "p9", cat: "tenis", catL: "Tênis", name: "Tênis Qix Chorão Lado B Preto", img: "img/qix-chorao.jpg", price: 499.90, specs: [["Linha", "Chorão Eterno · tributo Qix"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
-      { id: "p10", cat: "tenis", catL: "Tênis", name: "Tênis Qix Ninety Three Preto e Chumbo", img: "img/qix-ninety.jpg", price: 279.90, specs: [["Modelo", "Ninety Three"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
-      { id: "p11", cat: "tenis", catL: "Tênis", name: "Tênis Vans Knu Skool Black White", img: "img/vans-knu.jpg", price: 499.90, specs: [["Cabedal", "Camurça + lona"], ["Solado", "Vulcanizado puff"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
-      { id: "p12", cat: "bones", catL: "Bonés & Acessórios", name: "Boné High Company Outdoor Black", img: "img/fig-out3.jpg", price: 99.90, was: 199.90, specs: [["Modelo", "5 panel outdoor"], ["Ajuste", "Strapback"], ["Marca", "High Company"]] },
-      { id: "p13", cat: "tenis", catL: "Tênis", name: "Tênis Vans Old Skool Infantil Rosa", img: "img/fig-out1.jpg", price: 239.90, was: 299.90, specs: [["Modelo", "Old Skool infantil"], ["Uso", "Street kids"], ["Numeração", "BR 28–35 · confira na loja"]] },
-      { id: "p14", cat: "tenis", catL: "Tênis", name: "Tênis Hocks Flat Core Cascalho", img: "img/fig-out2.jpg", price: 299.90, specs: [["Modelo", "Flat Core"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
-      { id: "p15", cat: "skate", catL: "Skate", name: "Shape Element Bob Ross 8.65", img: "img/fig-out4.jpg", price: 379.90, was: 429.90, specs: [["Shape", "Maple 8.65"], ["Arte", "Bob Ross"], ["Uso", "Street / park"]] }
-    ];
+    /* PRODUCTS vem de js/products.js (catálogo real) */
+    var CATL = { tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios", outlet: "Outlet", chorao: "Chorão Eterno" };
+    var catL = function (p) { return CATL[p.cat] || "Oferta"; };
+    var specFor = function (p) {
+      if (p.cat === "tenis") return [["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"], ["Original", "100% · nota e garantia"]];
+      if (p.cat === "skate") return [["Montagem", "Regulada pela loja"], ["Acompanha", "Lixa + montagem inclusas"], ["Original", "100% · nota e garantia"]];
+      return [["Original", "100% · nota e garantia"], ["Troca", "7 dias · confira na loja"]];
+    };
     var id = new URLSearchParams(location.search).get("id");
     var p = PRODUCTS.filter(function (x) { return x.id === id; })[0] || PRODUCTS[0];
     document.title = p.name + " — Bamboo Shop Original Style";
-    $("#cCat").textContent = p.catL; $("#cName").textContent = p.name;
+    $("#cCat").textContent = catL(p); $("#cName").textContent = p.name;
     $("#pImg").src = hiRes(p.img); $("#pImg").alt = p.name;
-    $("#pCat").textContent = p.catL; $("#pName").textContent = p.name;
+    $("#pCat").textContent = catL(p); $("#pName").textContent = p.name;
     var pix = Math.round(p.price * 0.95 * 100) / 100;
     $("#pPrice").innerHTML = (p.was ? "<s>" + BRL(p.was) + "</s>" : "") + BRL(p.price);
     $("#pPix").textContent = BRL(pix) + " no Pix";
     $("#pInst").textContent = "ou 6x de " + BRL(Math.round(p.price / 6 * 100) / 100) + " sem juros";
-    $("#pSpecs").innerHTML = p.specs.map(function (s) {
+    $("#pSpecs").innerHTML = specFor(p).map(function (s) {
       return "<li><span>" + s[0] + "</span><span>" + s[1] + "</span></li>";
     }).join("");
     var qty = function () { var v = parseInt($("#qQty").value, 10); return (isNaN(v) || v < 1) ? 1 : Math.min(99, v); };
@@ -158,7 +150,7 @@
     var rel = PRODUCTS.filter(function (x) { return x.cat === p.cat && x.id !== p.id; }).slice(0, 4);
     $("#relGrid").innerHTML = rel.map(function (r) {
       return '<article class="card" data-id="' + r.id + '"><div class="card-media"><img src="' + thumb(r.img) + '" alt="' + r.name + '" loading="lazy"></div>' +
-        '<div class="card-body"><span class="card-cat">' + r.catL + '</span><span class="card-name">' + r.name + '</span>' +
+        '<div class="card-body"><span class="card-cat">' + catL(r) + '</span><span class="card-name">' + r.name + '</span>' +
         '<div class="card-price">' + BRL(r.price) + "</div></div></article>";
     }).join("");
     document.addEventListener("click", function (e) {
