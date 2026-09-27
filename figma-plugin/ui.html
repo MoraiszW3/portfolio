@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+body{font:13px/1.5 system-ui;background:#1e1e1e;color:#eee;margin:0;padding:14px}
+#st{font-weight:700;margin-bottom:8px}.on{color:#4ade80}.off{color:#f87171}
+small{color:#999}</style></head>
+<body>
+<div id="st" class="off">desconectado</div>
+<div><small>canal fixo: <b>bamboo</b> · reconecta sozinho · Nucleo em http://127.0.0.1:3056</small></div>
+<script>
+var ws=null, timer=null, backoff=2000;
+var st=document.getElementById('st');
+function set(on,txt){st.className=on?'on':'off';st.textContent=txt;}
+function connect(){
+  try{ws=new WebSocket('ws://127.0.0.1:3057/figma');}catch(e){retry();return;}
+  ws.onopen=function(){
+    ws.send(JSON.stringify({channel:'bamboo',from:'plugin',hello:true}));
+    set(true,'conectado · canal bamboo');
+    backoff=2000;
+    clearInterval(timer);
+    timer=setInterval(function(){
+      if(ws&&ws.readyState===1)ws.send(JSON.stringify({channel:'bamboo',from:'plugin',beat:true}));
+    },5000);
+  };
+  ws.onmessage=function(ev){
+    var msg;try{msg=JSON.parse(ev.data);}catch(e){return;}
+    if(msg.id&&msg.command){parent.postMessage({pluginMessage:msg},'*');}
+  };
+  ws.onclose=function(){set(false,'desconectado — tentando de novo…');clearInterval(timer);retry();};
+  ws.onerror=function(){try{ws.close();}catch(e){}};
+}
+function retry(){setTimeout(connect,backoff);backoff=Math.min(backoff*1.5,15000);}
+onmessage=function(ev){
+  var m=ev.data&&ev.data.pluginMessage;
+  if(!m)return;
+  if(ws&&ws.readyState===1)ws.send(JSON.stringify({channel:'bamboo',from:'plugin',id:m.id,result:m.result}));
+};
+connect();
+</script>
+</body></html>

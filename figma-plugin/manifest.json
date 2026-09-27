@@ -1,0 +1,8 @@
+{
+  "name": "Bamboo Bridge",
+  "id": "bamboo-bridge-local",
+  "api": "1.0.0",
+  "editorType": ["figma"],
+  "main": "code.js",
+  "ui": "ui.html"
+}
