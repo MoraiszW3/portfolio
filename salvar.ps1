@@ -1,5 +1,5 @@
 # Salva um checkpoint do progresso no git. Duplo-clique para usar.
-Set-Location "C:\Users\Gabriel\Documents\Default Project"
+Set-Location "E:\codes zed\Default Project"
 git add -A
 if (git status --porcelain) {
     $quando = Get-Date -Format "yyyy-MM-dd HH:mm"
