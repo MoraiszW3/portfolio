@@ -128,8 +128,8 @@
     $("#cCat").textContent = catL(p); $("#cName").textContent = p.name;
     var variant = /casio|rel[oó]gio/i.test(p.name) ? "relogio" : (/bon[eé]|gorro|shoulder|mochila|mala/i.test(p.name) ? "bone" : "padrao");
     document.body.setAttribute("data-pdp", variant);
-    var gallery = [{ src: hiRes(p.img), label: "Foto 1" }];
-    if (p.img2) gallery.push({ src: p.img2.replace("300x300", "1000x1000"), label: "Foto 2" });
+    var gallery = p.ghost ? [] : [{ src: hiRes(p.img), label: "Foto 1" }];
+    if (!p.ghost && p.img2) gallery.push({ src: p.img2.replace("300x300", "1000x1000"), label: "Foto 2" });
     $("#pImg").src = gallery[0].src; $("#pImg").alt = p.name;
     $("#pThumbs").innerHTML = gallery.map(function (g, i) {
       return '<button data-th="' + i + '" class="' + (i === 0 ? "on" : "") + '" aria-label="' + g.label + '"><img src="' + g.src + '" alt="" loading="lazy"></button>';
@@ -164,19 +164,32 @@
       setTimeout(function () { el.classList.remove("show"); }, 2600);
     };
     $("#pAdd").addEventListener("click", function () {
+      if (p.price == null) { location.href = ZAP + encodeURIComponent("Salve! Quanto sai: " + p.name + "?"); return; }
       var cart = [];
       try { cart = JSON.parse(localStorage.getItem("bamboo_cart") || "[]"); } catch (e) {}
       for (var i = 0; i < qty(); i++) cart.push(p.id);
       try { localStorage.setItem("bamboo_cart", JSON.stringify(cart)); } catch (e) {}
       toast("Na sacola! Veja no início.");
     });
-    $("#pZap").href = ZAP + encodeURIComponent("Salve! Quero esse: " + p.name + " (" + BRL(p.price) + ")");
+    if (p.ghost) {
+      $("#pUnavail").hidden = false;
+      $("#pNotify").href = ZAP + encodeURIComponent("Salve! Me avisa quando chegar: " + p.name);
+      document.querySelector(".qty").style.display = "none";
+      $("#pAdd").style.display = "none";
+      $("#pZap").textContent = "Consultar no WhatsApp";
+    }
+    $("#pZap").href = ZAP + encodeURIComponent("Salve! Quero esse: " + p.name + (p.price == null ? "" : " (" + BRL(p.price) + ")"));
+    if (p.ghost) {
+      $("#pMedia").innerHTML = '<div class="card-media ghost-media" style="min-height:320px"><span>Em breve</span></div>';
+    }
     var media = $("#pMedia"), zoomOn = false;
     media.addEventListener("mousemove", function (e) {
+      var im = $("#pImg");
+      if (!im) return;
       var r = media.getBoundingClientRect();
       var x = ((e.clientX - r.left) / r.width * 100).toFixed(1);
       var y = ((e.clientY - r.top) / r.height * 100).toFixed(1);
-      $("#pImg").style.transformOrigin = x + "% " + y + "%";
+      im.style.transformOrigin = x + "% " + y + "%";
       if (!zoomOn) { zoomOn = true; media.classList.add("zoom"); }
     });
     media.addEventListener("mouseleave", function () {
@@ -187,9 +200,12 @@
     });
     var rel = PRODUCTS.filter(function (x) { return x.cat === p.cat && x.id !== p.id; }).slice(0, 4);
     $("#relGrid").innerHTML = rel.map(function (r) {
-      return '<article class="card" data-id="' + r.id + '"><div class="card-media"><img src="' + thumb(r.img) + '" alt="' + r.name + '" loading="lazy"></div>' +
-        '<div class="card-body"><span class="card-cat">' + catL(r) + '</span><span class="card-name">' + r.name + '</span>' +
-        '<div class="card-price">' + BRL(r.price) + "</div></div></article>";
+      var media = r.ghost
+        ? '<div class="card-media ghost-media"><span>Em breve</span></div>'
+        : '<div class="card-media"><img src="' + thumb(r.img) + '" alt="' + r.name + '" loading="lazy"></div>';
+      return '<article class="card" data-id="' + r.id + '">' + media +
+        '<div class="card-body"><span class="card-cat">' + catL(r) + '</span><span class="card-name">' + r.name + "</span>" +
+        (r.price == null ? '<div class="card-price consult">Consulte</div>' : '<div class="card-price">' + BRL(r.price) + "</div>") + "</div></article>";
     }).join("");
     document.addEventListener("click", function (e) {
       var card = e.target.closest(".card");
