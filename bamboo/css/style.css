@@ -107,7 +107,7 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; }
 .trust span { color: var(--mut); font-size: .82rem; }
 
 /* em movimento */
-.role-grid { display: grid; grid-template-columns: 380px 1fr; gap: 26px; align-items: center; max-width: 1360px; margin: 0 auto; padding: 0 40px; }
+.role-grid { display: grid; grid-template-columns: 380px 1fr; gap: 26px; align-items: center; max-width: 1360px; margin: 0 auto; padding: 0 40px 70px; }
 .role-grid img { width: 100%; max-width: 380px; border-radius: 14px; border: 1px solid var(--line); display: block; }
 .role-grid p { color: var(--mut); max-width: 440px; }
 
