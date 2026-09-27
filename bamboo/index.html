@@ -87,20 +87,28 @@
     <header class="section-head reveal">
       <span class="eyebrow">Só aqui</span>
       <h2>Monte seu <em>skate</em></h2>
-      <p class="section-sub">Escolhe peça por peça. A gente monta e manda regulado. Preços ilustrativos — o fechamento é no WhatsApp.</p>
+      <p class="section-sub">Escolhe peça por peça como na loja. A gente monta e manda regulado. Valores ilustrativos — o fechamento é no WhatsApp.</p>
     </header>
     <div class="builder-box reveal">
       <div class="builder-opts">
-        <div class="bopt"><h4>1 · Shape</h4><div id="optShape"></div></div>
-        <div class="bopt"><h4>2 · Truck</h4><div id="optTruck"></div></div>
-        <div class="bopt"><h4>3 · Roda + rolamento</h4><div id="optRoda"></div></div>
+        <div class="presets">
+          <button class="opt on" data-preset="0">Iniciante</button>
+          <button class="opt" data-preset="1">Intermediário</button>
+          <button class="opt" data-preset="2">Pró</button>
+        </div>
+        <div class="bopt"><h4>1 · Shape — marca</h4><div class="opts" id="optShape"></div></div>
+        <div class="bopt"><h4>2 · Shape — tamanho e arte</h4><div class="opts" id="optSize"></div><div class="opts" id="optArt" style="margin-top:8px"></div></div>
+        <div class="bopt"><h4>3 · Truck</h4><div class="opts" id="optTruck"></div></div>
+        <div class="bopt"><h4>4 · Rodas</h4><div class="opts" id="optRoda"></div></div>
+        <div class="bopt"><h4>5 · Rolamento</h4><div class="opts" id="optRol"></div></div>
+        <div class="bopt"><h4>6 · Lixa</h4><div class="opts" id="optLixa"></div></div>
       </div>
       <aside class="builder-sum">
         <span class="eyebrow">Seu setup</span>
         <ul id="buildList"></ul>
         <div class="build-total"><span>Total</span><strong id="buildTotal">R$ 0</strong></div>
         <a href="#" class="btn-solid w-full" id="buildZap">Fechar no WhatsApp</a>
-        <p class="mut">Montagem e regulagem inclusas.</p>
+        <p class="mut">Parafusos, montagem e regulagem inclusos. Quer mais barato? <a href="#produtos" data-cat="skate" style="color:var(--ink)">Skate montado a partir de R$ 399</a>.</p>
       </aside>
     </div>
   </section>

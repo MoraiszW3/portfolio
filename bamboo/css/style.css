@@ -90,6 +90,8 @@ h2 em { color: var(--acc); font-style: normal; }
 .bopt h4 { margin: 0 0 12px; font-size: .95rem; letter-spacing: .06em; }
 .bopt h4::after { content: ""; display: block; width: 34px; height: 3px; background: var(--acc); margin-top: 6px; }
 .bopt .opts { display: flex; gap: 8px; flex-wrap: wrap; }
+.presets { display: flex; gap: 8px; margin-bottom: 12px; }
+.presets .opt { flex: 1; text-align: center; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
 .opt { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 10px; padding: 10px 14px; cursor: pointer; font-size: .85rem; }
 .opt small { display: block; color: var(--gold); font-weight: 700; }
 .opt.on { border-color: var(--acc); background: #2a2a2a; }
