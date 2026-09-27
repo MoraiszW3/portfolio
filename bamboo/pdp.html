@@ -19,6 +19,17 @@
     .pdp-media img { width: 100%; display: block; transition: transform .25s; will-change: transform; }
     .pdp-media.zoom img { transform: scale(2.2); cursor: zoom-out; }
     .pdp-hint { font-size: .78rem; color: var(--mut); margin-top: 8px; }
+    .pdp-thumbs { display: flex; gap: 8px; margin-top: 10px; }
+    .pdp-thumbs button { border: 2px solid transparent; background: #f2f2ee; border-radius: 10px; padding: 0; cursor: pointer; width: 72px; height: 72px; overflow: hidden; }
+    .pdp-thumbs button.on { border-color: var(--ink); }
+    .pdp-thumbs img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .pdp-unavail { margin-top: 16px; border: 1px dashed var(--line); border-radius: 12px; padding: 16px; }
+    .pdp-unavail strong { font-family: var(--disp); font-size: 1.1rem; text-transform: uppercase; }
+    .pdp-unavail p { color: var(--mut); font-size: .88rem; }
+    .pdp-unavail .btn-solid { margin-top: 8px; }
+    body[data-pdp="relogio"] .pdp-media { aspect-ratio: 1; }
+    body[data-pdp="bone"] .pdp-media { aspect-ratio: 1; }
+    body[data-pdp="relogio"] .eyebrow, body[data-pdp="bone"] .eyebrow { letter-spacing: .22em; }
     .pdp-info h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin: 8px 0 12px; }
     .pdp-price { font-size: 2rem; font-weight: 800; }
     .pdp-price s { color: var(--mut); font-weight: 400; font-size: 1.2rem; margin-right: 10px; }
@@ -52,7 +63,13 @@
     <p class="crumbs"><a href="index.html">Início</a> / <span id="cCat"></span> / <strong id="cName"></strong></p>
     <div class="pdp-grid">
       <div class="pdp-media" id="pMedia"><img id="pImg" src="" alt=""></div>
+      <div class="pdp-thumbs" id="pThumbs"></div>
       <p class="pdp-hint">Passe o mouse ou toque para dar zoom</p>
+      <div class="pdp-unavail" id="pUnavail" hidden>
+        <strong>Produto indisponível no momento</strong>
+        <p>Igual no site oficial: sem estoque agora. Chama no WhatsApp que a gente avisa quando chegar.</p>
+        <a class="btn-solid" id="pNotify" href="#" target="_blank" rel="noopener">Me avisa quando chegar</a>
+      </div>
       <div class="pdp-info">
         <span class="eyebrow" id="pCat"></span>
         <h1 id="pName"></h1>
@@ -109,12 +126,33 @@
     var p = PRODUCTS.filter(function (x) { return x.id === id; })[0] || PRODUCTS[0];
     document.title = p.name + " — Bamboo Shop Original Style";
     $("#cCat").textContent = catL(p); $("#cName").textContent = p.name;
-    $("#pImg").src = hiRes(p.img); $("#pImg").alt = p.name;
-    $("#pCat").textContent = catL(p); $("#pName").textContent = p.name;
-    var pix = Math.round(p.price * 0.95 * 100) / 100;
-    $("#pPrice").innerHTML = (p.was ? "<s>" + BRL(p.was) + "</s>" : "") + BRL(p.price);
-    $("#pPix").textContent = BRL(pix) + " no Pix";
-    $("#pInst").textContent = "ou 6x de " + BRL(Math.round(p.price / 6 * 100) / 100) + " sem juros";
+    var variant = /casio|rel[oó]gio/i.test(p.name) ? "relogio" : (/bon[eé]|gorro|shoulder|mochila|mala/i.test(p.name) ? "bone" : "padrao");
+    document.body.setAttribute("data-pdp", variant);
+    var gallery = [{ src: hiRes(p.img), label: "Foto 1" }];
+    if (p.img2) gallery.push({ src: p.img2.replace("300x300", "1000x1000"), label: "Foto 2" });
+    $("#pImg").src = gallery[0].src; $("#pImg").alt = p.name;
+    $("#pThumbs").innerHTML = gallery.map(function (g, i) {
+      return '<button data-th="' + i + '" class="' + (i === 0 ? "on" : "") + '" aria-label="' + g.label + '"><img src="' + g.src + '" alt="" loading="lazy"></button>';
+    }).join("");
+    document.addEventListener("click", function (e) {
+      var th = e.target.closest("[data-th]");
+      if (!th) return;
+      var g = gallery[parseInt(th.getAttribute("data-th"), 10)];
+      $("#pImg").src = g.src;
+      var btns = document.querySelectorAll("#pThumbs button");
+      for (var i = 0; i < btns.length; i++) btns[i].classList.toggle("on", btns[i] === th);
+    });
+    $("#pCat").textContent = variant === "relogio" ? "Relojoaria Bamboo" : (variant === "bone" ? "Bonés & Acessórios" : catL(p));
+    $("#pName").textContent = p.name;
+    if (p.price == null) {
+      $("#pPrice").innerHTML = "Consulte no WhatsApp";
+      $("#pPix").textContent = ""; $("#pInst").textContent = "";
+    } else {
+      var pix = Math.round(p.price * 0.95 * 100) / 100;
+      $("#pPrice").innerHTML = (p.was ? "<s>" + BRL(p.was) + "</s>" : "") + BRL(p.price);
+      $("#pPix").textContent = BRL(pix) + " no Pix";
+      $("#pInst").textContent = "ou 6x de " + BRL(Math.round(p.price / 6 * 100) / 100) + " sem juros";
+    }
     $("#pSpecs").innerHTML = specFor(p).map(function (s) {
       return "<li><span>" + s[0] + "</span><span>" + s[1] + "</span></li>";
     }).join("");

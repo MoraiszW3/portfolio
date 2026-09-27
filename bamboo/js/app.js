@@ -62,6 +62,15 @@
 
   /* busca + âncoras com filtro */
   var gridMode = { cat: null };
+  var sortMode = "rel";
+  var sortList = function (list) {
+    if (sortMode === "asc") return list.slice().sort(function (a, b) { return (a.price == null ? 1e12 : a.price) - (b.price == null ? 1e12 : b.price); });
+    if (sortMode === "desc") return list.slice().sort(function (a, b) { return (b.price == null ? -1 : b.price) - (a.price == null ? -1 : a.price); });
+    return list;
+  };
+  var paintGrid = function (list) {
+    $("#grid").innerHTML = list.length ? sortList(list).map(cardHTML).join("") : '<p class="mut" style="grid-column:1/-1">Nada aqui ainda — chama no WhatsApp.</p>';
+  };
   var goCat = function (cat) {
     if (cat === "outlet") { document.querySelector("#outlet").scrollIntoView({ behavior: "smooth" }); return; }
     if (cat === "vestuario") { toast("Vestuário entra na próxima leva — chama no WhatsApp"); return; }
@@ -74,7 +83,7 @@
       var map = { tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios" };
       $("#colecaoTitle").textContent = map[cat] || cat;
       var list = PRODUCTS.filter(function (p) { return p.cat === cat; });
-      $("#grid").innerHTML = list.length ? list.map(cardHTML).join("") : '<p class="mut" style="grid-column:1/-1">Nada aqui ainda — chama no WhatsApp.</p>';
+      paintGrid(list);
     }
     document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
   };
@@ -92,6 +101,16 @@
     if (a) { e.preventDefault(); goCat(a.getAttribute("data-cat")); $("#nav").classList.remove("open"); return; }
   });
   $("#verTudo").addEventListener("click", function (e) { e.preventDefault(); goCat("todas"); });
+  $$("#sortRow button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      sortMode = b.getAttribute("data-sort");
+      $$("#sortRow button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      var q = $("#searchInput").value.trim().toLowerCase();
+      var base = gridMode.cat ? byCat(gridMode.cat) : byTag("novidades");
+      if (q) base = base.filter(function (p) { return (p.name + " " + p.cat).toLowerCase().indexOf(q) > -1; });
+      paintGrid(base);
+    });
+  });
   $("#searchInput").addEventListener("input", function () {
     gridMode.cat = null;
     $("#colecaoTitle").textContent = "Novidades";

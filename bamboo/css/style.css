@@ -85,6 +85,18 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; }
 .card-price { font-weight: 800; font-size: 1.05rem; }
 .card-price s { color: var(--mut); font-weight: 400; font-size: .85rem; margin-right: 6px; }
 .card-pix { display: block; color: var(--mut); font-size: .8rem; font-weight: 600; }
+.card-price.consult { color: var(--mut); font-size: .95rem; }
+.card { position: relative; }
+.card-actions { position: absolute; left: 10px; right: 10px; bottom: 10px; display: flex; gap: 8px; opacity: 0; transform: translateY(8px); transition: opacity .25s, transform .25s; pointer-events: none; }
+.card:hover .card-actions, .card.open .card-actions { opacity: 1; transform: none; pointer-events: auto; }
+.card-actions .ca-view, .card-actions .ca-add { flex: 1; text-align: center; border: 0; border-radius: 8px; padding: 11px 8px; font-size: .78rem; font-weight: 800; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+.card-actions .ca-view { background: var(--ink); color: var(--bg); }
+.card-actions .ca-add { background: var(--acc); color: var(--onacc); }
+.ghost-media { background: repeating-linear-gradient(45deg, #ececec, #ececec 12px, #f6f6f6 12px, #f6f6f6 24px); }
+.ghost-media span { font-family: var(--disp); font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: #999; }
+.sortrow { display: flex; gap: 8px; align-items: center; margin-top: 14px; flex-basis: 100%; font-size: .78rem; color: var(--mut); }
+.sortrow button { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 99px; padding: 7px 16px; font-size: .75rem; font-weight: 700; cursor: pointer; }
+.sortrow button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
 /* chorao + loja (dark fixos) */
 .chorao { background: #111; color: #fff; margin-top: 60px; }
