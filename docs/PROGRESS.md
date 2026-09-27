@@ -11,6 +11,9 @@
   - `css/`, `js/`, `img/`
 - Workspace: `E:\codes zed\Default Project`
 
+## Regra permanente
+- **atelie-de-vitrine é prioridade**: todo trabalho de site/loja segue `C:\Users\Gabriel\.agents\skills\atelie-de-vitrine\SKILL.md` (instalada do GitHub Greed9797, com references/ e scripts/qa_loja.py), salvo ordem explícita em contrário. Registrado também em `opencode.jsonc` → instructions.
+
 ## Feito
 - 2026-09-27: **Repo organizado (vitrine)** — `scripts/`, `docs/`, README com tabela dos 3 projetos; caminhos corrigidos e testado (`ouvir-celular OK`); conta renomeada pra MoraiszW3, remote atualizado
 - 2026-09-27: **Histórico reorganizado + push automático** — 15 commits picados viraram 5 por projeto (Moraiz/Mz4/PLX/Infra, com rename W3Optica detectado); force push pro GitHub; vigia agora faz commit + push sozinho
