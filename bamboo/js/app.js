@@ -50,11 +50,16 @@
     $("#choraoGrid").innerHTML = show(byTag("chorao"));
   };
   $("#tiles").innerHTML = [
-    ["Tênis", "Vans · Hocks · Qix", "tenis"], ["Skate", "Shapes · Trucks", "skate"],
-    ["Vestuário", "Camisetas · Moletons", "vestuario"], ["Bonés", "New Era · High", "bones"],
-    ["Acessórios", "Relógios · Mochilas", "bones"], ["Marcas", "14 marcas", ""]
+    ["Tênis", "Vans · Hocks · Qix", "tenis", "img/fig-ct1.jpg"],
+    ["Skate", "Shapes · Trucks", "skate", "img/fig-ct2.jpg"],
+    ["Montados", "Prontos p/ andar", "skate", "img/fig-ct3.jpg"],
+    ["Peças", "Monte o seu", "#builder", "img/fig-ct4.jpg"],
+    ["Bonés", "New Era · High", "bones", "img/fig-ct5.jpg"],
+    ["Acessórios", "Relógios · Mochilas", "bones", "img/fig-ct6.jpg"]
   ].map(function (t) {
-    return '<a class="tile reveal" href="#produtos"' + (t[2] ? ' data-cat="' + t[2] + '"' : ' data-goto="marcas"') + "><span>" + t[0] + "</span><small>" + t[1] + "</small></a>";
+    var href = t[2].charAt(0) === "#" ? t[2] : "#produtos";
+    var extra = t[2].charAt(0) === "#" ? ' data-goto="builder"' : ' data-cat="' + t[2] + '"';
+    return '<a class="tile reveal" href="' + href + '"' + extra + '><img src="' + t[3] + '" alt="' + t[0] + '" loading="lazy"><span>' + t[0] + "</span><small>" + t[1] + "</small></a>";
   }).join("");
   $("#brands").innerHTML = ["Hocks", "Nike SB", "Thrasher", "Santa Cruz", "Element", "Independent", "Qix", "Öus", "Hondar", "Grizzly", "Flip", "Volcom", "Diamond", "New Era"].map(function (b, i) {
     var n = ("0" + (i + 1)).slice(-2);
@@ -77,7 +82,7 @@
     var a = e.target.closest("a[data-cat]");
     if (a) { e.preventDefault(); goCat(a.getAttribute("data-cat")); $("#nav").classList.remove("open"); return; }
     var g = e.target.closest("a[data-goto]");
-    if (g) { e.preventDefault(); document.querySelector("#marcas").scrollIntoView({ behavior: "smooth" }); }
+    if (g) { e.preventDefault(); document.querySelector(g.getAttribute("data-goto")).scrollIntoView({ behavior: "smooth" }); }
   });
   $("#verTudo").addEventListener("click", function (e) { e.preventDefault(); goCat("todas"); });
   $("#searchInput").addEventListener("input", function () {
