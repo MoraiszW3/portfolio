@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produto — Bamboo Shop Original Style</title>
+  <meta name="description" content="Detalhes do produto na Bamboo Shop Original Style — Gaspar SC.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .pdp-wrap { max-width: 1360px; margin: 0 auto; padding: 26px 40px 10px; }
+    .crumbs { font-size: .8rem; color: var(--mut); margin-bottom: 18px; }
+    .crumbs a { color: inherit; text-decoration: none; }
+    .crumbs a:hover { text-decoration: underline; }
+    .pdp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .pdp-media { background: #f2f2ee; border-radius: 16px; overflow: hidden; cursor: zoom-in; }
+    .pdp-media img { width: 100%; display: block; transition: transform .4s; }
+    .pdp-media:hover img { transform: scale(1.5); }
+    .pdp-info h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin: 8px 0 12px; }
+    .pdp-price { font-size: 2rem; font-weight: 800; }
+    .pdp-price s { color: var(--mut); font-weight: 400; font-size: 1.2rem; margin-right: 10px; }
+    .pdp-pix { color: #1a7f37; font-weight: 700; }
+    .pdp-inst { color: var(--mut); font-size: .9rem; }
+    .qty { display: flex; align-items: center; gap: 0; margin: 18px 0; border: 1px solid var(--line); border-radius: 10px; width: max-content; }
+    .qty button { width: 44px; height: 48px; border: 0; background: none; color: var(--ink); font-size: 1.3rem; cursor: pointer; }
+    .qty input { width: 52px; text-align: center; border: 0; background: none; color: var(--ink); font-size: 1rem; font-weight: 700; }
+    .pdp-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .specs { list-style: none; margin: 22px 0 0; padding: 0; border-top: 1px solid var(--line); }
+    .specs li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .9rem; }
+    .specs li span:first-child { color: var(--mut); }
+    .specs li span:last-child { font-weight: 600; text-align: right; }
+    .pdp-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 18px; font-size: .82rem; color: var(--mut); }
+    @media (max-width: 900px) { .pdp-grid { grid-template-columns: 1fr; } .pdp-wrap { padding: 18px 16px 0; } }
+  </style>
+</head>
+<body>
+
+  <div class="announce" aria-hidden="true"><div class="announce-track"><span>Frete grátis em shapes</span><span>6x sem juros no cartão</span><span>5% off no Pix</span><span>Loja física em Gaspar/SC desde 2009</span><span>Frete grátis em shapes</span><span>6x sem juros no cartão</span><span>5% off no Pix</span><span>Loja física em Gaspar/SC desde 2009</span></div></div>
+
+  <header class="header">
+    <a href="index.html" class="brand"><img src="img/logo.png" alt="Bamboo Shop Original Style"></a>
+    <div class="header-actions" style="margin-left:auto">
+      <a class="btn-ghost" href="index.html" style="padding:10px 18px">← Voltar</a>
+      <a class="btn-solid" href="index.html#produtos" style="padding:10px 18px">Ver sacola no início</a>
+    </div>
+  </header>
+
+  <main class="pdp-wrap">
+    <p class="crumbs"><a href="index.html">Início</a> / <span id="cCat"></span> / <strong id="cName"></strong></p>
+    <div class="pdp-grid">
+      <div class="pdp-media"><img id="pImg" src="" alt=""></div>
+      <div class="pdp-info">
+        <span class="eyebrow" id="pCat"></span>
+        <h1 id="pName"></h1>
+        <div class="pdp-price" id="pPrice"></div>
+        <div class="pdp-pix" id="pPix"></div>
+        <div class="pdp-inst" id="pInst"></div>
+        <div class="qty">
+          <button id="qDec" aria-label="Diminuir">−</button>
+          <input id="qQty" value="1" inputmode="numeric" aria-label="Quantidade">
+          <button id="qInc" aria-label="Aumentar">+</button>
+        </div>
+        <div class="pdp-actions">
+          <button class="btn-solid" id="pAdd">Adicionar à sacola</button>
+          <a class="btn-ghost" id="pZap" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <ul class="specs" id="pSpecs"></ul>
+        <div class="pdp-meta"><span>✓ 100% original</span><span>✓ Troca em 7 dias</span><span>✓ Loja em Gaspar/SC</span></div>
+      </div>
+    </div>
+    <section class="block" style="padding-left:0;padding-right:0">
+      <header class="section-head reveal in" style="padding-left:0;padding-right:0">
+        <h2>Complete o look</h2>
+      </header>
+      <div class="grid" id="relGrid" style="padding:0"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>JLD IND E COM DE CONF LTDA · CNPJ 09.606.811/0002-96 · © 2026 Bamboo Shop Original Style</p>
+      <p class="pay"><a href="index.html" style="color:inherit">← Voltar pra home</a></p>
+    </div>
+  </footer>
+  <div class="toast" id="toast"></div>
+
+  <script>
+  (function () {
+    "use strict";
+    var $ = function (s) { return document.querySelector(s); };
+    var BRL = function (v) { return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); };
+    var ZAP = "https://api.whatsapp.com/send?phone=554733326625&text=";
+    var hiRes = function (src) { return src.indexOf("cdn.awsli") > -1 ? src.replace("300x300", "1000x1000") : src; };
+    var PRODUCTS = [
+      { id: "p1", cat: "tenis", catL: "Tênis", name: "Tênis Vans Sk8 Low Black True White", img: "img/vans-sk8-low.jpg", price: 314.90, was: 379.90, specs: [["Cabedal", "Lona + camurça"], ["Solado", "Vulcanizado waffle"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
+      { id: "p2", cat: "tenis", catL: "Tênis", name: "Tênis Hocks Bold Unissex Sombras", img: "img/hocks-bold-sombras.jpg", price: 499.90, specs: [["Cabedal", "Couro natural"], ["Detalhe", "Refletivos"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
+      { id: "p3", cat: "skate", catL: "Skate", name: "Skate Montado Iniciante Hondar Game", img: "img/hondar-game.jpg", price: 399.90, specs: [["Shape", "Maple 8.0"], ["Truck", "139mm"], ["Rodas", "52–54mm"], ["Acompanha", "Lixa + montagem inclusas"]] },
+      { id: "p4", cat: "bones", catL: "Bonés & Acessórios", name: "Relógio Casio Vintage LA670 Dourado", img: "img/casio-la670.jpg", price: 399.90, specs: [["Movimento", "Digital quartz"], ["Caixa", "Resina dourada"], ["Resistência", "Água (uso diário)"], ["Bateria", "Longa duração"]] },
+      { id: "p5", cat: "tenis", catL: "Tênis", name: "Tênis Vans Authentic Black White", img: "img/vans-authentic.jpg", price: 399.90, specs: [["Cabedal", "Lona"], ["Solado", "Vulcanizado waffle"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
+      { id: "p6", cat: "tenis", catL: "Tênis", name: "Tênis Hocks Skate Pop Lite Petitpoa", img: "img/hocks-pop-lite.jpg", price: 389.90, specs: [["Modelo", "Pop Lite"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
+      { id: "p7", cat: "skate", catL: "Skate", name: "Skate Montado Hondar Night Crew", img: "img/fig-sk1.jpg", price: 399.90, specs: [["Shape", "Maple 8.0"], ["Truck", "139mm"], ["Rodas", "52–54mm"], ["Acompanha", "Lixa + montagem inclusas"]] },
+      { id: "p8", cat: "skate", catL: "Skate", name: "Skate Montado Hondar Jungle Preto", img: "img/fig-sk2.jpg", price: 399.90, specs: [["Shape", "Maple 8.0"], ["Truck", "139mm"], ["Rodas", "52–54mm"], ["Acompanha", "Lixa + montagem inclusas"]] },
+      { id: "p9", cat: "tenis", catL: "Tênis", name: "Tênis Qix Chorão Lado B Preto", img: "img/qix-chorao.jpg", price: 499.90, specs: [["Linha", "Chorão Eterno · tributo Qix"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
+      { id: "p10", cat: "tenis", catL: "Tênis", name: "Tênis Qix Ninety Three Preto e Chumbo", img: "img/qix-ninety.jpg", price: 279.90, specs: [["Modelo", "Ninety Three"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
+      { id: "p11", cat: "tenis", catL: "Tênis", name: "Tênis Vans Knu Skool Black White", img: "img/vans-knu.jpg", price: 499.90, specs: [["Cabedal", "Camurça + lona"], ["Solado", "Vulcanizado puff"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
+      { id: "p12", cat: "bones", catL: "Bonés & Acessórios", name: "Boné High Company Outdoor Black", img: "img/fig-out3.jpg", price: 99.90, was: 199.90, specs: [["Modelo", "5 panel outdoor"], ["Ajuste", "Strapback"], ["Marca", "High Company"]] },
+      { id: "p13", cat: "tenis", catL: "Tênis", name: "Tênis Vans Old Skool Infantil Rosa", img: "img/fig-out1.jpg", price: 239.90, was: 299.90, specs: [["Modelo", "Old Skool infantil"], ["Uso", "Street kids"], ["Numeração", "BR 28–35 · confira na loja"]] },
+      { id: "p14", cat: "tenis", catL: "Tênis", name: "Tênis Hocks Flat Core Cascalho", img: "img/fig-out2.jpg", price: 299.90, specs: [["Modelo", "Flat Core"], ["Uso", "Skate / street"], ["Numeração", "BR 34–44 · confira na loja"]] },
+      { id: "p15", cat: "skate", catL: "Skate", name: "Shape Element Bob Ross 8.65", img: "img/fig-out4.jpg", price: 379.90, was: 429.90, specs: [["Shape", "Maple 8.65"], ["Arte", "Bob Ross"], ["Uso", "Street / park"]] }
+    ];
+    var id = new URLSearchParams(location.search).get("id");
+    var p = PRODUCTS.filter(function (x) { return x.id === id; })[0] || PRODUCTS[0];
+    document.title = p.name + " — Bamboo Shop Original Style";
+    $("#cCat").textContent = p.catL; $("#cName").textContent = p.name;
+    $("#pImg").src = hiRes(p.img); $("#pImg").alt = p.name;
+    $("#pCat").textContent = p.catL; $("#pName").textContent = p.name;
+    var pix = Math.round(p.price * 0.95 * 100) / 100;
+    $("#pPrice").innerHTML = (p.was ? "<s>" + BRL(p.was) + "</s>" : "") + BRL(p.price);
+    $("#pPix").textContent = BRL(pix) + " no Pix";
+    $("#pInst").textContent = "ou 6x de " + BRL(Math.round(p.price / 6 * 100) / 100) + " sem juros";
+    $("#pSpecs").innerHTML = p.specs.map(function (s) {
+      return "<li><span>" + s[0] + "</span><span>" + s[1] + "</span></li>";
+    }).join("");
+    var qty = function () { var v = parseInt($("#qQty").value, 10); return (isNaN(v) || v < 1) ? 1 : Math.min(99, v); };
+    $("#qInc").addEventListener("click", function () { $("#qQty").value = qty() + 1; });
+    $("#qDec").addEventListener("click", function () { $("#qQty").value = Math.max(1, qty() - 1); });
+    var toast = function (m) {
+      var el = $("#toast"); el.textContent = m; el.classList.add("show");
+      setTimeout(function () { el.classList.remove("show"); }, 2600);
+    };
+    $("#pAdd").addEventListener("click", function () {
+      var cart = [];
+      try { cart = JSON.parse(localStorage.getItem("bamboo_cart") || "[]"); } catch (e) {}
+      for (var i = 0; i < qty(); i++) cart.push(p.id);
+      try { localStorage.setItem("bamboo_cart", JSON.stringify(cart)); } catch (e) {}
+      toast("Na sacola! Veja no início.");
+    });
+    $("#pZap").href = ZAP + encodeURIComponent("Salve! Quero esse: " + p.name + " (" + BRL(p.price) + ")");
+    var rel = PRODUCTS.filter(function (x) { return x.cat === p.cat && x.id !== p.id; }).slice(0, 4);
+    $("#relGrid").innerHTML = rel.map(function (r) {
+      return '<article class="card" data-id="' + r.id + '"><div class="card-media"><img src="' + r.img + '" alt="' + r.name + '" loading="lazy"></div>' +
+        '<div class="card-body"><span class="card-cat">' + r.catL + '</span><span class="card-name">' + r.name + '</span>' +
+        '<div class="card-price">' + BRL(r.price) + "</div></div></article>";
+    }).join("");
+    document.addEventListener("click", function (e) {
+      var card = e.target.closest(".card");
+      if (card) location.href = "pdp.html?id=" + card.getAttribute("data-id");
+    });
+  })();
+  </script>
+</body>
+</html>
