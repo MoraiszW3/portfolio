@@ -1,35 +1,40 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bamboo Shop Original Style — Skate Shop Raiz desde 2009 | Gaspar SC</title>
-  <meta name="description" content="Skate shop raiz em Gaspar SC desde 2009. Tênis, shapes, trucks e streetwear 100% originais. Escolinha de skate, eventos e comunidade.">
+  <title>Bamboo Shop Original Style — Skate Shop desde 2009 | Gaspar SC</title>
+  <meta name="description" content="Skate shop em Gaspar SC desde 2009. Tênis, shapes, trucks e streetwear 100% originais. Loja física + entrega para todo o Brasil.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,800;0,900;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <div class="topbar"><span>Parcele em até 6x sem juros</span><span class="dot">•</span><span>5% off no Pix</span><span class="dot">•</span><span>Loja física em Gaspar · SC</span></div>
+  <div class="announce"><span>Frete grátis em shapes</span><span>6x sem juros no cartão</span><span>5% off no Pix</span><span>Loja física em Gaspar/SC desde 2009</span></div>
 
   <header class="header" id="header">
     <button class="hamburger" id="hamburger" aria-label="Abrir menu"><span></span><span></span><span></span></button>
     <a href="#" class="brand"><img src="img/logo.png" alt="Bamboo Shop Original Style"></a>
-    <nav class="nav" id="nav">
-      <a href="#produtos" data-cat="tenis">Tênis</a>
-      <a href="#produtos" data-cat="skate">Skate</a>
-      <a href="#builder">Monte seu skate</a>
-      <a href="#chorao">Chorão Eterno</a>
-      <a href="#historia">História</a>
-      <a href="#comunidade">Comunidade</a>
-    </nav>
+    <label class="search"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Buscar tênis, shapes, marcas…" autocomplete="off"></label>
     <div class="header-actions">
-      <button class="icon-btn" id="themeBtn" aria-label="Alternar tema claro e escuro">◐</button>
-      <button class="icon-btn" id="searchBtn" aria-label="Buscar">⌕</button>
+      <a class="hact" href="#loja">Loja</a>
+      <a class="hact" href="#comunidade">Conta</a>
+      <button class="icon-btn" id="themeBtn" aria-label="Alternar tema">◑</button>
       <button class="icon-btn" id="cartBtn" aria-label="Sacola">◫<span class="badge" id="cartCount">0</span></button>
     </div>
+    <nav class="nav" id="nav">
+      <a href="#produtos">Novidades</a>
+      <a href="#produtos" data-cat="tenis">Tênis</a>
+      <a href="#produtos" data-cat="skate">Skate</a>
+      <a href="#produtos" data-cat="vestuario">Vestuário</a>
+      <a href="#produtos" data-cat="bones">Bonés</a>
+      <a href="#produtos" data-cat="bones">Acessórios</a>
+      <a href="#marcas">Marcas</a>
+      <a href="#chorao">Chorão Eterno</a>
+      <a href="#produtos" data-cat="outlet" class="outlet">Outlet</a>
+    </nav>
   </header>
 
   <!-- HERO -->
@@ -37,58 +42,45 @@
     <div class="hero-bg" style="background-image:url('img/banner-shape.jpg')"></div>
     <div class="hero-veil"></div>
     <div class="hero-inner">
-      <span class="hero-kicker">Gaspar · SC — desde 2009</span>
-      <h1>Skate shop<br><em>raiz</em>, não vitrine.</h1>
-      <p>DZ7 anos de corre com o skate. Escolinha, eventos e uma cidade inteira andando. Isso é a Bamboo.</p>
+      <h1>Original<br>desde 2009</h1>
+      <p>Tênis, shapes e streetwear das marcas que fazem a cena. Loja física em Gaspar/SC e entrega para todo o Brasil.</p>
       <div class="hero-ctas">
         <a href="#produtos" class="btn-solid">Ver a coleção</a>
         <a href="#builder" class="btn-ghost">Montar meu skate</a>
       </div>
     </div>
-    <div class="hero-stats">
-      <div><strong>DZ7</strong><span>anos de corre com o skate</span></div>
-      <div><strong>100+</strong><span>crianças na escolinha</span></div>
-      <div><strong>R$ 9 mil</strong><span>p/ abrigo animal em 2025</span></div>
-    </div>
   </section>
 
-  <!-- MARCAS -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Vans</span><span>Hocks</span><span>Qix</span><span>Santa Cruz</span><span>Thrasher</span><span>Element</span><span>Independent</span><span>New Era</span><span>Öus</span><span>Diamond</span><span>Volcom</span><span>Drop Dead</span>
-      <span>Vans</span><span>Hocks</span><span>Qix</span><span>Santa Cruz</span><span>Thrasher</span><span>Element</span><span>Independent</span><span>New Era</span><span>Öus</span><span>Diamond</span><span>Volcom</span><span>Drop Dead</span>
-    </div>
-  </div>
+  <!-- CAMPANHAS -->
+  <section class="camps">
+    <a class="camp reveal" href="#produtos" data-cat="skate"><div><strong>Comprar shapes</strong><span>Milk · Element · Pro models</span></div></a>
+    <a class="camp reveal" href="#produtos" data-cat="tenis"><div><strong>Ver a linha</strong><span>Vans · Hocks · Qix</span></div></a>
+  </section>
 
   <!-- CATEGORIAS -->
-  <section class="cats">
-    <a class="cat-card reveal" href="#produtos" data-cat="tenis"><strong>Tênis</strong><span>Vans · Hocks · Qix</span></a>
-    <a class="cat-card reveal" href="#produtos" data-cat="skate"><strong>Skate</strong><span>Shapes · Trucks · Rodas</span></a>
-    <a class="cat-card reveal" href="#produtos" data-cat="bones"><strong>Bonés & Acessórios</strong><span>New Era · High · Casio</span></a>
-    <a class="cat-card reveal cat-chorao" href="#chorao"><strong>Chorão Eterno</strong><span>Linha Qix tributo</span></a>
+  <section class="block" id="categorias">
+    <header class="section-head reveal">
+      <h2>Compre por categoria</h2>
+      <a class="seelink" href="#produtos">Todas as categorias →</a>
+    </header>
+    <div class="tiles" id="tiles"></div>
   </section>
 
-  <!-- PRODUTOS -->
-  <section class="produtos" id="produtos">
+  <!-- NOVIDADES -->
+  <section class="block" id="produtos">
     <header class="section-head reveal">
-      <span class="eyebrow">A coleção</span>
-      <h2>O que tá <em>girando</em></h2>
-      <div class="filters" id="filters">
-        <button class="pill active" data-filter="todas">Tudo</button>
-        <button class="pill" data-filter="tenis">Tênis</button>
-        <button class="pill" data-filter="skate">Skate</button>
-        <button class="pill" data-filter="bones">Bonés & Acessórios</button>
-      </div>
+      <h2>Novidades</h2>
+      <a class="seelink" href="#" id="verTudo">Ver tudo →</a>
     </header>
     <div class="grid" id="grid"></div>
   </section>
 
   <!-- MONTE SEU SKATE -->
-  <section class="builder" id="builder">
+  <section class="block builder" id="builder">
     <header class="section-head reveal">
       <span class="eyebrow">Só aqui</span>
-      <h2>Monte seu <em>skate</em></h2>
-      <p class="section-sub">Escolhe peça por peça com os preços reais do site. O que não tem preço a gente fecha no WhatsApp. A gente monta e manda regulado.</p>
+      <h2>Monte seu skate</h2>
+      <p class="section-sub">Peça por peça com os preços reais do site. O que não tem preço a gente fecha no WhatsApp. Montagem e regulagem inclusas.</p>
     </header>
     <div class="builder-box reveal">
       <div class="builder-opts">
@@ -108,26 +100,55 @@
         <ul id="buildList"></ul>
         <div class="build-total"><span>Total</span><strong id="buildTotal">R$ 0</strong></div>
         <a href="#" class="btn-solid w-full" id="buildZap">Fechar no WhatsApp</a>
-        <p class="mut">Parafusos, montagem e regulagem inclusos. Quer mais barato? <a href="#produtos" data-cat="skate" style="color:var(--ink)">Skate montado a partir de R$ 399</a>.</p>
+        <p class="mut">Quer mais barato? <a href="#produtos" data-cat="skate">Skate montado a partir de R$ 399</a>.</p>
       </aside>
     </div>
   </section>
 
   <!-- CHORÃO ETERNO -->
   <section class="chorao" id="chorao">
-    <div class="chorao-inner reveal">
-      <span class="eyebrow">Tributo</span>
-      <h2>Chorão <em>eterno</em></h2>
-      <p>Linha Qix em homenagem a quem colocou o skate brasileiro no mapa. Parte da atitude vai junto em cada par.</p>
-      <div class="chorao-grid" id="choraoGrid"></div>
+    <div class="chorao-grid">
+      <div class="reveal">
+        <h2>Chorão<br>eterno</h2>
+        <p>Qix Chorão Lado B, a homenagem da Qix ao Chorão. Em preto e em preto com branco.</p>
+        <a href="#produtos" class="btn-light" data-cat="tenis">Ver a coleção</a>
+      </div>
+      <div class="chorao-cards reveal" id="choraoGrid"></div>
     </div>
   </section>
 
-  <!-- HISTÓRIA -->
-  <section class="historia" id="historia">
+  <!-- SKATE -->
+  <section class="block" id="skate">
+    <header class="section-head reveal">
+      <h2>Skate</h2>
+      <a class="seelink" href="#produtos" data-cat="skate">Ver tudo de skate →</a>
+    </header>
+    <div class="grid" id="gridSkate"></div>
+  </section>
+
+  <!-- MARCAS -->
+  <section class="block" id="marcas">
+    <header class="section-head reveal">
+      <h2>Marcas</h2>
+      <a class="seelink" href="#produtos">Todas as marcas →</a>
+    </header>
+    <div class="brands reveal" id="brands"></div>
+  </section>
+
+  <!-- OUTLET -->
+  <section class="block" id="outlet">
+    <header class="section-head reveal">
+      <h2>Outlet</h2>
+      <a class="seelink" href="#produtos" data-cat="outlet">Ver outlet →</a>
+    </header>
+    <div class="grid" id="gridOutlet"></div>
+  </section>
+
+  <!-- HISTÓRIA / DZ7 -->
+  <section class="block historia" id="historia">
     <header class="section-head reveal">
       <span class="eyebrow">Desde 2009</span>
-      <h2>Uma sala de 15m² <em>que virou cena</em></h2>
+      <h2>DZ7 anos de corre com o skate</h2>
     </header>
     <ol class="timeline reveal">
       <li><strong>2009</strong><p>João funda a Bamboo em Gaspar pra trazer streetwear de verdade pra cidade.</p></li>
@@ -140,19 +161,36 @@
       <img src="img/capivara-logo.png" alt="Capivara skatista — mascote Bamboo Shop">
       <div><strong>O mascote da cena</strong><p>A capivara sobre o shape Bamboo Original Style — corre, manobra e volta pro rolê. Essência do skate da casa desde 2009.</p></div>
     </div>
-    <div class="ph-grid reveal">
-      <figure class="ph"><span>FOTO: a loja hoje</span><small>aguardando foto real</small></figure>
-      <figure class="ph"><span>FOTO: equipe antiga</span><small>aguardando foto real</small></figure>
-      <figure class="ph"><span>FOTO: rolê de skate</span><small>aguardando frame do Instagram</small></figure>
+  </section>
+
+  <!-- LOJA FÍSICA -->
+  <section class="loja" id="loja">
+    <div class="loja-grid">
+      <div class="loja-foto reveal"><span>Foto da loja</span><small>aguardando foto real</small></div>
+      <div class="reveal">
+        <h2>Loja física<br>em Gaspar/SC</h2>
+        <p>Atendimento presencial e online desde 2009. Tire dúvida de numeração e de peças com quem anda de skate.</p>
+        <p class="loja-info">⌖ Rua Eurico Fontes, 60, sala 03 – Centro, Gaspar/SC</p>
+        <p class="loja-info">✆ Telefone e WhatsApp (47) 3332-6625</p>
+        <a class="btn-light" href="https://api.whatsapp.com/send?phone=554733326625" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
     </div>
   </section>
 
-  <!-- COMUNIDADE / INSTAGRAM -->
-  <section class="comunidade" id="comunidade">
+  <!-- CONFIANÇA -->
+  <section class="trust reveal">
+    <div><strong>Produtos 100% originais</strong><span>Marcas nacionais e importadas</span></div>
+    <div><strong>6x sem juros</strong><span>No cartão de crédito</span></div>
+    <div><strong>Enviamos para todo o Brasil</strong><span>Frete calculado pelo CEP</span></div>
+    <div><strong>Trocas e devoluções</strong><span>Política clara no site</span></div>
+  </section>
+
+  <!-- COMUNIDADE -->
+  <section class="block" id="comunidade">
     <header class="section-head reveal">
       <span class="eyebrow">@bambooshoporiginal</span>
-      <h2>A cena <em>em movimento</em></h2>
-      <p class="section-sub">Os frames do Instagram entram aqui — moments de skate, eventos e a loja. Espaço reservado pros posts reais.</p>
+      <h2>A cena em movimento</h2>
+      <p class="section-sub">Frames do Instagram entram aqui. Espaço reservado pros posts reais.</p>
     </header>
     <div class="insta-grid reveal">
       <a class="insta-ph" href="https://instagram.com/bambooshoporiginal" target="_blank" rel="noopener"><span>frame 01</span></a>
@@ -160,7 +198,6 @@
       <a class="insta-ph" href="https://instagram.com/bambooshoporiginal" target="_blank" rel="noopener"><span>frame 03</span></a>
       <a class="insta-ph" href="https://instagram.com/bambooshoporiginal" target="_blank" rel="noopener"><span>frame 04</span></a>
     </div>
-    <div class="center"><a class="btn-ghost" href="https://instagram.com/bambooshoporiginal" target="_blank" rel="noopener">Seguir a cena</a></div>
   </section>
 
   <!-- FOOTER -->
@@ -168,24 +205,33 @@
     <div class="footer-grid">
       <div>
         <img src="img/logo.png" alt="Bamboo Shop" class="footer-logo">
-        <p>Skate shop raiz em Gaspar · SC desde 2009. 100% original, na loja e no Brasil inteiro.</p>
+        <p>Skate shop com loja física e online em Gaspar/SC. Desde 2009, produtos 100% originais de marcas nacionais e importadas para todo o Brasil.</p>
+        <form class="news" id="newsForm"><input type="email" placeholder="Seu melhor e-mail" required aria-label="E-mail"><button type="submit">Assinar</button></form>
       </div>
       <div>
-        <h4>Loja</h4>
+        <h4>Comprar</h4>
         <a href="#produtos" data-cat="tenis">Tênis</a>
         <a href="#produtos" data-cat="skate">Skate</a>
         <a href="#chorao">Chorão Eterno</a>
         <a href="#builder">Monte seu skate</a>
       </div>
       <div>
-        <h4>Fala com a gente</h4>
+        <h4>Ajuda</h4>
+        <a href="#loja">Trocas e devoluções</a>
+        <a href="#loja">Fale conosco</a>
+        <a href="https://instagram.com/bambooshoporiginal" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <div>
+        <h4>Atendimento</h4>
         <a href="tel:+554733326625">(47) 3332-6625</a>
         <a href="https://api.whatsapp.com/send?phone=554733326625" target="_blank" rel="noopener">WhatsApp</a>
         <a href="mailto:bamboo@lojabamboo.com.br">bamboo@lojabamboo.com.br</a>
-        <a href="https://instagram.com/bambooshoporiginal" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
-    <p class="copy">JLD IND E COM DE CONF LTDA · CNPJ 09.606.811/0002-96 · Gaspar · SC</p>
+    <div class="footer-bottom">
+      <p>JLD IND E COM DE CONF LTDA · CNPJ 09.606.811/0002-96 · © 2026 Bamboo Shop Original Style</p>
+      <p class="pay">Pix · Visa · Master · Boleto</p>
+    </div>
   </footer>
 
   <a class="zap-float" href="https://api.whatsapp.com/send?phone=554733326625&text=Salve%2C%20Bamboo!" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
@@ -200,7 +246,7 @@
     <p id="qvPrice"></p>
     <div class="qv-actions">
       <button class="btn-solid" id="qvAdd">Adicionar à sacola</button>
-      <a class="btn-ghost" id="qvZap" href="#" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      <a class="btn-ghost" id="qvZap" href="#" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
 
@@ -214,6 +260,7 @@
       <a class="btn-solid w-full" id="cartZap" href="#" target="_blank" rel="noopener">Fechar no WhatsApp</a>
     </div>
   </aside>
+  <div class="toast" id="toast"></div>
 
   <script src="js/app.js"></script>
 </body>

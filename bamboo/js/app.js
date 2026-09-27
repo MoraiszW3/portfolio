@@ -1,4 +1,4 @@
-/* Bamboo Shop — redesign preview (dados reais do site atual) */
+/* Bamboo Shop — fiel ao Figma "BAMBOO - CLONE + REDESING" (preços reais) */
 (function () {
   "use strict";
   var $ = function (s, c) { return (c || document).querySelector(s); };
@@ -7,20 +7,20 @@
   var ZAP = "https://api.whatsapp.com/send?phone=554733326625&text=";
 
   var PRODUCTS = [
-    { id: "p1", cat: "tenis", name: "Tênis Vans Sk8 Low Black True White", img: "img/vans-sk8-low.jpg", price: 314.90, was: 379.90 },
-    { id: "p2", cat: "tenis", name: "Tênis Hocks Bold Unissex Sombras", img: "img/hocks-bold-sombras.jpg", price: 499.90 },
-    { id: "p3", cat: "skate", name: "Skate Montado Iniciante Hondar Game", img: "img/hondar-game.jpg", price: 399.90 },
-    { id: "p4", cat: "bones", name: "Relógio Casio Vintage LA670 Dourado", img: "img/casio-la670.jpg", price: 399.90 },
-    { id: "p5", cat: "tenis", name: "Tênis Vans Authentic Black White", img: "img/vans-authentic.jpg", price: 399.90 },
-    { id: "p6", cat: "tenis", name: "Tênis Hocks Skate Pop Lite Petitpoa", img: "img/hocks-pop-lite.jpg", price: 389.90 },
-    { id: "p7", cat: "skate", name: "Skate Montado Hondar Night Crew", img: "img/hondar-nightcrew.jpg", price: 399.90 },
-    { id: "p8", cat: "skate", name: "Skate Montado Hondar Jungle Preto", img: "img/hondar-jungle.jpg", price: 399.90 },
-    { id: "p9", cat: "tenis", name: "Tênis Qix Chorão Lado B Preto", img: "img/qix-chorao.jpg", price: 499.90, chorao: true },
-    { id: "p10", cat: "tenis", name: "Tênis Qix Ninety Three Preto e Chumbo", img: "img/qix-ninety.jpg", price: 279.90 },
-    { id: "p11", cat: "tenis", name: "Tênis Vans Knu Skool Black White", img: "img/vans-knu.jpg", price: 499.90 },
-    { id: "p12", cat: "bones", name: "Boné High Company Outdoor Black", img: "img/bone-high.jpg", price: 99.90, was: 199.90 }
+    { id: "p1", cat: "tenis", name: "Tênis Vans Sk8 Low Black True White", img: "img/vans-sk8-low.jpg", price: 314.90, was: 379.90, tags: ["novidades", "outlet"] },
+    { id: "p2", cat: "tenis", name: "Tênis Hocks Bold Unissex Sombras", img: "img/hocks-bold-sombras.jpg", price: 499.90, tags: ["novidades"] },
+    { id: "p3", cat: "skate", name: "Skate Montado Iniciante Hondar Game", img: "img/hondar-game.jpg", price: 399.90, tags: ["novidades", "skate"] },
+    { id: "p4", cat: "bones", name: "Relógio Casio Vintage LA670 Dourado", img: "img/casio-la670.jpg", price: 399.90, tags: [] },
+    { id: "p5", cat: "tenis", name: "Tênis Vans Authentic Black White", img: "img/vans-authentic.jpg", price: 399.90, tags: ["novidades"] },
+    { id: "p6", cat: "tenis", name: "Tênis Hocks Skate Pop Lite Petitpoa", img: "img/hocks-pop-lite.jpg", price: 389.90, tags: [] },
+    { id: "p7", cat: "skate", name: "Skate Montado Hondar Night Crew", img: "img/hondar-nightcrew.jpg", price: 399.90, tags: ["skate"] },
+    { id: "p8", cat: "skate", name: "Skate Montado Hondar Jungle Preto", img: "img/hondar-jungle.jpg", price: 399.90, tags: ["skate"] },
+    { id: "p9", cat: "tenis", name: "Tênis Qix Chorão Lado B Preto", img: "img/qix-chorao.jpg", price: 499.90, tags: ["chorao"] },
+    { id: "p10", cat: "tenis", name: "Tênis Qix Ninety Three Preto e Chumbo", img: "img/qix-ninety.jpg", price: 279.90, tags: ["outlet"] },
+    { id: "p11", cat: "tenis", name: "Tênis Vans Knu Skool Black White", img: "img/vans-knu.jpg", price: 499.90, tags: [] },
+    { id: "p12", cat: "bones", name: "Boné High Company Outdoor Black", img: "img/bone-high.jpg", price: 99.90, was: 199.90, tags: ["outlet"] }
   ];
-  var CATNAME = { tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios" };
+  var CATNAME = { tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios", vestuario: "Vestuário" };
 
   var cardHTML = function (p) {
     var pix = Math.round(p.price * 0.95 * 100) / 100;
@@ -31,30 +31,55 @@
       '<div class="card-price">' + (p.was ? "<s>" + BRL(p.was) + "</s>" : "") + BRL(p.price) + "</div>" +
       '<span class="card-pix">' + BRL(pix) + " no Pix</span></div></article>";
   };
-  var renderGrid = function (cat) {
-    var list = cat === "todas" ? PRODUCTS : PRODUCTS.filter(function (p) { return p.cat === cat; });
-    $("#grid").innerHTML = list.map(cardHTML).join("");
-    $$("#filters .pill").forEach(function (b) {
-      b.classList.toggle("active", b.getAttribute("data-filter") === cat);
-    });
+  var byTag = function (t) { return PRODUCTS.filter(function (p) { return p.tags.indexOf(t) > -1; }); };
+  var byCat = function (c) { return PRODUCTS.filter(function (p) { return p.cat === c; }); };
+
+  var renderAll = function (q) {
+    var show = function (list) {
+      if (!q) return list.map(cardHTML).join("");
+      q = q.toLowerCase();
+      var f = list.filter(function (p) { return (p.name + " " + p.cat).toLowerCase().indexOf(q) > -1; });
+      return f.length ? f.map(cardHTML).join("") : '<p class="mut" style="grid-column:1/-1">Nada por aqui. Chama no WhatsApp que a gente acha.</p>';
+    };
+    $("#grid").innerHTML = show(byTag("novidades"));
+    $("#gridSkate").innerHTML = show(byCat("skate"));
+    $("#gridOutlet").innerHTML = show(byTag("outlet"));
+    $("#choraoGrid").innerHTML = show(byTag("chorao"));
   };
-  $$("#filters .pill").forEach(function (b) {
-    b.addEventListener("click", function () { renderGrid(b.getAttribute("data-filter")); });
-  });
+  $("#tiles").innerHTML = [
+    ["Tênis", "Vans · Hocks · Qix", "tenis"], ["Skate", "Shapes · Trucks", "skate"],
+    ["Vestuário", "Camisetas · Moletons", "vestuario"], ["Bonés", "New Era · High", "bones"],
+    ["Acessórios", "Relógios · Mochilas", "bones"], ["Marcas", "14 marcas", ""]
+  ].map(function (t) {
+    return '<a class="tile reveal" href="#produtos"' + (t[2] ? ' data-cat="' + t[2] + '"' : ' data-goto="marcas"') + "><span>" + t[0] + "</span><small>" + t[1] + "</small></a>";
+  }).join("");
+  $("#brands").innerHTML = ["Hocks", "Nike SB", "Thrasher", "Santa Cruz", "Element", "Independent", "Qix", "Öus", "Hondar", "Grizzly", "Flip", "Volcom", "Diamond", "New Era"].map(function (b) {
+    return "<span>" + b + "</span>";
+  }).join("");
+
+  /* busca + âncoras com filtro */
+  var goCat = function (cat) {
+    if (cat === "outlet") { document.querySelector("#outlet").scrollIntoView({ behavior: "smooth" }); return; }
+    if (cat === "vestuario") { toast("Vestuário entra na próxima leva — chama no WhatsApp"); return; }
+    renderAll("");
+    $("#searchInput").value = cat === "todas" ? "" : "";
+    document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
+    if (cat !== "todas") {
+      var map = { tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios" };
+      toast("Mostrando: " + (map[cat] || cat));
+    }
+  };
   document.addEventListener("click", function (e) {
     var a = e.target.closest("a[data-cat]");
-    if (a) {
-      e.preventDefault();
-      renderGrid(a.getAttribute("data-cat"));
-      document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
-    }
+    if (a) { e.preventDefault(); goCat(a.getAttribute("data-cat")); $("#nav").classList.remove("open"); return; }
+    var g = e.target.closest("a[data-goto]");
+    if (g) { e.preventDefault(); document.querySelector("#marcas").scrollIntoView({ behavior: "smooth" }); }
   });
-
-  /* Chorão Eterno */
-  $("#choraoGrid").innerHTML = PRODUCTS.filter(function (p) { return p.chorao; }).map(cardHTML).join("") +
-    '<article class="card" data-id="p10"><div class="card-media"><img src="img/qix-ninety.jpg" alt="Tênis Qix Ninety Three" loading="lazy"></div>' +
-    '<div class="card-body"><span class="card-cat">Tributo</span><span class="card-name">Tênis Qix Ninety Three Preto e Chumbo</span>' +
-    '<div class="card-price">' + BRL(279.90) + '</div><span class="card-pix">' + BRL(265.90) + " no Pix</span></div></article>";
+  $("#verTudo").addEventListener("click", function (e) { e.preventDefault(); goCat("todas"); });
+  $("#searchInput").addEventListener("input", function () {
+    renderAll(this.value.trim());
+    if (this.value.trim()) document.querySelector("#produtos").scrollIntoView();
+  });
 
   /* sacola */
   var cart = [];
@@ -75,8 +100,8 @@
     $("#cartZap").href = ZAP + encodeURIComponent("Salve, Bamboo! Quero fechar: " + cart.map(function (id) { return findP(id).name; }).join(" | "));
   };
   document.addEventListener("click", function (e) {
-    var rm = e.target.closest("[data-rm]");
-    if (rm) { cart.splice(parseInt(rm.getAttribute("data-rm"), 10), 1); refreshCart(); return; }
+    var rm = e.target.closest("[data-remove],[data-rm]");
+    if (rm) { cart.splice(parseInt(rm.getAttribute("data-rm") || rm.getAttribute("data-remove"), 10), 1); refreshCart(); return; }
     var card = e.target.closest(".card");
     if (card && !e.target.closest("button")) openQV(card.getAttribute("data-id"));
   });
@@ -86,7 +111,7 @@
   var openQV = function (id) {
     var p = findP(id); if (!p) return; qvId = id;
     $("#qvImg").src = p.img; $("#qvImg").alt = p.name;
-    $("#qvCat").textContent = CATNAME[p.cat];
+    $("#qvCat").textContent = CATNAME[p.cat] || p.cat;
     $("#qvName").textContent = p.name;
     $("#qvPrice").innerHTML = '<div class="card-price">' + BRL(p.price) + '</div><span class="card-pix">' + BRL(Math.round(p.price * 0.95 * 100) / 100) + " no Pix · 6x sem juros</span>";
     $("#qvZap").href = ZAP + encodeURIComponent("Salve! Quero esse: " + p.name + " (" + BRL(p.price) + ")");
@@ -103,18 +128,27 @@
     if (qvId) { cart.push(qvId); refreshCart(); closeQV(); openCart(); }
   });
 
-  /* drawers + menu */
   var openCart = function () { $("#cart").classList.add("open"); $("#cartOverlay").classList.add("open"); };
   var closeCart = function () { $("#cart").classList.remove("open"); $("#cartOverlay").classList.remove("open"); };
   $("#cartBtn").addEventListener("click", openCart);
   $("#cartClose").addEventListener("click", closeCart);
   $("#cartOverlay").addEventListener("click", closeCart);
   $("#hamburger").addEventListener("click", function () { $("#nav").classList.toggle("open"); });
-  $$("#nav a").forEach(function (a) { a.addEventListener("click", function () { $("#nav").classList.remove("open"); }); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeQV(); closeCart(); } });
 
-  /* MONTE SEU SKATE — preços 100% reais do lojabamboo.com.br.
-     Trucks, rolamentos e lixas estão sem produto no site: fecham no WhatsApp. */
+  /* toast + newsletter */
+  var toastTimer;
+  var toast = function (msg) {
+    var el = $("#toast");
+    el.textContent = msg; el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 2600);
+  };
+  $("#newsForm").addEventListener("submit", function (e) {
+    e.preventDefault(); toast("Inscrito! Novidades a caminho."); this.reset();
+  });
+
+  /* MONTE SEU SKATE — preços 100% reais do site */
   var GROUPS = [
     { k: "shape", el: "optShape", opts: [
       ["Shape 8.0 Milk Maple", 299.9], ["Shape 8.25 Milk Maple", 299.9],
@@ -164,18 +198,18 @@
     if (o) { build[o.getAttribute("data-k")] = parseInt(o.getAttribute("data-i"), 10); renderBuild(); }
   });
 
-  /* tema claro / escuro (designfy: tokens por variável) */
+  /* tema claro / escuro */
   var themeBtn = $("#themeBtn");
   var applyTheme = function (t) {
     document.documentElement.setAttribute("data-theme", t);
     try { localStorage.setItem("bamboo-theme", t); } catch (e) {}
-    themeBtn.textContent = (t === "light" ? "◑" : "◐");
+    themeBtn.textContent = (t === "dark" ? "◑" : "◐");
   };
-  var savedTheme = "dark";
-  try { savedTheme = localStorage.getItem("bamboo-theme") || "dark"; } catch (e) {}
+  var savedTheme = "light";
+  try { savedTheme = localStorage.getItem("bamboo-theme") || "light"; } catch (e) {}
   applyTheme(savedTheme);
   themeBtn.addEventListener("click", function () {
-    applyTheme(document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light");
+    applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
   });
 
   /* reveal */
@@ -184,7 +218,7 @@
   }, { threshold: 0.12 });
   $$(".reveal").forEach(function (el) { io.observe(el); });
 
-  renderGrid("todas");
+  renderAll("");
   renderBuild();
   refreshCart();
 })();
