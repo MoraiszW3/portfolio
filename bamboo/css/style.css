@@ -22,7 +22,9 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; }
 .w-full { width: 100%; }
 
 /* announcement + header */
-.announce { display: flex; gap: 26px; justify-content: center; background: #111; color: #fff; font-size: .7rem; font-weight: 600; padding: 9px 12px; }
+.announce { overflow: hidden; background: #111; color: #fff; padding: 9px 0; }
+.announce-track { display: flex; gap: 40px; width: max-content; animation: roll 22s linear infinite; font-size: .7rem; font-weight: 600; white-space: nowrap; }
+@keyframes roll { to { transform: translateX(-50%); } }
 .header { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 16px; padding: 10px 40px; background: var(--headerbg); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
 .brand img { height: 44px; display: block; }
 .search { flex: 1; max-width: 560px; display: flex; align-items: center; gap: 8px; background: var(--bg2); border-radius: 10px; padding: 0 14px; }
