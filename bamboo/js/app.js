@@ -36,7 +36,7 @@
       if (!q) return list.map(cardHTML).join("");
       q = q.toLowerCase();
       var f = list.filter(function (p) { return (p.name + " " + p.cat).toLowerCase().indexOf(q) > -1; });
-      return f.length ? f.map(cardHTML).join("") : '<p class="mut" style="grid-column:1/-1">Nada por aqui. Chama no WhatsApp que a gente acha.</p>';
+      return f.length ? f.map(cardHTML).join("") : '<div class="empty-cat" style="grid-column:1/-1"><h3>Não existem produtos nessa categoria</h3><p>Você está tentando acessar uma categoria, mas não existem produtos adicionados nela.</p><a href="#produtos" class="btn-solid" data-back>Ir às compras</a></div>';
     };
     $("#grid").innerHTML = show(byTag("novidades"));
     $("#gridSkate").innerHTML = show(byCat("skate"));
@@ -69,7 +69,7 @@
     return list;
   };
   var paintGrid = function (list) {
-    $("#grid").innerHTML = list.length ? sortList(list).map(cardHTML).join("") : '<p class="mut" style="grid-column:1/-1">Nada aqui ainda — chama no WhatsApp.</p>';
+    $("#grid").innerHTML = list.length ? sortList(list).map(cardHTML).join("") : '<div class="empty-cat" style="grid-column:1/-1"><h3>Não existem produtos nessa categoria</h3><p>Você está tentando acessar uma categoria, mas não existem produtos adicionados nela.</p><a href="#produtos" class="btn-solid" data-back>Ir às compras</a></div>';
   };
   var goCat = function (cat) {
     if (cat === "outlet") { document.querySelector("#outlet").scrollIntoView({ behavior: "smooth" }); return; }
@@ -93,6 +93,8 @@
     document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
   };
   document.addEventListener("click", function (e) {
+    var bk = e.target.closest("a[data-back]");
+    if (bk) { e.preventDefault(); goCat("todas"); return; }
     var s = e.target.closest("a[data-search]");
     if (s) { e.preventDefault(); goSearch(s.getAttribute("data-search")); $("#nav").classList.remove("open"); return; }
     var q = e.target.closest("a[data-qv]");
