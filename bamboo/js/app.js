@@ -52,16 +52,22 @@
   }).join("");
 
   /* busca + âncoras com filtro */
+  var gridMode = { cat: null };
   var goCat = function (cat) {
     if (cat === "outlet") { document.querySelector("#outlet").scrollIntoView({ behavior: "smooth" }); return; }
     if (cat === "vestuario") { toast("Vestuário entra na próxima leva — chama no WhatsApp"); return; }
-    renderAll("");
-    $("#searchInput").value = cat === "todas" ? "" : "";
-    document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
-    if (cat !== "todas") {
+    if (cat === "todas") {
+      gridMode.cat = null;
+      $("#colecaoTitle").textContent = "Novidades";
+      renderAll($("#searchInput").value.trim());
+    } else {
+      gridMode.cat = cat;
       var map = { tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios" };
-      toast("Mostrando: " + (map[cat] || cat));
+      $("#colecaoTitle").textContent = map[cat] || cat;
+      var list = PRODUCTS.filter(function (p) { return p.cat === cat; });
+      $("#grid").innerHTML = list.length ? list.map(cardHTML).join("") : '<p class="mut" style="grid-column:1/-1">Nada aqui ainda — chama no WhatsApp.</p>';
     }
+    document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
   };
   var goSearch = function (term) {
     $("#searchInput").value = term;
@@ -78,6 +84,8 @@
   });
   $("#verTudo").addEventListener("click", function (e) { e.preventDefault(); goCat("todas"); });
   $("#searchInput").addEventListener("input", function () {
+    gridMode.cat = null;
+    $("#colecaoTitle").textContent = "Novidades";
     renderAll(this.value.trim());
     if (this.value.trim()) document.querySelector("#produtos").scrollIntoView();
   });
