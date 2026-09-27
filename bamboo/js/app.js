@@ -72,12 +72,24 @@
   var paintGrid = function (list) {
     $("#grid").innerHTML = list.length ? sortList(list).map(cardHTML).join("") : '<div class="empty-cat" style="grid-column:1/-1"><h3>Não existem produtos nessa categoria</h3><p>Você está tentando acessar uma categoria, mas não existem produtos adicionados nela.</p><a href="#produtos" class="btn-solid" data-back>Ir às compras</a></div>';
   };
+  var SUBS = {
+    bones: [["Todos", ""], ["Bonés", "boné|gorro"], ["Carteiras", "carteira"], ["Chinelos", "chinelo"], ["Gorros", "gorro"], ["Meias", "meia"], ["Mochilas", "mochila"], ["Relógios", "casio"], ["Shoulder bag", "shoulder"]]
+  };
+  var renderSubs = function (cat, activeSub) {
+    var box = $("#subRow");
+    if (!SUBS[cat]) { box.hidden = true; box.innerHTML = "<span>Ver:</span>"; return; }
+    box.hidden = false;
+    box.innerHTML = "<span>Ver:</span>" + SUBS[cat].map(function (s) {
+      return '<button data-subpick="' + s[1] + '" data-label="' + s[0] + '" class="' + ((s[1] || "") === (activeSub || "") ? "on" : "") + '">' + s[0] + "</button>";
+    }).join("");
+  };
   var goCat = function (cat, sub, label) {
     if (cat === "outlet") { document.querySelector("#outlet").scrollIntoView({ behavior: "smooth" }); return; }
     if (cat === "vestuario") { toast("Vestuário entra na próxima leva — chama no WhatsApp"); return; }
     if (cat === "todas") {
       gridMode.cat = null; gridMode.sub = null; gridMode.list = null;
       $("#colecaoTitle").textContent = "Novidades";
+      renderSubs(null);
       renderAll($("#searchInput").value.trim());
     } else {
       gridMode.cat = cat; gridMode.sub = sub || null;
@@ -92,6 +104,7 @@
       }
       $("#colecaoTitle").textContent = label || ({ tenis: "Tênis", skate: "Skate", bones: "Bonés & Acessórios" }[cat] || cat);
       gridMode.list = list;
+      renderSubs(cat, sub);
       paintGrid(list);
     }
     document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
@@ -106,6 +119,12 @@
     if (bk) { e.preventDefault(); goCat("todas"); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
     var sb = e.target.closest("a[data-sub]");
     if (sb) { e.preventDefault(); goCat(sb.getAttribute("data-cat"), sb.getAttribute("data-sub"), sb.getAttribute("data-label") || sb.textContent.trim()); $("#nav").classList.remove("open"); return; }
+    var sp = e.target.closest("[data-subpick]");
+    if (sp) {
+      var cur = gridMode.cat || "bones";
+      goCat(cur, sp.getAttribute("data-subpick") || null, sp.getAttribute("data-label") === "Todos" ? null : sp.getAttribute("data-label"));
+      return;
+    }
     var s = e.target.closest("a[data-search]");
     if (s) { e.preventDefault(); goSearch(s.getAttribute("data-search")); $("#nav").classList.remove("open"); return; }
     var q = e.target.closest("a[data-qv]");
@@ -127,6 +146,7 @@
   $("#searchInput").addEventListener("input", function () {
     gridMode.cat = null; gridMode.list = null;
     $("#colecaoTitle").textContent = "Novidades";
+    renderSubs(null);
     renderAll(this.value.trim());
     if (this.value.trim()) document.querySelector("#produtos").scrollIntoView();
   });
