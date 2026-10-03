@@ -1,6 +1,8 @@
 # segredos (nunca subir pro GitHub)
 meu-app-config.txt
 ntfy-topic.txt
+config.local.js
+**/config.local.js
 # arquivos de runtime (mudam sozinhos, poluem o historico)
 notify-log.txt
 inbox-celular.md
